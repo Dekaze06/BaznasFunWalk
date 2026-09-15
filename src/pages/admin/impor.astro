@@ -1,0 +1,220 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Impor Data Kolektif — Admin BAZNAS Fun Walk 2026" activeSection="impor">
+  <div class="card-clean" style="max-width:850px">
+    <h3>Impor Peserta Kolektif (OPD / Sekolah / Komunitas)</h3>
+    <p class="hint">
+      Unggah file data peserta massal dalam format CSV atau Excel untuk diproses sekaligus ke sistem.
+    </p>
+
+    <!-- Template Downloader -->
+    <div class="template-box">
+      <div>
+        <b>Format File Standar</b>
+        <p class="hint" style="margin:0">Gunakan template resmi agar kolom data sesuai dengan sistem BAZNAS Fun Walk.</p>
+      </div>
+      <button type="button" class="btn btn-ghost-dark btn-sm" onclick="downloadTemplate()">
+        <span>Unduh Template CSV</span>
+      </button>
+    </div>
+
+    <!-- Upload Zone -->
+    <div class="upload-dropzone" id="dropzone">
+      <div class="upload-icon"></div>
+      <h4>Pilih File CSV atau Tarik File ke Sini</h4>
+      <p class="hint">Mendukung format .csv dengan pemisah koma (,)</p>
+      <input type="file" id="csvFileInput" accept=".csv" style="display:none">
+      <button type="button" class="btn btn-leaf btn-sm" onclick="document.getElementById('csvFileInput').click()">
+        Pilih File Dari Komputer
+      </button>
+    </div>
+
+    <!-- Preview Container -->
+    <div id="previewContainer" style="display:none; margin-top:28px">
+      <h4>Pratinjau Data Impor (<span id="previewCount">0</span> Baris):</h4>
+      <div class="table-responsive" style="margin-top:12px">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>NIK</th>
+              <th>WhatsApp</th>
+              <th>Paket</th>
+              <th>Ukuran</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="previewTbody"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:12px; justify-content:flex-end">
+        <button type="button" class="btn btn-ghost-dark" onclick="cancelImport()">Batal</button>
+        <button type="button" class="btn btn-leaf btn-lg" onclick="executeImport()">✓ Simpan & Masukkan ke Database</button>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  .template-box {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .upload-dropzone {
+    border: 2px dashed var(--leaf);
+    background: #F9FCF9;
+    border-radius: var(--r-md);
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .upload-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .admin-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .admin-data-table th, .admin-data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .admin-data-table th {
+    background: var(--paper-2);
+    color: var(--ink);
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  import { saveParticipant } from '../../lib/store.js';
+
+  let parsedRows = [];
+
+  window.downloadTemplate = function() {
+    const csv = 'Nama,NIK,WhatsApp,Email,Gender,Alamat,Paket,UkuranJersey\nAhmad Contoh,3204123456780099,081299887766,contoh@email.com,Laki-laki,Soreang,reguler,L\nSiti Contoh,3204123456780098,081299887755,siti@email.com,Perempuan,Banjaran,charity,M';
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'template_kolektif_baznas_funwalk.csv');
+    a.click();
+  };
+
+  const fileInput = document.getElementById('csvFileInput');
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const text = evt.target.result;
+        processCSV(text);
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  function processCSV(text) {
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length <= 1) {
+      alert('File CSV kosong atau tidak memiliki baris data.');
+      return;
+    }
+
+    parsedRows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
+      if (cols.length >= 7) {
+        parsedRows.push({
+          nama: cols[0],
+          nik: cols[1],
+          whatsapp: cols[2],
+          email: cols[3],
+          gender: cols[4] || 'Laki-laki',
+          alamat: cols[5] || 'Kab. Bandung',
+          paket: cols[6].toLowerCase().includes('charity') ? 'charity' : 'reguler',
+          ukuranJersey: cols[7] || 'L'
+        });
+      }
+    }
+
+    document.getElementById('previewCount').textContent = parsedRows.length;
+    const tbody = document.getElementById('previewTbody');
+    if (tbody) {
+      tbody.innerHTML = parsedRows.map((r, idx) => `
+        <tr>
+          <td><b>${r.nama}</b></td>
+          <td>${r.nik}</td>
+          <td>${r.whatsapp}</td>
+          <td>${r.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
+          <td><b>${r.ukuranJersey}</b></td>
+          <td><span class="badge badge--success">Siap Diimpor</span></td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('previewContainer').style.display = 'block';
+  }
+
+  window.cancelImport = function() {
+    parsedRows = [];
+    document.getElementById('previewContainer').style.display = 'none';
+  };
+
+  window.executeImport = function() {
+    if (parsedRows.length === 0) return;
+
+    parsedRows.forEach((r, idx) => {
+      const regId = `BFW26-${Math.floor(1000 + Math.random() * 9000)}`;
+      const total = r.paket === 'charity' ? 150000 : 50000;
+      const donasi = r.paket === 'charity' ? 50000 : 0;
+
+      saveParticipant({
+        id: regId,
+        nama: r.nama,
+        email: r.email,
+        whatsapp: r.whatsapp,
+        nik: r.nik,
+        gender: r.gender,
+        alamat: r.alamat,
+        golDarah: '-',
+        kontakDaruratNama: 'Instansi / Kolektif',
+        kontakDaruratHp: r.whatsapp,
+        paket: r.paket,
+        paketNama: r.paket === 'charity' ? 'Charity Pack 5K' : 'Paket Reguler 5K',
+        ukuranJersey: r.ukuranJersey,
+        nominalRegistrasi: total - donasi,
+        nominalDonasi: donasi,
+        totalBayar: total,
+        metodeBayar: 'Kolektif / Invoice Instansi',
+        status: 'PAID',
+        waktuDaftar: new Date().toISOString(),
+        waktuBayar: new Date().toISOString(),
+        racepackClaimed: false,
+        claimedAt: null,
+        claimedBy: null
+      });
+    });
+
+    alert(`Sukses mengimpor ${parsedRows.length} peserta ke dalam database!`);
+    window.location.href = '/admin/peserta';
+  };
+</script>

@@ -1,0 +1,382 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Scanner QR Race Pack — Admin BAZNAS Fun Walk 2026" activeSection="scanner">
+  <div class="scanner-page-grid">
+    <!-- Camera & Input Col -->
+    <div class="card-clean scanner-box">
+      <div class="scanner-header">
+        <h3>Validasi Pengambilan Race Pack (RPC)</h3>
+        <p class="hint">Arahkan kamera ke QR Code e-ticket peserta atau ketikkan nomor registrasi secara manual.</p>
+      </div>
+
+      <!-- Live Viewfinder simulation -->
+      <div class="viewfinder-box">
+        <div class="viewfinder-camera-feed">
+          <div class="scan-laser"></div>
+          <div class="target-corners"></div>
+          <div class="cam-text">Kamera Scanner Aktif</div>
+        </div>
+      </div>
+
+      <!-- Manual ID Input -->
+      <div class="manual-input-box" style="margin-top:20px">
+        <form id="manualScanForm">
+          <label for="manualScanId">Atau Masukkan Kode Tiket / No. WA:</label>
+          <div style="display:flex; gap:10px; margin-top:6px">
+            <input type="text" id="manualScanId" placeholder="Contoh: BFW26-0001" required>
+            <button type="submit" class="btn btn-leaf">Validasi</button>
+          </div>
+        </form>
+
+        <div class="quick-test-row">
+          <small>Uji coba scanner:</small>
+          <button type="button" class="btn btn-ghost-dark btn-sm" onclick="scanTest('BFW26-0001')">BFW26-0001 (Sudah Klaim)</button>
+          <button type="button" class="btn btn-ghost-dark btn-sm" onclick="scanTest('BFW26-0002')">BFW26-0002 (Belum Klaim)</button>
+          <button type="button" class="btn btn-ghost-dark btn-sm" onclick="scanTest('BFW26-0003')">BFW26-0003 (Belum Klaim)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verification Result Col -->
+    <div class="card-clean result-box">
+      <h3>Hasil Verifikasi Tiket</h3>
+      
+      <!-- Idle State -->
+      <div id="scanIdle" class="scan-state-idle">
+        <div class="idle-icon"></div>
+        <p>Belum ada tiket yang dipindai. Silakan scan QR code atau masukkan kode tiket.</p>
+      </div>
+
+      <!-- Result Card -->
+      <div id="scanResult" style="display:none">
+        <div class="status-banner" id="resBanner">
+          <div class="res-icon" id="resIcon"></div>
+          <div>
+            <h4 id="resTitle">Tiket Valid & Siap Diberikan</h4>
+            <div id="resSubtitle">Status Pembayaran: LUNAS</div>
+          </div>
+        </div>
+
+        <div class="participant-highlight-card">
+          <div class="p-id-row">
+            <span class="lbl">ID REGISTRASI</span>
+            <b id="pId" class="p-reg-id">BFW26-0002</b>
+          </div>
+
+          <div class="p-jersey-focus">
+            <span class="jersey-callout-lbl">UKURAN JERSEY YANG HARUS DIBERIKAN:</span>
+            <div class="jersey-giant-badge" id="pJersey">UKURAN M</div>
+          </div>
+
+          <div class="p-info-grid">
+            <div>
+              <span class="lbl">Nama Peserta:</span>
+              <b id="pNama">Dewi Lestari Kartika</b>
+            </div>
+            <div>
+              <span class="lbl">Kategori Paket:</span>
+              <b id="pPaket">Paket Reguler 5K</b>
+            </div>
+            <div>
+              <span class="lbl">Nomor WhatsApp:</span>
+              <b id="pWhatsapp">081345678902</b>
+            </div>
+            <div>
+              <span class="lbl">NIK:</span>
+              <b id="pNik">3204123456780002</b>
+            </div>
+          </div>
+
+          <div class="claim-log-box" id="claimLogBox" style="display:none">
+            <b>PERINGATAN:</b> Race pack peserta ini <b>SUDAH PERNAH DIAMBIL</b> pada <span id="pClaimedAt">-</span> oleh petugas <b id="pClaimedBy">-</b>.
+          </div>
+        </div>
+
+        <div class="scan-actions-row" style="margin-top:20px">
+          <button type="button" class="btn btn-leaf btn-lg" id="btnHandover" style="width:100%" onclick="confirmHandover()">
+            <span>Serahkan Race Pack & Catat Pengambilan</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  .scanner-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 28px;
+  }
+
+  .viewfinder-box {
+    background: #000000;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    position: relative;
+    height: 280px;
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--ink);
+  }
+
+  .viewfinder-camera-feed {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(165,208,68,0.15) 0%, rgba(0,0,0,0.9) 75%);
+  }
+
+  .scan-laser {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: var(--lime);
+    box-shadow: 0 0 12px var(--lime);
+    animation: scanAnim 2s infinite alternate ease-in-out;
+  }
+
+  @keyframes scanAnim {
+    from { top: 15%; }
+    to { top: 85%; }
+  }
+
+  .target-corners {
+    width: 180px;
+    height: 180px;
+    border: 3px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 14px;
+  }
+
+  .cam-text {
+    position: absolute;
+    bottom: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .quick-test-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  /* Result Box */
+  .scan-state-idle {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--grey);
+  }
+
+  .idle-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .status-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: var(--r-md);
+    margin-bottom: 18px;
+  }
+
+  .banner--success {
+    background: #E6F6EC;
+    color: #127A34;
+    border: 1.5px solid #A8E3BD;
+  }
+
+  .banner--warning {
+    background: #FFF7E6;
+    color: #B26A00;
+    border: 1.5px solid #FAD699;
+  }
+
+  .res-icon {
+    font-size: 2rem;
+  }
+
+  .participant-highlight-card {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 20px;
+  }
+
+  .p-id-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .p-reg-id {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.4rem;
+    color: var(--leaf);
+  }
+
+  .p-jersey-focus {
+    background: var(--ink);
+    color: #FFFFFF;
+    border-radius: var(--r-md);
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .jersey-callout-lbl {
+    font-size: 0.75rem;
+    color: var(--lime);
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .jersey-giant-badge {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+
+  .p-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 0.88rem;
+  }
+
+  .p-info-grid b {
+    color: var(--ink);
+  }
+
+  .claim-log-box {
+    background: #FDF0ED;
+    border: 1px solid #F8B4A6;
+    color: #B52C16;
+    border-radius: var(--r-sm);
+    padding: 12px;
+    font-size: 0.85rem;
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .scanner-page-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { getStore, markClaimed } from '../../lib/store.js';
+  import { formatDateTime } from '../../lib/utils.js';
+
+  let currentFoundParticipant = null;
+
+  window.scanTest = function(id) {
+    const input = document.getElementById('manualScanId');
+    if (input) input.value = id;
+    processScan(id);
+  };
+
+  const form = document.getElementById('manualScanForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('manualScanId')?.value?.trim();
+      if (id) processScan(id);
+    });
+  }
+
+  function processScan(kw) {
+    const list = getStore();
+    const cleanKw = kw.toLowerCase().trim();
+
+    const p = list.find(item => 
+      item.id.toLowerCase() === cleanKw ||
+      item.whatsapp.replace(/[^0-9]/g, '') === cleanKw.replace(/[^0-9]/g, '')
+    );
+
+    const idleEl = document.getElementById('scanIdle');
+    const resultEl = document.getElementById('scanResult');
+
+    if (!p) {
+      alert(`Kode "${kw}" tidak ditemukan dalam database registrasi BAZNAS Fun Walk 2026.`);
+      return;
+    }
+
+    currentFoundParticipant = p;
+
+    if (idleEl) idleEl.style.display = 'none';
+    if (resultEl) resultEl.style.display = 'block';
+
+    document.getElementById('pId').textContent = p.id;
+    document.getElementById('pNama').textContent = p.nama;
+    document.getElementById('pPaket').textContent = p.paketNama;
+    document.getElementById('pJersey').textContent = `UKURAN ${p.ukuranJersey}`;
+    document.getElementById('pWhatsapp').textContent = p.whatsapp;
+    document.getElementById('pNik').textContent = p.nik;
+
+    const banner = document.getElementById('resBanner');
+    const resIcon = document.getElementById('resIcon');
+    const resTitle = document.getElementById('resTitle');
+    const resSubtitle = document.getElementById('resSubtitle');
+    const btnHandover = document.getElementById('btnHandover');
+    const claimLog = document.getElementById('claimLogBox');
+
+    if (p.racepackClaimed) {
+      banner.className = 'status-banner banner--warning';
+      resIcon.textContent = '';
+      resTitle.textContent = 'Race Pack Sudah Pernah Diambil!';
+      resSubtitle.textContent = `Diambil pada ${formatDateTime(p.claimedAt)}`;
+      
+      claimLog.style.display = 'block';
+      document.getElementById('pClaimedAt').textContent = formatDateTime(p.claimedAt);
+      document.getElementById('pClaimedBy').textContent = p.claimedBy || 'Panitia Meja';
+
+      btnHandover.disabled = true;
+      btnHandover.className = 'btn btn-ghost-dark btn-lg';
+      btnHandover.innerHTML = '<span>✕ Sudah Diserahkan Sebelumnya</span>';
+    } else {
+      banner.className = 'status-banner banner--success';
+      resIcon.textContent = '';
+      resTitle.textContent = 'Tiket Valid & Terverifikasi Lunas';
+      resSubtitle.textContent = 'Silakan serahkan Jersey, Tote Bag, dan Wristband';
+
+      claimLog.style.display = 'none';
+
+      btnHandover.disabled = false;
+      btnHandover.className = 'btn btn-leaf btn-lg';
+      btnHandover.innerHTML = '<span>Serahkan Race Pack & Catat Pengambilan</span>';
+    }
+  }
+
+  window.confirmHandover = function() {
+    if (!currentFoundParticipant) return;
+    const res = markClaimed(currentFoundParticipant.id, 'Panitia Meja RPC');
+    if (res.success) {
+      alert(`Berhasil! Race pack untuk ${currentFoundParticipant.nama} (${currentFoundParticipant.id}) resmi tercatat telah diserahkan.`);
+      processScan(currentFoundParticipant.id);
+    } else {
+      alert(res.message);
+    }
+  };
+</script>

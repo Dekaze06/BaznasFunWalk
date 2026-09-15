@@ -1,0 +1,1023 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { JERSEY_SIZES } from '../lib/utils.js';
+---
+
+<Layout title="Pendaftaran Peserta — BAZNAS Fun Walk 2026" activePage="daftar">
+  <section class="sec sec--tint" style="padding-top:40px">
+    <div class="wrap" style="max-width:880px">
+      <!-- Header -->
+      <div class="form-header-box">
+        <p class="kicker">Registrasi Resmi</p>
+        <h1>Formulir Pendaftaran BAZNAS Fun Walk 2026</h1>
+        <p class="lede">
+          Isi data diri dengan benar untuk penerbitan e-ticket, nomor BIB, dan alokasi ukuran jersey resmi Anda.
+        </p>
+      </div>
+
+      <!-- Step Indicator -->
+      <div class="steps-nav">
+        <div class="step-indicator active" id="stepPill1">
+          <span class="num">1</span>
+          <span class="txt">Pilih Paket</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step-indicator" id="stepPill2">
+          <span class="num">2</span>
+          <span class="txt">Data Diri</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step-indicator" id="stepPill3">
+          <span class="num">3</span>
+          <span class="txt">Ukuran Jersey</span>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step-indicator" id="stepPill4">
+          <span class="num">4</span>
+          <span class="txt">Pembayaran</span>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <div class="card-clean form-card">
+        <form id="regForm">
+          <!-- STEP 1: Pilih Paket -->
+          <div class="form-step-content" id="step1">
+            <h3 class="step-title">Pilih Kategori Paket Kepesertaan</h3>
+            <p class="hint" style="margin-bottom:24px">Silakan pilih paket yang Anda inginkan. Fasilitas jalur 5K dan doorprize sama lengkapnya.</p>
+
+            <div class="package-selector-grid">
+              <label class="package-option-card active" id="optReguler">
+                <input type="radio" name="paket" value="reguler" checked class="sr-only">
+                <div class="opt-header">
+                  <div>
+                    <div class="opt-name">Paket Reguler 5K</div>
+                    <div class="opt-desc">Jalan sehat 5K individu/keluarga</div>
+                  </div>
+                  <span class="pill pill--sun">Early Bird</span>
+                </div>
+                <div class="opt-price">
+                  <b>Rp 50.000</b>
+                  <small>Harga Normal Rp 100.000</small>
+                </div>
+                <ul class="opt-perks">
+                  <li>✓ Jersey Drifit, Tote Bag & Wristband</li>
+                  <li>✓ Nomor BIB & Kupon Doorprize Umroh</li>
+                  <li>✓ Refreshment & Pos Medis</li>
+                </ul>
+              </label>
+
+              <label class="package-option-card package-option-card--charity" id="optCharity">
+                <input type="radio" name="paket" value="charity" class="sr-only">
+                <div class="opt-header">
+                  <div>
+                    <div class="opt-name">Charity Pack 5K </div>
+                    <div class="opt-desc">Termasuk Donasi ZIS Rp 50.000</div>
+                  </div>
+                  <span class="pill pill--dark" style="background:var(--leaf);color:#fff">Rekomendasi</span>
+                </div>
+                <div class="opt-price">
+                  <b>Rp 150.000</b>
+                  <small style="color:var(--lime)">Donasi Rp 50.000 Atas Nama Anda</small>
+                </div>
+                <ul class="opt-perks">
+                  <li>✓ Seluruh Benefit Lengkap Paket Reguler</li>
+                  <li>✓ Donasi Rp 50.000 Tercatat Resmi BAZNAS</li>
+                  <li>✓ Bukti Setor ZIS Digital & Nama Donatur</li>
+                </ul>
+              </label>
+            </div>
+
+            <div class="step-btn-row" style="margin-top:32px; justify-content:flex-end">
+              <button type="button" class="btn btn-leaf btn-lg" onclick="nextStep(2)">Lanjut ke Data Diri →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Data Diri -->
+          <div class="form-step-content" id="step2" style="display:none">
+            <h3 class="step-title">Informasi Data Diri Peserta</h3>
+            <p class="hint" style="margin-bottom:24px">Pastikan nomor WhatsApp dan email aktif untuk pengiriman e-ticket & informasi RPC.</p>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="nama">Nama Lengkap Sesuai KTP <span class="req">*</span></label>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Ahmad Fauzi Ridwan" required>
+              </div>
+
+              <div class="form-group">
+                <label for="nik">Nomor Induk Kependudukan (NIK 16 Digit) <span class="req">*</span></label>
+                <input type="text" id="nik" name="nik" placeholder="3204xxxxxxxxxxxx" maxlength="16" required>
+              </div>
+
+              <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp Aktif <span class="req">*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="08xxxxxxxxxx" required>
+                <span class="hint">E-ticket & barcode verifikasi dikirimkan ke nomor ini.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Alamat Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Jenis Kelamin <span class="req">*</span></label>
+                <select id="gender" name="gender" required>
+                  <option value="">Pilih Jenis Kelamin</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="golDarah">Golongan Darah (Untuk Medis)</label>
+                <select id="golDarah" name="golDarah">
+                  <option value="-">Tidak Tahu / Belum Cek</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="AB">AB</option>
+                  <option value="O">O</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="alamat">Alamat Domisili Lengkap <span class="req">*</span></label>
+              <textarea id="alamat" name="alamat" rows="2" placeholder="Nama Jalan, No. Rumah, RT/RW, Desa/Kelurahan, Kecamatan, Kab. Bandung" required></textarea>
+            </div>
+
+            <div class="grid-2" style="margin-top:12px">
+              <div class="form-group">
+                <label for="kontakDaruratNama">Nama Kontak Darurat <span class="req">*</span></label>
+                <input type="text" id="kontakDaruratNama" name="kontakDaruratNama" placeholder="Keluarga / Kerabat terdekat" required>
+              </div>
+
+              <div class="form-group">
+                <label for="kontakDaruratHp">Nomor HP Kontak Darurat <span class="req">*</span></label>
+                <input type="tel" id="kontakDaruratHp" name="kontakDaruratHp" placeholder="08xxxxxxxxxx" required>
+              </div>
+            </div>
+
+            <div class="step-btn-row" style="margin-top:28px">
+              <button type="button" class="btn btn-ghost-dark" onclick="prevStep(1)">← Kembali</button>
+              <button type="button" class="btn btn-leaf btn-lg" onclick="validateStep2()">Lanjut ke Ukuran Jersey →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Ukuran Jersey -->
+          <div class="form-step-content" id="step3" style="display:none">
+            <h3 class="step-title">Pilih Ukuran Jersey Resmi</h3>
+            <p class="hint" style="margin-bottom:20px">Ukuran jersey bersifat unisex standar Asia. Silakan sesuaikan dengan lingkar dada Anda.</p>
+
+            <div class="jersey-picker-grid">
+              {JERSEY_SIZES.map(item => (
+                <label class="jersey-choice-card" id={`cardSize_${item.size}`}>
+                  <input type="radio" name="ukuranJersey" value={item.size} class="sr-only" required>
+                  <div class="size-circle">{item.size}</div>
+                  <div class="size-specs">
+                    <b>{item.desc}</b>
+                    <span>LD {item.chest}</span>
+                    <span>PB {item.length}</span>
+                  </div>
+                  <div class="stock-status-pill" id={`stockStatus_${item.size}`}>Tersedia</div>
+                </label>
+              ))}
+            </div>
+
+            <div class="size-tip-banner">
+              <b>Catatan Ukuran:</b> Jika ragu antara 2 ukuran, disarankan memilih 1 tingkat lebih besar untuk kenyamanan berjalan santai.
+            </div>
+
+            <div class="step-btn-row" style="margin-top:32px">
+              <button type="button" class="btn btn-ghost-dark" onclick="prevStep(2)">← Kembali</button>
+              <button type="button" class="btn btn-leaf btn-lg" onclick="validateStep3()">Lanjut ke Pembayaran →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Konfirmasi & Pembayaran -->
+          <div class="form-step-content" id="step4" style="display:none">
+            <h3 class="step-title">Konfirmasi & Metode Pembayaran</h3>
+            <p class="hint" style="margin-bottom:20px">Periksa kembali ringkasan pendaftaran Anda sebelum menyelesaikan pesanan.</p>
+
+            <div class="order-summary-box">
+              <div class="summary-header">Ringkasan Pesanan</div>
+              <div class="summary-row">
+                <span>Nama Peserta:</span>
+                <b id="summaryNama">-</b>
+              </div>
+              <div class="summary-row">
+                <span>Kategori Paket:</span>
+                <b id="summaryPaket">-</b>
+              </div>
+              <div class="summary-row">
+                <span>Ukuran Jersey:</span>
+                <b id="summarySize">-</b>
+              </div>
+              <div class="summary-row">
+                <span>WhatsApp / Email:</span>
+                <b id="summaryKontak">-</b>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-row">
+                <span>Biaya Registrasi Event:</span>
+                <b id="summaryBiayaEvent">Rp 50.000</b>
+              </div>
+              <div class="summary-row" id="summaryDonasiRow">
+                <span>Infaq / Donasi ZIS BAZNAS:</span>
+                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 0</b>
+              </div>
+              <div class="summary-total">
+                <span>Total Pembayaran:</span>
+                <span class="total-amount" id="summaryTotal">Rp 50.000</span>
+              </div>
+            </div>
+
+            <h4 style="margin:28px 0 12px; color:var(--ink)">Pilih Metode Pembayaran</h4>
+            <div class="payment-methods-grid">
+              <label class="pay-method-card active">
+                <input type="radio" name="metodeBayar" value="QRIS" checked class="sr-only">
+                <div class="pay-title">QRIS Instan</div>
+                <div class="pay-desc">BCA, Mandiri, BSI, BRI, GoPay, OVO, ShopeePay, DANA</div>
+              </label>
+
+              <label class="pay-method-card">
+                <input type="radio" name="metodeBayar" value="BSI Virtual Account" class="sr-only">
+                <div class="pay-title">BSI Virtual Account</div>
+                <div class="pay-desc">Bank Syariah Indonesia (Verifikasi Otomatis)</div>
+              </label>
+
+              <label class="pay-method-card">
+                <input type="radio" name="metodeBayar" value="Transfer Manual BSI" class="sr-only">
+                <div class="pay-title">Transfer Bank Rekening BAZNAS</div>
+                <div class="pay-desc">BSI No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG</div>
+              </label>
+            </div>
+
+            <!-- Agreement -->
+            <div class="agreement-box" style="margin-top:24px">
+              <label class="check-container">
+                <input type="checkbox" id="agreeWaiver" required>
+                <span>
+                  Saya menyatakan data di atas benar, berada dalam kondisi sehat untuk jalan 5K, dan menyetujui <a href="/faq#sk" target="_blank">Syarat & Ketentuan</a> serta <a href="/faq#waiver" target="_blank">Waiver Kesehatan</a> BAZNAS Fun Walk 2026.
+                </span>
+              </label>
+            </div>
+
+            <div class="step-btn-row" style="margin-top:28px">
+              <button type="button" class="btn btn-ghost-dark" onclick="prevStep(3)">← Kembali</button>
+              <button type="submit" class="btn btn-sun btn-lg" id="submitBtn">
+                <span>Konfirmasi & Bayar Sekarang </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Sukses Pendaftaran / E-Ticket Popup -->
+  <div class="modal-backdrop" id="successModal" style="display:none">
+    <div class="modal-card">
+      <div class="modal-icon"></div>
+      <h2>Pendaftaran Berhasil!</h2>
+      <p class="lede" style="font-size:1rem; margin-bottom:20px">
+        Pesanan Anda telah tercatat pada sistem BAZNAS Fun Walk 2026. Nomor registrasi dan tiket digital resmi Anda telah terbit.
+      </p>
+
+      <div class="ticket-preview-box">
+        <div class="tp-header">
+          <div>
+            <div class="tp-title">E-TICKET RESMI BAZNAS FUN WALK 2026</div>
+            <div class="tp-sub">11 Oktober 2026 · Soreang, Kab. Bandung</div>
+          </div>
+          <span class="badge badge--success" id="modalBadge">LUNAS / VERIFIED</span>
+        </div>
+
+        <div class="tp-body">
+          <div class="tp-qr-box">
+            <!-- Simulated QR Code SVG -->
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="currentColor">
+              <rect x="5" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="13" y="13" width="14" height="14" fill="currentColor"/>
+              <rect x="65" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="73" y="13" width="14" height="14" fill="currentColor"/>
+              <rect x="5" y="65" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
+              <rect x="13" y="73" width="14" height="14" fill="currentColor"/>
+              <rect x="42" y="10" width="8" height="20" fill="currentColor"/>
+              <rect x="42" y="42" width="16" height="16" fill="currentColor"/>
+              <rect x="65" y="42" width="20" height="8" fill="currentColor"/>
+              <rect x="70" y="65" width="20" height="20" fill="currentColor"/>
+              <rect x="42" y="70" width="12" height="15" fill="currentColor"/>
+            </svg>
+            <div class="tp-id" id="modalRegId">BFW26-0000</div>
+          </div>
+
+          <div class="tp-details">
+            <div>
+              <small>Nama Peserta:</small>
+              <b id="modalNama">-</b>
+            </div>
+            <div>
+              <small>Kategori Paket:</small>
+              <b id="modalPaket">-</b>
+            </div>
+            <div>
+              <small>Ukuran Jersey:</small>
+              <b id="modalSize">-</b>
+            </div>
+            <div>
+              <small>Metode Pembayaran:</small>
+              <b id="modalMetode">-</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions" style="margin-top:24px">
+        <a href="/cek-tiket" class="btn btn-leaf btn-lg" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
+        <button type="button" class="btn btn-ghost-dark" onclick="window.print()">Cetak / Simpan Bukti PDF</button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .form-header-box {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  .form-header-box h1 {
+    font-size: clamp(2rem, 3.8vw, 2.7rem);
+  }
+
+  /* Steps Nav */
+  .steps-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    background: #FFFFFF;
+    padding: 14px 20px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--grey-light);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .step-indicator.active {
+    color: var(--leaf);
+  }
+
+  .step-indicator.done {
+    color: var(--ink);
+  }
+
+  .step-indicator .num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 1.5px solid var(--line);
+    display: grid;
+    place-items: center;
+    font-size: 0.82rem;
+  }
+
+  .step-indicator.active .num {
+    background: var(--leaf);
+    color: #FFFFFF;
+    border-color: var(--leaf);
+  }
+
+  .step-sep {
+    flex: 1;
+    height: 2px;
+    background: var(--line);
+    margin: 0 10px;
+  }
+
+  .form-card {
+    padding: clamp(24px, 4vw, 40px);
+  }
+
+  .step-title {
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+  }
+
+  /* Step 1 Packages */
+  .package-selector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .package-option-card {
+    border: 2px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .package-option-card:hover {
+    border-color: var(--leaf);
+    transform: translateY(-2px);
+  }
+
+  .package-option-card.active {
+    border-color: var(--leaf);
+    box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.2);
+    background: #FBFDFB;
+  }
+
+  .package-option-card--charity.active {
+    border-color: var(--leaf);
+  }
+
+  .opt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .opt-name {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .opt-desc {
+    font-size: 0.85rem;
+    color: var(--grey);
+  }
+
+  .opt-price {
+    margin: 12px 0 16px;
+  }
+
+  .opt-price b {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2rem;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+
+  .opt-price small {
+    font-size: 0.85rem;
+    color: var(--grey);
+    font-weight: 600;
+  }
+
+  .opt-perks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--grey-d);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin-top: auto;
+  }
+
+  /* Step 3 Jersey */
+  .jersey-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .jersey-choice-card {
+    border: 2px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .jersey-choice-card:hover {
+    border-color: var(--leaf);
+  }
+
+  .jersey-choice-card.active {
+    border-color: var(--leaf);
+    background: #F6FBF6;
+    box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.2);
+  }
+
+  .size-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--lime);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    display: grid;
+    place-items: center;
+    margin-bottom: 10px;
+  }
+
+  .size-specs {
+    font-size: 0.82rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--grey);
+  }
+
+  .size-specs b {
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .stock-status-pill {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--leaf);
+    background: #EAF7ED;
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  .size-tip-banner {
+    background: var(--paper-2);
+    border-radius: var(--r-sm);
+    padding: 14px 18px;
+    font-size: 0.88rem;
+    color: var(--grey-d);
+    border: 1px dashed var(--line);
+  }
+
+  /* Step 4 Summary */
+  .order-summary-box {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 22px;
+  }
+
+  .summary-header {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.92rem;
+  }
+
+  .summary-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 12px 0;
+  }
+
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid var(--ink);
+    padding-top: 14px;
+    margin-top: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .total-amount {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.8rem;
+    color: var(--leaf);
+    font-weight: 800;
+  }
+
+  .payment-methods-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pay-method-card {
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: 14px 18px;
+    cursor: pointer;
+    background: #FFFFFF;
+    transition: all 0.2s;
+  }
+
+  .pay-method-card:hover {
+    border-color: var(--leaf);
+  }
+
+  .pay-method-card.active {
+    border-color: var(--leaf);
+    background: #F6FBF6;
+    box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.15);
+  }
+
+  .pay-title {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .pay-desc {
+    font-size: 0.82rem;
+    color: var(--grey);
+  }
+
+  .check-container {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .check-container input {
+    margin-top: 4px;
+    accent-color: var(--leaf);
+    width: 18px;
+    height: 18px;
+  }
+
+  .step-btn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-card {
+    background: #FFFFFF;
+    border-radius: var(--r-lg);
+    padding: 36px;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: zoomIn 0.3s ease;
+  }
+
+  @keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .ticket-preview-box {
+    background: var(--paper-2);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 20px;
+    text-align: left;
+    margin-top: 16px;
+  }
+
+  .tp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+  }
+
+  .tp-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .tp-sub {
+    font-size: 0.78rem;
+    color: var(--grey);
+  }
+
+  .tp-body {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .tp-qr-box {
+    background: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink);
+  }
+
+  .tp-id {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--leaf);
+    margin-top: 4px;
+  }
+
+  .tp-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.88rem;
+  }
+
+  .tp-details small {
+    display: block;
+    color: var(--grey);
+    font-size: 0.75rem;
+  }
+
+  .tp-details b {
+    color: var(--ink);
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .steps-nav .txt {
+      display: none;
+    }
+    .package-selector-grid, .jersey-picker-grid {
+      grid-template-columns: 1fr;
+    }
+    .tp-body {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  import { saveParticipant, getStockSummary } from '../lib/store.js';
+  import { formatRupiah } from '../lib/utils.js';
+
+  let currentStep = 1;
+  let selectedPaket = 'reguler';
+  let selectedSize = 'L';
+  let selectedPayment = 'QRIS';
+
+  // Check URL param for pre-selected package
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramPaket = urlParams.get('paket');
+  if (paramPaket === 'charity') {
+    selectPackage('charity');
+  }
+
+  // Package Card selection
+  const optReg = document.getElementById('optReguler');
+  const optChar = document.getElementById('optCharity');
+  if (optReg) optReg.addEventListener('click', () => selectPackage('reguler'));
+  if (optChar) optChar.addEventListener('click', () => selectPackage('charity'));
+
+  function selectPackage(pkg) {
+    selectedPaket = pkg;
+    if (optReg) optReg.classList.toggle('active', pkg === 'reguler');
+    if (optChar) optChar.classList.toggle('active', pkg === 'charity');
+    const input = document.querySelector(`input[name="paket"][value="${pkg}"]`);
+    if (input) input.checked = true;
+  }
+
+  // Jersey Card selection
+  const jerseyCards = document.querySelectorAll('.jersey-choice-card');
+  jerseyCards.forEach(card => {
+    card.addEventListener('click', () => {
+      jerseyCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        selectedSize = radio.value;
+      }
+    });
+  });
+
+  // Set default size active
+  const defaultSizeCard = document.getElementById(`cardSize_L`);
+  if (defaultSizeCard) {
+    defaultSizeCard.classList.add('active');
+    const rad = defaultSizeCard.querySelector('input');
+    if (rad) rad.checked = true;
+  }
+
+  // Payment method selection
+  const payCards = document.querySelectorAll('.pay-method-card');
+  payCards.forEach(card => {
+    card.addEventListener('click', () => {
+      payCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        selectedPayment = radio.value;
+      }
+    });
+  });
+
+  // Navigation functions
+  window.nextStep = function(step) {
+    document.getElementById(`step${currentStep}`).style.display = 'none';
+    document.getElementById(`step${step}`).style.display = 'block';
+    
+    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
+    document.getElementById(`stepPill${currentStep}`).classList.add('done');
+    document.getElementById(`stepPill${step}`).classList.add('active');
+
+    currentStep = step;
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+
+    if (step === 4) {
+      updateSummary();
+    }
+  };
+
+  window.prevStep = function(step) {
+    document.getElementById(`step${currentStep}`).style.display = 'none';
+    document.getElementById(`step${step}`).style.display = 'block';
+
+    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
+    document.getElementById(`stepPill${step}`).classList.add('active');
+
+    currentStep = step;
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+  };
+
+  window.validateStep2 = function() {
+    const nama = document.getElementById('nama')?.value?.trim();
+    const nik = document.getElementById('nik')?.value?.trim();
+    const wa = document.getElementById('whatsapp')?.value?.trim();
+    const email = document.getElementById('email')?.value?.trim();
+    const alamat = document.getElementById('alamat')?.value?.trim();
+    const daruratNama = document.getElementById('kontakDaruratNama')?.value?.trim();
+    const daruratHp = document.getElementById('kontakDaruratHp')?.value?.trim();
+
+    if (!nama || !nik || !wa || !email || !alamat || !daruratNama || !daruratHp) {
+      alert('Harap lengkapi semua kolom bertanda bintang (*) pada data diri.');
+      return;
+    }
+    if (nik.length !== 16 || isNaN(nik)) {
+      alert('Nomor NIK harus berjumlah 16 digit angka.');
+      return;
+    }
+    nextStep(3);
+  };
+
+  window.validateStep3 = function() {
+    const checkedSize = document.querySelector('input[name="ukuranJersey"]:checked');
+    if (!checkedSize) {
+      alert('Harap pilih salah satu ukuran jersey.');
+      return;
+    }
+    selectedSize = checkedSize.value;
+    nextStep(4);
+  };
+
+  function updateSummary() {
+    const nama = document.getElementById('nama')?.value || '-';
+    const wa = document.getElementById('whatsapp')?.value || '-';
+    const email = document.getElementById('email')?.value || '-';
+
+    document.getElementById('summaryNama').textContent = nama;
+    document.getElementById('summaryKontak').textContent = `${wa} / ${email}`;
+    document.getElementById('summarySize').textContent = `Ukuran ${selectedSize}`;
+
+    if (selectedPaket === 'charity') {
+      document.getElementById('summaryPaket').textContent = 'Charity Pack 5K (Rp 150.000)';
+      document.getElementById('summaryBiayaEvent').textContent = 'Rp 100.000';
+      document.getElementById('summaryDonasiVal').textContent = 'Rp 50.000 (ZIS)';
+      document.getElementById('summaryTotal').textContent = 'Rp 150.000';
+    } else {
+      document.getElementById('summaryPaket').textContent = 'Paket Reguler 5K Early Bird (Rp 50.000)';
+      document.getElementById('summaryBiayaEvent').textContent = 'Rp 50.000';
+      document.getElementById('summaryDonasiVal').textContent = 'Rp 0';
+      document.getElementById('summaryTotal').textContent = 'Rp 50.000';
+    }
+  }
+
+  // Form Submit
+  const form = document.getElementById('regForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const agree = document.getElementById('agreeWaiver')?.checked;
+      if (!agree) {
+        alert('Anda harus menyetujui Syarat & Ketentuan serta Waiver Kesehatan untuk mendaftar.');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Memproses Pendaftaran...</span>';
+      }
+
+      // Generate Registration ID
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const regId = `BFW26-${randomNum}`;
+
+      const total = selectedPaket === 'charity' ? 150000 : 50000;
+      const donasi = selectedPaket === 'charity' ? 50000 : 0;
+      const regFee = total - donasi;
+
+      const participantData = {
+        id: regId,
+        nama: document.getElementById('nama')?.value?.trim(),
+        email: document.getElementById('email')?.value?.trim(),
+        whatsapp: document.getElementById('whatsapp')?.value?.trim(),
+        nik: document.getElementById('nik')?.value?.trim(),
+        gender: document.getElementById('gender')?.value,
+        alamat: document.getElementById('alamat')?.value?.trim(),
+        golDarah: document.getElementById('golDarah')?.value,
+        kontakDaruratNama: document.getElementById('kontakDaruratNama')?.value?.trim(),
+        kontakDaruratHp: document.getElementById('kontakDaruratHp')?.value?.trim(),
+        paket: selectedPaket,
+        paketNama: selectedPaket === 'charity' ? 'Charity Pack 5K' : 'Paket Reguler 5K Early Bird',
+        ukuranJersey: selectedSize,
+        nominalRegistrasi: regFee,
+        nominalDonasi: donasi,
+        totalBayar: total,
+        metodeBayar: selectedPayment,
+        status: 'PAID', // Direct verification for smooth flow
+        waktuDaftar: new Date().toISOString(),
+        waktuBayar: new Date().toISOString(),
+        racepackClaimed: false,
+        claimedAt: null,
+        claimedBy: null
+      };
+
+      // Save to localStorage
+      saveParticipant(participantData);
+
+      // Populate Success Modal
+      document.getElementById('modalRegId').textContent = regId;
+      document.getElementById('modalNama').textContent = participantData.nama;
+      document.getElementById('modalPaket').textContent = participantData.paketNama;
+      document.getElementById('modalSize').textContent = `Ukuran ${participantData.ukuranJersey}`;
+      document.getElementById('modalMetode').textContent = participantData.metodeBayar;
+      document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${regId}`;
+
+      // Show Modal
+      document.getElementById('successModal').style.display = 'flex';
+    });
+  }
+</script>

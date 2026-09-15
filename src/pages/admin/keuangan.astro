@@ -1,0 +1,157 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Rekap Keuangan & ZIS — Admin BAZNAS Fun Walk 2026" activeSection="keuangan">
+  <!-- Top Financial KPI -->
+  <div class="financial-summary-grid">
+    <div class="card-clean fin-card">
+      <span class="lbl">TOTAL PEMASUKAN KOTOR</span>
+      <div class="fin-val" id="finTotalGross">Rp 500.000</div>
+      <small class="hint">Dari seluruh transaksi terverifikasi</small>
+    </div>
+
+    <div class="card-clean fin-card" style="border-left:4px solid var(--leaf)">
+      <span class="lbl">DANA OPERASIONAL EVENT</span>
+      <div class="fin-val" id="finEventOps">Rp 300.000</div>
+      <small class="hint">Biaya produksi jersey, race pack, panggung & refreshment</small>
+    </div>
+
+    <div class="card-clean fin-card fin-card--zis">
+      <span class="lbl" style="color:var(--lime)">DANA ZIS / DONASI CHARITY</span>
+      <div class="fin-val" style="color:#FFFFFF" id="finZisTotal">Rp 200.000</div>
+      <small class="hint" style="color:#A4C7A3">Akuntansi ZIS terpisah untuk program dhuafa</small>
+    </div>
+  </div>
+
+  <!-- Channel Breakdown & Ledger -->
+  <div class="card-clean" style="margin-top:28px">
+    <div class="card-header-flex">
+      <div>
+        <h3>Buku Kas & Log Transaksi Masuk</h3>
+        <p class="hint" style="margin:0">Rincian per pendaftar dengan pemisahan pos biaya</p>
+      </div>
+      <button type="button" class="btn btn-leaf btn-sm" onclick="window.print()">
+        <span>Cetak Rekap Akuntansi</span>
+      </button>
+    </div>
+
+    <div class="table-responsive" style="margin-top:16px">
+      <table class="admin-data-table">
+        <thead>
+          <tr>
+            <th>ID Transaksi</th>
+            <th>Nama Pembayar</th>
+            <th>Paket</th>
+            <th>Pos Event (IDR)</th>
+            <th>Pos ZIS Donasi (IDR)</th>
+            <th>Total Bayar (IDR)</th>
+            <th>Metode</th>
+            <th>Waktu Bayar</th>
+          </tr>
+        </thead>
+        <tbody id="financialLedgerBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  .financial-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .fin-card {
+    padding: 24px;
+  }
+
+  .fin-card--zis {
+    background: var(--ink);
+    border-color: var(--leaf);
+    color: #FFFFFF;
+  }
+
+  .fin-val {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 6px 0 2px;
+  }
+
+  .card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+
+  .admin-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .admin-data-table th, .admin-data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .admin-data-table th {
+    background: var(--paper-2);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .financial-summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { getStore } from '../../lib/store.js';
+  import { formatRupiah, formatDateTime } from '../../lib/utils.js';
+
+  function renderFinancials() {
+    const list = getStore().filter(p => p.status === 'PAID');
+
+    let totalGross = 0;
+    let totalOps = 0;
+    let totalZis = 0;
+
+    list.forEach(p => {
+      totalGross += p.totalBayar;
+      totalOps += p.nominalRegistrasi;
+      totalZis += p.nominalDonasi;
+    });
+
+    document.getElementById('finTotalGross').textContent = formatRupiah(totalGross);
+    document.getElementById('finEventOps').textContent = formatRupiah(totalOps);
+    document.getElementById('finZisTotal').textContent = formatRupiah(totalZis);
+
+    const tbody = document.getElementById('financialLedgerBody');
+    if (!tbody) return;
+
+    tbody.innerHTML = list.map(p => `
+      <tr>
+        <td><b style="color:var(--leaf)">${p.id}</b></td>
+        <td><b>${p.nama}</b></td>
+        <td>${p.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
+        <td>${formatRupiah(p.nominalRegistrasi)}</td>
+        <td><b style="color:var(--leaf)">${formatRupiah(p.nominalDonasi)}</b></td>
+        <td><b>${formatRupiah(p.totalBayar)}</b></td>
+        <td><span class="badge badge--info">${p.metodeBayar}</span></td>
+        <td><small style="color:var(--grey)">${formatDateTime(p.waktuBayar)}</small></td>
+      </tr>
+    `).join('');
+  }
+
+  renderFinancials();
+</script>

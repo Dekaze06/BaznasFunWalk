@@ -1,0 +1,847 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="BAZNAS FUN WALK 2026 — Healthy and Charity | Soreang Kab. Bandung" activePage="home">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-image-box">
+      <img 
+        src="/assets/hero-model.webp" 
+        alt="Peserta BAZNAS Fun Walk 2026 Mengenakan Jersey Resmi"
+        class="hero-img"
+        fetchpriority="high"
+        width="2200"
+        height="1555"
+      />
+    </div>
+
+    <div class="wrap hero-wrap">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div class="hero-info">
+            <div class="hero-badge-row">
+              <span class="pill pill--sun">Early Bird Tersedia</span>
+              <span class="pill pill--dark">5K Fun Walk Soreang</span>
+            </div>
+            <h1 class="hero-title">BAZNAS FUN WALK 2026</h1>
+            <p class="hero-tagline">Healthy and Charity — Langkah Sehat, Berbagi Berkah</p>
+
+            <ul class="hero-meta">
+              <li>
+                <span class="meta-icon"></span>
+                <div>
+                  <span class="meta-lbl">Hari & Tanggal</span>
+                  <b>Minggu, 11 Oktober 2026</b>
+                </div>
+              </li>
+              <li>
+                <span class="meta-icon"></span>
+                <div>
+                  <span class="meta-lbl">Lokasi Start & Finish</span>
+                  <b>Gedung Budaya Sabilulungan / Jl. Al Fathu, Soreang</b>
+                </div>
+              </li>
+              <li>
+                <span class="meta-icon">⏰</span>
+                <div>
+                  <span class="meta-lbl">Waktu Acara</span>
+                  <b>Kumpul 05.30 WIB · Mulai 06.00 WIB</b>
+                </div>
+              </li>
+            </ul>
+
+            <div class="hero-cta-box">
+              <a href="/daftar" class="btn btn-sun btn-lg">Daftar Sekarang</a>
+              <a href="/paket" class="btn btn-ghost">Lihat Benefit Peserta</a>
+            </div>
+          </div>
+
+          <div class="hero-pricing-card">
+            <div class="pricing-badge">PROMO EARLY BIRD</div>
+            <div class="pricing-label">Paket Reguler 5K</div>
+            <div class="pricing-amount">
+              <span class="curr">Rp</span>
+              <span class="val">50.000</span>
+            </div>
+            <div class="pricing-was">Harga Normal: Rp 100.000</div>
+
+            <div class="countdown-wrapper">
+              <div class="countdown-lbl">Sisa Waktu Pendaftaran Early Bird:</div>
+              <div class="countdown-grid" id="heroCountdown">
+                <div class="cd-box"><b id="cdDays">14</b><small>Hari</small></div>
+                <div class="cd-box"><b id="cdHours">19</b><small>Jam</small></div>
+                <div class="cd-box"><b id="cdMins">35</b><small>Menit</small></div>
+                <div class="cd-box"><b id="cdSecs">20</b><small>Detik</small></div>
+              </div>
+            </div>
+
+            <div class="charity-promo-tag">
+              <b>Charity Pack Tersedia:</b> Dapatkan seluruh benefit + Donasi ZIS Rp 50.000 atas nama Anda.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlight Numbers -->
+  <section class="sec-stats">
+    <div class="wrap stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">5 KM</div>
+        <div class="stat-desc">Rute Pemandangan Asri Soreang</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1.000+</div>
+        <div class="stat-desc">Peserta Masyarakat & Komunitas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-desc">Dana Donasi Disalurkan BAZNAS</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">PULULUHAN</div>
+        <div class="stat-desc">Hadiah Doorprize & Umroh Utama</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tentang Event -->
+  <section class="sec" id="tentang">
+    <div class="wrap grid-2">
+      <div>
+        <p class="kicker">Tentang Acara</p>
+        <h2>Langkah Ringan Penuh Berkah di Soreang</h2>
+        <p class="lede">
+          BAZNAS Fun Walk 2026 diselenggarakan oleh Badan Amil Zakat Nasional (BAZNAS) Kabupaten Bandung untuk mengajak seluruh elemen masyarakat bergerak bersama, mempererat silaturahmi, dan beramal nyata.
+        </p>
+        <p>
+          Melalui konsep <b>Healthy and Charity</b>, setiap ayunan langkah kita di rute sejuk Soreang menjadi dukungan langsung bagi program kemaslahatan umat, bantuan kaum dhuafa, dan pendidikan di Kabupaten Bandung.
+        </p>
+        <div class="benefit-points">
+          <div class="point-row">
+            <span class="point-icon"></span>
+            <div>
+              <b>Jersey Eksklusif & Perlengkapan Resmi</b>
+              <p>Bahan drifit premium berstandar lari, tote bag ramah lingkungan, dan wristband resmi.</p>
+            </div>
+          </div>
+          <div class="point-row">
+            <span class="point-icon"></span>
+            <div>
+              <b>Kupon Doorprize Utama & Hiburan Rakyat</b>
+              <p>Hadiah utama paket Umroh, sepeda motor, sepeda listrik, alat elektronik, dan hiburan tausiyah.</p>
+            </div>
+          </div>
+          <div class="point-row">
+            <span class="point-icon"></span>
+            <div>
+              <b>Kebaikan Zakat, Infak & Sedekah</b>
+              <p>Bagi pemilih Charity Pack, donasi Rp 50.000 tercatat sah dan disalurkan amanah melalui BAZNAS Kab. Bandung.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:28px">
+          <a href="/daftar" class="btn btn-leaf">Daftar Ikut Fun Walk</a>
+          <a href="/rute" class="btn btn-ghost-dark" style="margin-left:12px">Eksplor Rute 5K</a>
+        </div>
+      </div>
+
+      <div class="benefit-visual">
+        <div class="img-frame">
+          <img 
+            src="/assets/racepack-benefit.webp" 
+            alt="Official Race Pack BAZNAS Fun Walk 2026" 
+            class="benefit-img"
+            loading="lazy"
+            width="2200"
+            height="1555"
+          />
+          <div class="img-caption">Official Race Pack: Jersey Drifit, Tote Bag & Official Wristband</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilihan Paket Section -->
+  <section class="sec sec--tint" id="paket-teaser">
+    <div class="wrap">
+      <div style="text-align:center; max-width:700px; margin:0 auto 48px">
+        <p class="kicker">Pilihan Registrasi</p>
+        <h2>Daftar Sesuai Niat & Keinginan Anda</h2>
+        <p class="lede" style="margin:0 auto">
+          Tersedia dua kategori kepesertaan dengan seluruh benefit lengkap dan fasilitas yang sama di hari acara.
+        </p>
+      </div>
+
+      <div class="paket-cards-grid">
+        <!-- Paket Reguler -->
+        <div class="card-clean paket-card">
+          <div class="card-pill">Paling Populer</div>
+          <h3>Paket Reguler 5K</h3>
+          <p class="card-sub">Pilihan jalan sehat untuk individu dan keluarga.</p>
+          
+          <div class="card-price">
+            <span class="price-val">Rp 50.000</span>
+            <span class="price-period">/ orang (Early Bird)</span>
+          </div>
+          <div class="price-normal-tag">Harga Normal: Rp 100.000</div>
+
+          <ul class="benefit-checklist">
+            <li>Jersey Resmi BAZNAS Fun Walk (Drifit)</li>
+            <li>Tote Bag Ramah Lingkungan Eksklusif</li>
+            <li>Gelang Resmi / Official Wristband</li>
+            <li>Nomor Peserta & Tiket Digital (QR Code)</li>
+            <li>Kupon Doorprize Utama & Hiburan</li>
+            <li>Refreshment Air Mineral & Buah Segar</li>
+            <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
+          </ul>
+
+          <a href="/daftar?paket=reguler" class="btn btn-sun" style="width:100%">Pilih Paket Reguler</a>
+        </div>
+
+        <!-- Charity Pack -->
+        <div class="card-clean paket-card paket-card--charity">
+          <div class="card-pill card-pill--lime">Rekomendasi Berkah</div>
+          <h3>Charity Pack 5K</h3>
+          <p class="card-sub">Ikut jalan sehat sekaligus berdonasi ZIS Rp 50.000.</p>
+          
+          <div class="card-price">
+            <span class="price-val">Rp 150.000</span>
+            <span class="price-period">/ orang (Tetap)</span>
+          </div>
+          <div class="price-normal-tag" style="color:var(--lime)">Termasuk Donasi Rp 50.000 Atas Nama Anda</div>
+
+          <ul class="benefit-checklist">
+            <li><b>Seluruh Benefit Lengkap Paket Reguler</b></li>
+            <li><b>Donasi Rp 50.000 Tercatat Resmi di BAZNAS</b></li>
+            <li>Bukti Setor Donasi ZIS Digital Ber-NPWZ</li>
+            <li>Pencantuman Nama di Halaman Khusus Donatur</li>
+            <li>Kupon Doorprize Utama & Hadiah Umroh</li>
+            <li>Sticker & Goodie Bag Tambahan Penyelenggara</li>
+          </ul>
+
+          <a href="/daftar?paket=charity" class="btn btn-leaf" style="width:100%">Pilih Charity Pack</a>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px">
+        <a href="/paket" class="link-more">Pelajari Detail Benefit & Panduan Ukuran Jersey →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaser Rute & Peta -->
+  <section class="sec sec--dark" id="rute-teaser">
+    <div class="wrap grid-2">
+      <div class="route-img-box">
+        <img 
+          src="/assets/route-map-detail.webp" 
+          alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
+          class="route-map-img"
+          loading="lazy"
+          width="880"
+          height="1125"
+        />
+      </div>
+
+      <div>
+        <p class="kicker">Rute 5 Kilometer</p>
+        <h2>Satu Putaran Penuh Nuansa Soreang</h2>
+        <p class="lede">
+          Dirancang nyaman dan aman untuk segala usia, mulai dari anak-anak hingga orang tua. Rute melingkari kawasan utama Soreang dengan aspal mulus dan titik hidrasi terjamin.
+        </p>
+
+        <ul class="route-highlights">
+          <li>
+            <span class="route-num">1</span>
+            <div><b>Start:</b> Gedung Budaya Sabilulungan / Jl. Terusan Al Fathu</div>
+          </li>
+          <li>
+            <span class="route-num">2</span>
+            <div><b>Water Station:</b> KM 2 (SMA Yadika) & KM 3.8 (Pasar Ikan Modern)</div>
+          </li>
+          <li>
+            <span class="route-num">3</span>
+            <div><b>Pos Medis & Ambulans:</b> Siaga di 3 titik strategis sepanjang jalur</div>
+          </li>
+          <li>
+            <span class="route-num">4</span>
+            <div><b>Finish:</b> Kembali ke Plaza Sabilulungan untuk panggung hiburan & doorprize</div>
+          </li>
+        </ul>
+
+        <div style="margin-top:28px">
+          <a href="/rute" class="btn btn-sun">Buka Panduan Rute & Titik Pos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Teaser -->
+  <section class="sec">
+    <div class="wrap">
+      <div style="text-align:center; max-width:650px; margin:0 auto 40px">
+        <p class="kicker">Jadwal Penting</p>
+        <h2>Agenda Menuju Hari-H</h2>
+        <p class="lede" style="margin:0 auto">Catat tanggal-tanggal penting agar persiapan Anda maksimal.</p>
+      </div>
+
+      <div class="timeline-row">
+        <div class="timeline-step">
+          <div class="step-date">Sekarang – 30 Sep</div>
+          <div class="step-title">Pendaftaran Early Bird</div>
+          <p class="step-desc">Tarif spesial Rp 50.000 untuk paket Reguler.</p>
+        </div>
+        <div class="timeline-step">
+          <div class="step-date">1 – 5 Oktober</div>
+          <div class="step-title">Pendaftaran Normal</div>
+          <p class="step-desc">Periode akhir pendaftaran sebelum batas penutupan.</p>
+        </div>
+        <div class="timeline-step">
+          <div class="step-date">8 – 10 Oktober</div>
+          <div class="step-title">Race Pack Collection (RPC)</div>
+          <p class="step-desc">Pengambilan jersey, tote bag & wristband dengan menunjukkan QR e-ticket.</p>
+        </div>
+        <div class="timeline-step active">
+          <div class="step-date">Minggu, 11 Oktober</div>
+          <div class="step-title">Hari-H Pelaksanaan</div>
+          <p class="step-desc">Kumpul 05.30 WIB, Flag-off 06.00 WIB di Gedung Budaya Sabilulungan.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px">
+        <a href="/jadwal" class="link-more">Lihat Rundown Jam Per Jam Hari-H →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner Akhir -->
+  <section class="sec sec--deep" style="text-align:center">
+    <div class="wrap" style="max-width:760px">
+      <p class="kicker">Ayo Bergerak Bersama</p>
+      <h2 style="font-size:clamp(2rem, 4vw, 3rem)">Siap Jadi Bagian dari 1.000 Langkah Sehat dan Berkah?</h2>
+      <p class="lede" style="margin:16px auto 32px">
+        Ajak keluarga, sahabat, dan rekan kerja Anda. Bersama BAZNAS Kabupaten Bandung, wujudkan tubuh bugar dan tabungan pahala yang mengalir.
+      </p>
+      <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap">
+        <a href="/daftar" class="btn btn-sun btn-lg">Daftar Sekarang Juga</a>
+        <a href="/cek-tiket" class="btn btn-ghost btn-lg">Cek Status E-Ticket</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero-section {
+    position: relative;
+    background: var(--ink-deep);
+    padding-bottom: 60px;
+  }
+
+  .hero-image-box {
+    width: 100%;
+    max-height: 520px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    filter: brightness(0.95);
+  }
+
+  .hero-wrap {
+    position: relative;
+    margin-top: -80px;
+    z-index: 10;
+  }
+
+  .hero-card {
+    background: var(--ink);
+    border-radius: var(--r-xl);
+    padding: clamp(28px, 4vw, 48px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .hero-badge-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    color: #FFFFFF;
+    font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+
+  .hero-tagline {
+    color: var(--lime);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+
+  .hero-meta {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .hero-meta li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #E2EDE0;
+  }
+
+  .meta-icon {
+    font-size: 1.3rem;
+    background: rgba(255, 255, 255, 0.08);
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .meta-lbl {
+    display: block;
+    font-size: 0.78rem;
+    color: #9DBFA0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-meta b {
+    color: #FFFFFF;
+    font-size: 1.02rem;
+  }
+
+  .hero-cta-box {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* Pricing Card */
+  .hero-pricing-card {
+    background: #FFFFFF;
+    border-radius: var(--r-lg);
+    padding: clamp(24px, 3vw, 34px);
+    color: var(--grey-d);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: 3px solid var(--sun);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -14px;
+    right: 24px;
+    background: var(--sun);
+    color: var(--ink-deep);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 3px 14px;
+    border-radius: 99px;
+    letter-spacing: 0.04em;
+  }
+
+  .pricing-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--moss);
+  }
+
+  .pricing-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-family: 'Baloo 2', sans-serif;
+    color: var(--ink);
+    line-height: 1;
+    margin: 6px 0 2px;
+  }
+
+  .pricing-amount .curr {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .pricing-amount .val {
+    font-size: 3.2rem;
+    font-weight: 800;
+  }
+
+  .pricing-was {
+    font-size: 0.95rem;
+    color: #8C9C8F;
+    text-decoration: line-through;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .countdown-wrapper {
+    background: var(--paper-2);
+    border-radius: var(--r-md);
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+
+  .countdown-lbl {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .cd-box {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+  }
+
+  .cd-box b {
+    display: block;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .cd-box small {
+    font-size: 0.72rem;
+    color: var(--grey);
+    font-weight: 600;
+  }
+
+  .charity-promo-tag {
+    font-size: 0.84rem;
+    line-height: 1.4;
+    color: var(--moss);
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+
+  /* Stats */
+  .sec-stats {
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line);
+    padding: 34px 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: var(--leaf);
+    line-height: 1.1;
+  }
+
+  .stat-desc {
+    font-size: 0.92rem;
+    color: var(--grey-d);
+    font-weight: 600;
+  }
+
+  /* Benefit Visual */
+  .img-frame {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+  }
+
+  .img-caption {
+    padding: 12px 18px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--grey);
+    text-align: center;
+    background: #FFFFFF;
+  }
+
+  .point-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .point-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .point-row b {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 2px;
+    font-size: 1.05rem;
+  }
+
+  .point-row p {
+    font-size: 0.92rem;
+    color: var(--grey);
+    margin: 0;
+  }
+
+  /* Paket Teaser */
+  .paket-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .paket-card {
+    position: relative;
+    padding: clamp(26px, 3.5vw, 36px);
+  }
+
+  .paket-card--charity {
+    border: 3px solid var(--leaf);
+    background: #FAFCF9;
+  }
+
+  .card-pill {
+    position: absolute;
+    top: -12px;
+    left: 28px;
+    background: var(--moss);
+    color: #FFFFFF;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 99px;
+  }
+
+  .card-pill--lime {
+    background: var(--leaf);
+  }
+
+  .card-sub {
+    color: var(--grey);
+    font-size: 0.92rem;
+    margin-bottom: 18px;
+  }
+
+  .card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .price-val {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .price-period {
+    font-size: 0.92rem;
+    color: var(--grey);
+  }
+
+  .price-normal-tag {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--grey);
+    margin-bottom: 24px;
+  }
+
+  .benefit-checklist {
+    list-style: none;
+    margin-bottom: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .benefit-checklist li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 0.94rem;
+  }
+
+  .benefit-checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--leaf);
+    font-weight: 800;
+  }
+
+  .link-more {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--leaf);
+    text-decoration: underline;
+  }
+
+  /* Route Teaser */
+  .route-img-box {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .route-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .route-highlights li {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    font-size: 0.95rem;
+    color: #DBEBDA;
+  }
+
+  .route-num {
+    background: var(--lime);
+    color: var(--ink-deep);
+    font-weight: 800;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
+
+  /* Timeline */
+  .timeline-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .timeline-step {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 22px;
+    position: relative;
+    border-top: 4px solid var(--line);
+  }
+
+  .timeline-step.active {
+    border-top-color: var(--leaf);
+    box-shadow: var(--shadow-md);
+  }
+
+  .step-date {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    color: var(--leaf);
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .step-title {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    color: var(--grey);
+    margin: 0;
+  }
+
+  @media (max-width: 992px) {
+    .hero-grid, .paket-cards-grid, .timeline-row {
+      grid-template-columns: 1fr;
+    }
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-wrap {
+      margin-top: -30px;
+    }
+  }
+</style>
+
+<script>
+  // Dynamic countdown script for early bird
+  function updateCountdown() {
+    // Target: 30 September 2026 23:59:59 WIB (UTC+7)
+    const target = new Date('2026-09-30T23:59:59+07:00').getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      const container = document.getElementById('heroCountdown');
+      if (container) container.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-weight:700;color:var(--leaf);padding:10px">Periode Early Bird Berakhir</div>';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const dEl = document.getElementById('cdDays');
+    const hEl = document.getElementById('cdHours');
+    const mEl = document.getElementById('cdMins');
+    const sEl = document.getElementById('cdSecs');
+
+    if (dEl) dEl.textContent = days.toString();
+    if (hEl) hEl.textContent = hours.toString().padStart(2, '0');
+    if (mEl) mEl.textContent = mins.toString().padStart(2, '0');
+    if (sEl) sEl.textContent = secs.toString().padStart(2, '0');
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>

@@ -1,0 +1,67 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Pengaturan Sistem — Admin BAZNAS Fun Walk 2026" activeSection="pengaturan">
+  <div class="card-clean" style="max-width:800px">
+    <h3>Pengaturan & Konfigurasi Event</h3>
+    <p class="hint" style="margin-bottom:28px">Kontrol status pendaftaran, batas waktu, dan informasi pembayaran publik.</p>
+
+    <form id="settingsForm">
+      <div class="form-group">
+        <label for="statusEvent">Status Pendaftaran Website:</label>
+        <select id="statusEvent">
+          <option value="DIBUKA">DIBUKA — Menerima Pendaftaran Peserta</option>
+          <option value="KUOTA_HABIS">KUOTA HABIS — Tampilkan Pemberitahuan Habis</option>
+          <option value="DITUTUP">DITUTUP — Pendaftaran Resmi Selesai</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="tierHarga">Skema Harga Aktif:</label>
+        <select id="tierHarga">
+          <option value="EARLY_BIRD">Early Bird — Rp 50.000 (s.d. 30 September)</option>
+          <option value="NORMAL">Harga Normal — Rp 100.000 (Mulai 1 Oktober)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="rekeningBank">Rekening Resmi Pembayaran Manual (Muncul di Form & Footer):</label>
+        <textarea id="rekeningBank" rows="3">BSI (Bank Syariah Indonesia) No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="targetPeserta">Target Kuota Peserta:</label>
+        <input type="number" id="targetPeserta" value="1000">
+      </div>
+
+      <div style="margin-top:28px">
+        <button type="submit" class="btn btn-leaf btn-lg">✓ Simpan Perubahan Pengaturan</button>
+      </div>
+    </form>
+  </div>
+</AdminLayout>
+
+<script>
+  import { getSettings, saveSettings } from '../../lib/store.js';
+
+  const settings = getSettings();
+  if (document.getElementById('statusEvent')) document.getElementById('statusEvent').value = settings.statusEvent || 'DIBUKA';
+  if (document.getElementById('tierHarga')) document.getElementById('tierHarga').value = settings.tierHarga || 'EARLY_BIRD';
+  if (document.getElementById('rekeningBank')) document.getElementById('rekeningBank').value = settings.rekeningBank || '';
+  if (document.getElementById('targetPeserta')) document.getElementById('targetPeserta').value = settings.targetPeserta || 1000;
+
+  const form = document.getElementById('settingsForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      saveSettings({
+        statusEvent: document.getElementById('statusEvent')?.value,
+        tierHarga: document.getElementById('tierHarga')?.value,
+        rekeningBank: document.getElementById('rekeningBank')?.value,
+        targetPeserta: parseInt(document.getElementById('targetPeserta')?.value) || 1000
+      });
+      alert('Pengaturan sistem berhasil disimpan!');
+    });
+  }
+</script>

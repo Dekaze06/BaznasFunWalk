@@ -1,0 +1,398 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { JERSEY_SIZES } from '../lib/utils.js';
+---
+
+<Layout title="Paket & Benefit Peserta — BAZNAS Fun Walk 2026" activePage="paket">
+  <!-- Page Header -->
+  <section class="sec sec--dark page-header">
+    <div class="wrap">
+      <p class="kicker">Official Race Pack & Benefit</p>
+      <h1>Paket Peserta BAZNAS Fun Walk 2026</h1>
+      <p class="lede">
+        Dapatkan perlengkapan jalan sehat berkualitas premium berstandar event lari nasional untuk kenyamanan dan kebanggaan Anda saat melangkah di Soreang.
+      </p>
+    </div>
+  </section>
+
+  <!-- Visual Hero Benefit -->
+  <section class="sec">
+    <div class="wrap grid-2">
+      <div class="benefit-img-container">
+        <img 
+          src="/assets/racepack-benefit.webp" 
+          alt="Jersey, Tote Bag, dan Wristband Resmi BAZNAS Fun Walk 2026"
+          class="benefit-main-img"
+          loading="eager"
+          width="2200"
+          height="1555"
+        />
+        <div class="benefit-badge">Official Merchandising 2026</div>
+      </div>
+
+      <div>
+        <p class="kicker">Perlengkapan Resmi</p>
+        <h2>Setiap Peserta Mendapatkan Perlengkapan Lengkap</h2>
+        <p class="lede">
+          Semua peserta terdaftar (baik Paket Reguler maupun Charity Pack) berhak menerima paket race pack resmi yang diserahkan saat Race Pack Collection (RPC) tanggal 8–10 Oktober 2026.
+        </p>
+
+        <div class="items-list">
+          <div class="item-card">
+            <span class="item-icon"></span>
+            <div>
+              <h4>Jersey Eksklusif BAZNAS Fun Walk</h4>
+              <p>Menggunakan bahan Microfiber Drifit premium yang sejuk, menyerap keringat dengan cepat, elastis, dan nyaman dipakai berjalan 5 kilometer.</p>
+            </div>
+          </div>
+          <div class="item-card">
+            <span class="item-icon"></span>
+            <div>
+              <h4>Official Eco Tote Bag</h4>
+              <p>Tote bag kanvas ramah lingkungan dengan logo bordir resmi, cocok digunakan membawa perlengkapan pribadi saat acara maupun kegiatan sehari-hari.</p>
+            </div>
+          </div>
+          <div class="item-card">
+            <span class="item-icon"></span>
+            <div>
+              <h4>Official Silicone Wristband</h4>
+              <p>Gelang identitas peserta tahan air dengan nomor pengenal untuk akses masuk area panggung utama dan penukaran refreshment.</p>
+            </div>
+          </div>
+          <div class="item-card">
+            <span class="item-icon"></span>
+            <div>
+              <h4>Nomor BIB & Kupon Doorprize Utama</h4>
+              <p>Nomor kepesertaan unik yang terhubung dengan sistem undian doorprize berhadiah paket Umroh, sepeda motor, dan aneka elektronik.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div style="text-align:center; max-width:700px; margin:0 auto 48px">
+        <p class="kicker">Perbandingan Kategori</p>
+        <h2>Pilih Paket yang Sesuai untuk Anda</h2>
+        <p class="lede" style="margin:0 auto">
+          Semua peserta menikmati jalur 5K, fasilitas medis, refreshment, dan hak doorprize yang setara.
+        </p>
+      </div>
+
+      <div class="table-responsive card-clean" style="padding:0; overflow:hidden">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="width:40%">Benefit & Fasilitas</th>
+              <th style="width:30%" class="col-reguler">
+                <div class="th-title">Paket Reguler</div>
+                <div class="th-price">Rp 50.000 <small>(Early Bird)</small></div>
+              </th>
+              <th style="width:30%" class="col-charity">
+                <div class="th-title">Charity Pack </div>
+                <div class="th-price">Rp 150.000 <small>(Tetap)</small></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jersey Drifit Resmi BAZNAS Fun Walk</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr>
+              <td>Official Eco Tote Bag</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr>
+              <td>Official Silicone Wristband</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr>
+              <td>Nomor BIB & Kupon Doorprize Umroh</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr>
+              <td>Refreshment Air Minum & Buah di Water Station</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr>
+              <td>Medali Finisher & E-Certificate</td>
+              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ Termasuk</td>
+            </tr>
+            <tr class="row-highlight">
+              <td>
+                <b>Donasi ZIS Rp 50.000 atas nama peserta</b>
+                <div class="hint">Disalurkan untuk program pemberdayaan dhuafa di Kab. Bandung</div>
+              </td>
+              <td class="check-no">—</td>
+              <td class="check-yes"><b>✓ Rp 50.000 Otomatis Dicatat</b></td>
+            </tr>
+            <tr class="row-highlight">
+              <td><b>Bukti Setor Donasi ZIS Digital (Resmi BAZNAS)</b></td>
+              <td class="check-no">—</td>
+              <td class="check-yes"><b>✓ Diterbitkan</b></td>
+            </tr>
+            <tr class="row-highlight">
+              <td><b>Pencantuman Nama di Halaman Khusus Donatur</b></td>
+              <td class="check-no">—</td>
+              <td class="check-yes"><b>✓ Dicantumkan</b></td>
+            </tr>
+            <tr>
+              <td>Aksi Pendaftaran</td>
+              <td><a href="/daftar?paket=reguler" class="btn btn-sun btn-sm" style="width:100%">Daftar Reguler</a></td>
+              <td><a href="/daftar?paket=charity" class="btn btn-leaf btn-sm" style="width:100%">Daftar Charity Pack</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Size Chart Section -->
+  <section class="sec" id="size-chart">
+    <div class="wrap">
+      <div style="text-align:center; max-width:700px; margin:0 auto 40px">
+        <p class="kicker">Panduan Ukuran</p>
+        <h2>Size Chart Jersey Resmi (Unisex)</h2>
+        <p class="lede" style="margin:0 auto">
+          Pastikan Anda memilih ukuran jersey yang pas sebelum menyelesaikan proses pendaftaran.
+        </p>
+      </div>
+
+      <div class="size-chart-grid">
+        <div class="table-responsive card-clean" style="padding:0; overflow:hidden">
+          <table class="size-table">
+            <thead>
+              <tr>
+                <th>Ukuran</th>
+                <th>Lebar Dada (LD)</th>
+                <th>Panjang Badan (PB)</th>
+                <th>Kategori Pas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {JERSEY_SIZES.map(item => (
+                <tr>
+                  <td><b class="size-tag">{item.size}</b></td>
+                  <td>{item.chest}</td>
+                  <td>{item.length}</td>
+                  <td>{item.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-clean fit-tips">
+          <h4>Tips Memilih Ukuran:</h4>
+          <ul class="tips-list">
+            <li><b>Bahan Drifit:</b> Bersifat lentur dan elastis. Jika Anda menyukai pakaian yang pas badan, pilih ukuran biasa.</li>
+            <li><b>Suka Longgar:</b> Untuk kenyamanan berhijab atau gaya pakaian longgar, kami sarankan naik 1 ukuran (misal dari M ke L).</li>
+            <li><b>Toleransi Jahitan:</b> Toleransi ukuran konveksi adalah ±1 sampai 2 cm.</li>
+          </ul>
+          <div style="margin-top:24px">
+            <a href="/daftar" class="btn btn-leaf" style="width:100%">Lanjut ke Formulir Pendaftaran</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding: clamp(50px, 6vw, 80px) 0;
+  }
+
+  .benefit-img-container {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+    background: #FFFFFF;
+  }
+
+  .benefit-main-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .benefit-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: var(--ink);
+    color: var(--lime);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 99px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
+
+  .items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .item-card {
+    display: flex;
+    gap: 16px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 16px;
+  }
+
+  .item-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .item-card h4 {
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-size: 1.05rem;
+  }
+
+  .item-card p {
+    font-size: 0.9rem;
+    color: var(--grey);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Compare Table */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .compare-table th, .compare-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .compare-table thead th {
+    background: var(--paper-2);
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+
+  .col-reguler {
+    background: #FFFDF5;
+  }
+
+  .col-charity {
+    background: #F2F9F2;
+    border-left: 2px solid var(--leaf);
+  }
+
+  .th-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+  }
+
+  .th-price {
+    font-size: 1.2rem;
+    color: var(--leaf);
+    font-weight: 700;
+  }
+
+  .th-price small {
+    font-size: 0.78rem;
+    color: var(--grey);
+    font-weight: 500;
+  }
+
+  .check-yes {
+    color: var(--leaf);
+    font-weight: 600;
+  }
+
+  .check-no {
+    color: var(--grey-light);
+    font-weight: 600;
+  }
+
+  .row-highlight {
+    background: rgba(31, 137, 57, 0.05);
+  }
+
+  /* Size chart */
+  .size-chart-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 28px;
+  }
+
+  .size-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .size-table th, .size-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .size-table th {
+    background: var(--paper-2);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .size-tag {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--lime);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .fit-tips {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tips-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .tips-list li {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--grey-d);
+  }
+
+  @media (max-width: 900px) {
+    .size-chart-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

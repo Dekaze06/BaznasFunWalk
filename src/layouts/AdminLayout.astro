@@ -1,0 +1,446 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  activeSection?: string;
+}
+
+const {
+  title = 'Panel Admin — BAZNAS Fun Walk 2026',
+  activeSection = 'dashboard'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/assets/logo-baznas.png">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="admin-body">
+  <div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-brand">
+        <a href="/admin" class="brand-box">
+          <img src="/assets/logo-baznas.png" alt="BAZNAS" class="admin-logo" width="36" height="36">
+          <div>
+            <div class="admin-title">ADMIN PANEL</div>
+            <div class="admin-sub">BAZNAS Fun Walk 2026</div>
+          </div>
+        </a>
+        <button class="sidebar-close" id="sidebarCloseBtn" aria-label="Tutup Menu">✕</button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-label">MANAJEMEN UTAMA</div>
+        <a href="/admin" class={activeSection === 'dashboard' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Ringkasan Dashboard</span>
+        </a>
+        <a href="/admin/peserta" class={activeSection === 'peserta' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Peserta & Transaksi</span>
+          <span class="menu-badge" id="pendingBadge">2</span>
+        </a>
+        <a href="/admin/scanner" class={activeSection === 'scanner' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Scanner QR RPC</span>
+          <span class="pill pill--sun" style="font-size:0.7rem;padding:2px 8px">Live</span>
+        </a>
+        <a href="/admin/kuota" class={activeSection === 'kuota' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Kuota & Ukuran Jersey</span>
+        </a>
+
+        <div class="menu-label">KEUANGAN & OPERASIONAL</div>
+        <a href="/admin/keuangan" class={activeSection === 'keuangan' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Rekap Keuangan & ZIS</span>
+        </a>
+        <a href="/admin/impor" class={activeSection === 'impor' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Impor Data Kolektif</span>
+        </a>
+        <a href="/admin/pengaturan" class={activeSection === 'pengaturan' ? 'menu-item active' : 'menu-item'}>
+          <span class="icon"></span>
+          <span>Pengaturan Sistem</span>
+        </a>
+
+        <div class="sidebar-divider"></div>
+        <a href="/" class="menu-item view-site" target="_blank">
+          <span class="icon"></span>
+          <span>Buka Website Publik ↗</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-user-info">
+          <div class="avatar">AD</div>
+          <div>
+            <div class="user-name">Panitia Pelaksana</div>
+            <div class="user-role">Administrator BAZNAS</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="admin-main">
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="sidebarToggleBtn" aria-label="Buka Menu">☰</button>
+          <div class="page-breadcrumbs">
+            <span class="crumb-root">BAZNAS Fun Walk</span>
+            <span class="crumb-sep">/</span>
+            <span class="crumb-current">{title.split('—')[0].trim()}</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="live-event-badge">
+            <span class="pulse-dot"></span>
+            <span>Status Event: <b>DIBUKA</b></span>
+          </div>
+          <div class="event-date-pill">
+            <span>Minggu, 11 Okt 2026</span>
+          </div>
+          <a href="/admin/scanner" class="btn btn-leaf btn-sm">
+            <span>Buka Scanner</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="admin-content">
+        <slot />
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <style>
+    .admin-body {
+      background: #F1F5F0;
+      color: var(--grey-d);
+      min-height: 100vh;
+      font-size: 15px;
+    }
+
+    .admin-wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 270px;
+      background: var(--ink-deep);
+      color: #C0D6BF;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 100;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-brand {
+      padding: 20px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-logo {
+      background: #FFFFFF;
+      padding: 4px;
+      border-radius: 6px;
+    }
+
+    .admin-title {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #FFFFFF;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    .admin-sub {
+      font-size: 0.72rem;
+      color: var(--lime);
+      font-weight: 600;
+    }
+
+    .sidebar-close {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: #FFFFFF;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .sidebar-menu {
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .menu-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6C8B6B;
+      padding: 12px 12px 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--r-sm);
+      color: #D2E4D1;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .menu-item .icon {
+      font-size: 1.1rem;
+    }
+
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #FFFFFF;
+    }
+
+    .menu-item.active {
+      background: var(--leaf);
+      color: #FFFFFF;
+      box-shadow: 0 3px 12px rgba(31, 137, 57, 0.35);
+    }
+
+    .menu-badge {
+      margin-left: auto;
+      background: var(--warning);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 14px 6px;
+    }
+
+    .view-site {
+      color: var(--lime);
+    }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .admin-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--moss);
+      border: 2px solid var(--lime);
+      color: #FFFFFF;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .user-name {
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: #8CA78B;
+    }
+
+    /* Main Area */
+    .admin-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .admin-topbar {
+      height: 70px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--line);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .page-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+
+    .crumb-root {
+      color: var(--grey);
+      font-weight: 500;
+    }
+
+    .crumb-sep {
+      color: var(--line);
+    }
+
+    .crumb-current {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .live-event-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #E8F5EB;
+      color: var(--leaf);
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--leaf);
+      box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.2);
+    }
+
+    .event-date-pill {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      color: var(--grey-d);
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .admin-content {
+      padding: 32px;
+      flex: 1;
+    }
+
+    @media (max-width: 992px) {
+      .admin-sidebar {
+        position: fixed;
+        left: -280px;
+        transition: left 0.3s ease;
+      }
+      .admin-sidebar.open {
+        left: 0;
+      }
+      .sidebar-close {
+        display: block;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .admin-topbar {
+        padding: 0 18px;
+      }
+      .admin-content {
+        padding: 18px;
+      }
+      .event-date-pill {
+        display: none;
+      }
+    }
+  </style>
+
+  <script>
+    const toggleBtn = document.getElementById('sidebarToggleBtn');
+    const closeBtn = document.getElementById('sidebarCloseBtn');
+    const sidebar = document.getElementById('adminSidebar');
+
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+    }
+
+    if (closeBtn && sidebar) {
+      closeBtn.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+      });
+    }
+  </script>
+</body>
+</html>

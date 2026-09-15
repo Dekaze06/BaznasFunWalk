@@ -1,0 +1,248 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
+---
+
+<Layout title="Rute 5K Soreang & Titik Fasilitas — BAZNAS Fun Walk 2026" activePage="rute">
+  <!-- Page Header -->
+  <section class="sec sec--dark page-header">
+    <div class="wrap">
+      <p class="kicker">Jalur & Keamanan 5K</p>
+      <h1>Rute Resmi BAZNAS Fun Walk 2026</h1>
+      <p class="lede">
+        Menikmati pemandangan asri dan landmark ikonik kawasan Soreang sepanjang 5 kilometer dengan jalur aman yang disterilkan petugas Dishub dan Kepolisian.
+      </p>
+    </div>
+  </section>
+
+  <!-- Peta Visual & Info -->
+  <section class="sec">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <div class="map-wrapper card-clean" style="padding:10px">
+          <img 
+            src="/assets/route-map-detail.webp" 
+            alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
+            class="route-map-img"
+            loading="eager"
+            width="880"
+            height="1125"
+          />
+          <div class="map-action-bar">
+            <span>Peta Rute 5K Kawasan Soreang</span>
+            <a href="/assets/route-5k-slide.webp" target="_blank" class="btn btn-ghost-dark btn-sm">Lihat Slide Penuh ↗</a>
+          </div>
+        </div>
+
+        <div class="card-clean security-note" style="margin-top:24px">
+          <h4>Keamanan & Sterilisasi Jalur</h4>
+          <p>
+            Rute sepanjang 5 Kilometer ini didukung oleh pengawalan lantas Polres Kabupaten Bandung dan Dishub. Terdapat tim marshal sepeda, ambulans bergerak, serta water station di setiap 2 kilometer.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p class="kicker">Titik Penting Rute</p>
+        <h2>8 Pos & Fasilitas di Sepanjang Jalur</h2>
+        <p class="lede">
+          Setiap peserta akan melintasi titik-titik penting berikut untuk kenyamanan dan hidrasi.
+        </p>
+
+        <div class="checkpoints-list">
+          {ROUTE_CHECKPOINTS.map((cp) => (
+            <div class="cp-card">
+              <div class="cp-num-badge">{cp.id}</div>
+              <div class="cp-content">
+                <div class="cp-title-row">
+                  <h4>{cp.name}</h4>
+                  <span class={`cp-tag tag--${cp.type}`}>
+                    {cp.type === 'start' && 'Start'}
+                    {cp.type === 'water' && 'Water Station'}
+                    {cp.type === 'cheer' && 'Cheering & Medis'}
+                    {cp.type === 'turn' && 'Putaran'}
+                    {cp.type === 'photo' && 'Titik Foto'}
+                    {cp.type === 'finish' && 'Garis Finish'}
+                    {cp.type === 'info' && 'Pos Info'}
+                  </span>
+                </div>
+                <div class="cp-loc">{cp.loc}</div>
+                <p class="cp-desc">{cp.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Akses & Parkir -->
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div style="text-align:center; max-width:700px; margin:0 auto 40px">
+        <p class="kicker">Panduan Logistik</p>
+        <h2>Akses Lokasi & Kantong Parkir</h2>
+        <p class="lede" style="margin:0 auto">
+          Gedung Budaya Sabilulungan mudah diakses melalui Gerbang Tol Soreang (Tol Soroja) hanya 5 menit.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card-clean">
+          <div class="transit-icon"></div>
+          <h4>Kendaraan Pribadi & Tol Soroja</h4>
+          <p class="hint">Keluar Gerbang Tol Soreang (Soroja), belok kanan menuju Jl. Al Fathu. Gedung Budaya Sabilulungan berada tepat di sisi kiri jalan (jarak ±1.5 km).</p>
+        </div>
+
+        <div class="card-clean">
+          <div class="transit-icon"></div>
+          <h4>Kantong Parkir Resmi</h4>
+          <p class="hint">Tersedia area parkir luas di Plaza Gedung Budaya Sabilulungan, Lapangan Upacara Pemkab Bandung, dan area parkir Stadion Si Jalak Harupat (shuttle bus disiapkan jika penuh).</p>
+        </div>
+
+        <div class="card-clean">
+          <div class="transit-icon"></div>
+          <h4>Transportasi Publik</h4>
+          <p class="hint">Dapat menggunakan Trans Metro Pasundan (TMP) Koridor 1 (Leuwipanjang – Soreang) turun langsung di Halte Gedung Budaya Sabilulungan.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:36px">
+        <a href="/daftar" class="btn btn-sun btn-lg">Daftar Sekarang Ikut Rute 5K</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    padding: clamp(50px, 6vw, 80px) 0;
+  }
+
+  .map-wrapper {
+    box-shadow: var(--shadow-md);
+  }
+
+  .route-map-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--r-md);
+    display: block;
+  }
+
+  .map-action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 6px 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .security-note {
+    background: #FAFCF9;
+    border-left: 4px solid var(--leaf);
+  }
+
+  .security-note h4 {
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .security-note p {
+    font-size: 0.9rem;
+    color: var(--grey);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Checkpoints */
+  .checkpoints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .cp-card {
+    display: flex;
+    gap: 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cp-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--leaf);
+  }
+
+  .cp-num-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--lime);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .cp-content {
+    flex: 1;
+  }
+
+  .cp-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .cp-title-row h4 {
+    color: var(--ink);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .cp-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  .tag--start, .tag--finish { background: #E6F6EC; color: #127A34; }
+  .tag--water { background: #E8F4FD; color: #0284C7; }
+  .tag--cheer { background: #FFF7E6; color: #B26A00; }
+  .tag--turn, .tag--photo, .tag--info { background: var(--paper-2); color: var(--grey-d); }
+
+  .cp-loc {
+    font-size: 0.85rem;
+    color: var(--leaf);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .cp-desc {
+    font-size: 0.88rem;
+    color: var(--grey);
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .transit-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+</style>

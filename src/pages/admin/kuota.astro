@@ -1,0 +1,132 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Manajemen Kuota Jersey — Admin BAZNAS Fun Walk 2026" activeSection="kuota">
+  <div class="card-clean" style="margin-bottom:24px">
+    <h3>Alokasi & Pemantauan Kuota Jersey 1.000 Pcs</h3>
+    <p class="hint">
+      Pengaturan kuota produksi vendor berdasarkan proporsi standar per ukuran (S: 8%, M: 22%, L: 28%, XL: 22%, XXL: 13%, XXXL: 7%).
+    </p>
+  </div>
+
+  <div class="quota-grid" id="quotaCardsGrid">
+    <!-- Populated by JS -->
+  </div>
+</AdminLayout>
+
+<style>
+  .quota-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .quota-card {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .qc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .qc-size-tag {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .qc-spec {
+    font-size: 0.8rem;
+    color: var(--grey);
+  }
+
+  .qc-bar-box {
+    margin: 12px 0;
+  }
+
+  .qc-bar-track {
+    height: 10px;
+    background: var(--paper-2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .qc-bar-fill {
+    height: 100%;
+    background: var(--leaf);
+    border-radius: 99px;
+  }
+
+  .qc-nums-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+  }
+
+  .qc-footer {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--grey);
+  }
+
+  @media (max-width: 900px) {
+    .quota-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { getStockSummary } from '../../lib/store.js';
+
+  function renderQuota() {
+    const container = document.getElementById('quotaCardsGrid');
+    if (!container) return;
+
+    const stocks = getStockSummary();
+    container.innerHTML = stocks.map(st => `
+      <div class="quota-card">
+        <div class="qc-header">
+          <div>
+            <div class="qc-size-tag">Ukuran ${st.size}</div>
+            <div class="qc-spec">Lebar ${st.chest} · Panjang ${st.length}</div>
+          </div>
+          <span class="badge ${st.remaining > 10 ? 'badge--success' : 'badge--warning'}">
+            ${st.remaining > 0 ? 'Tersedia' : 'Habis'}
+          </span>
+        </div>
+
+        <div class="qc-bar-box">
+          <div class="qc-bar-track">
+            <div class="qc-bar-fill" style="width:${st.percent}%"></div>
+          </div>
+        </div>
+
+        <div class="qc-nums-row">
+          <div>Terpakai: <b style="color:var(--ink)">${st.used}</b> pcs</div>
+          <div>Sisa Kuota: <b style="color:var(--leaf)">${st.remaining}</b> pcs</div>
+        </div>
+
+        <div class="qc-footer">
+          <span>Total Alokasi: <b>${st.total} pcs</b></span>
+          <span>Terisi: <b>${st.percent}%</b></span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderQuota();
+</script>

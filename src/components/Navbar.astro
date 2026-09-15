@@ -1,0 +1,265 @@
+---
+interface Props {
+  activePage?: string;
+}
+
+const { activePage = 'home' } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="top-announcement">
+    <div class="wrap top-banner-content">
+      <span><b>Pendaftaran Dibuka:</b> BAZNAS FUN WALK 2026 — 11 Oktober 2026 di Soreang, Kab. Bandung</span>
+      <a href="/admin" class="admin-quick-link" title="Masuk ke Panel Pengelola">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Panel Admin
+      </a>
+    </div>
+  </div>
+
+  <div class="wrap nav-wrap">
+    <a href="/" class="brand-link" aria-label="BAZNAS Fun Walk 2026 Beranda">
+      <img src="/assets/logo-baznas.webp" alt="BAZNAS Kabupaten Bandung" class="brand-logo" width="160" height="42">
+      <div class="brand-text">
+        <span class="brand-title">FUN WALK 2026</span>
+        <span class="brand-sub">Healthy and Charity</span>
+      </div>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navigasi Utama">
+      <a href="/" class={activePage === 'home' ? 'nav-link active' : 'nav-link'}>Beranda</a>
+      <a href="/paket" class={activePage === 'paket' ? 'nav-link active' : 'nav-link'}>Paket & Benefit</a>
+      <a href="/rute" class={activePage === 'rute' ? 'nav-link active' : 'nav-link'}>Rute 5K</a>
+      <a href="/jadwal" class={activePage === 'jadwal' ? 'nav-link active' : 'nav-link'}>Jadwal</a>
+      <a href="/cek-tiket" class={activePage === 'cek-tiket' ? 'nav-link active' : 'nav-link'}>Cek Tiket</a>
+      <a href="/faq" class={activePage === 'faq' ? 'nav-link active' : 'nav-link'}>FAQ</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="/daftar" class="btn btn-sun btn-sm">Daftar Sekarang</a>
+      <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Buka Menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-nav-links">
+      <a href="/" class={activePage === 'home' ? 'mobile-link active' : 'mobile-link'}>Beranda</a>
+      <a href="/paket" class={activePage === 'paket' ? 'mobile-link active' : 'mobile-link'}>Paket & Benefit</a>
+      <a href="/rute" class={activePage === 'rute' ? 'mobile-link active' : 'mobile-link'}>Rute 5K Soreang</a>
+      <a href="/jadwal" class={activePage === 'jadwal' ? 'mobile-link active' : 'mobile-link'}>Jadwal Rundown</a>
+      <a href="/cek-tiket" class={activePage === 'cek-tiket' ? 'mobile-link active' : 'mobile-link'}>Cek Tiket & E-Ticket</a>
+      <a href="/faq" class={activePage === 'faq' ? 'mobile-link active' : 'mobile-link'}>FAQ & Bantuan</a>
+      <a href="/admin" class="mobile-link admin">Panel Admin Panitia</a>
+    </div>
+    <div class="mobile-cta">
+      <a href="/daftar" class="btn btn-sun" style="width:100%">Daftar Sekarang</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .top-announcement {
+    background: var(--ink-deep);
+    color: #BED4BD;
+    font-size: 0.8rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .top-banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-quick-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--lime);
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 99px;
+    background: rgba(165, 208, 68, 0.1);
+    transition: all 0.2s;
+  }
+
+  .admin-quick-link:hover {
+    background: var(--lime);
+    color: var(--ink-deep);
+  }
+
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    background: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #FFFFFF;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-sub {
+    font-size: 0.76rem;
+    color: var(--lime);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .nav-link {
+    color: #D1E4CB;
+    font-size: 0.94rem;
+    font-weight: 600;
+    padding: 6px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #FFFFFF;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--lime);
+    border-radius: 2px;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .mobile-toggle .bar {
+    width: 22px;
+    height: 2px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .mobile-drawer {
+    display: none;
+    background: var(--ink);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 24px 24px;
+  }
+
+  .mobile-drawer.open {
+    display: block;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .mobile-link {
+    color: #CFE0C9;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+
+  .mobile-link:hover, .mobile-link.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+  }
+
+  .mobile-link.admin {
+    color: var(--lime);
+    background: rgba(165, 208, 68, 0.1);
+  }
+
+  @media (max-width: 992px) {
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-toggle {
+      display: flex;
+    }
+    .top-announcement {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggleBtn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  if (toggleBtn && drawer) {
+    toggleBtn.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+      const isExpanded = drawer.classList.contains('open');
+      toggleBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+  }
+</script>
