@@ -165,7 +165,7 @@ Menggantikan tabel "Hari 1–7" generik di v2.0 dengan tanggal kalender sesunggu
 > **Minggu, 11 Oktober 2026**
 >
 > **[ DAFTAR SEKARANG ]**
-> 🎉 Early Bird Rp 50.000 — berakhir 30 September
+> [Promo] Early Bird Rp 50.000 — berakhir 30 September
 
 **Timeline publik**
 > - **Sekarang – 30 September:** Pendaftaran Early Bird, Rp 50.000
@@ -183,18 +183,18 @@ Pertanyaan soal tanggal event dan struktur harga di v2.0 **sudah terjawab dan di
 
 | Prioritas | Pertanyaan | Menahan apa | Batas |
 |---|---|---|---|
-| 🔴 Hari ini | Konfirmasi pemesanan jersey ke vendor sudah jalan? | RPC 8 Oktober | 16 Sep |
-| 🔴 Hari ini | PIC & dokumen pengajuan Midtrans | Pembayaran online | 16 Sep |
-| 🟠 1–2 hari | Domain/subdomain final | Email, Midtrans, materi cetak | 17–18 Sep |
-| 🟠 1–2 hari | Size chart jersey (cm) | Form pendaftaran | 17–18 Sep |
-| 🟠 1–2 hari | Rekening penampung atas nama lembaga | Jalur transfer manual | 17–18 Sep |
-| 🟠 1–2 hari | Jam mulai pasti (06.00 WIB?) | Copywriting hero & jadwal | 18 Sep |
-| 🟡 3–5 hari | Tanggal pasti tutup pendaftaran (rekomendasi 5 Okt) | S&K, rekap produksi | 21 Sep |
-| 🟡 3–5 hari | Status izin Polres/Dishub untuk rute | Boleh/tidaknya publikasi luas | 21 Sep |
-| 🟡 3–5 hari | Lokasi & jadwal pasti RPC (rekomendasi 8–10 Okt) | E-ticket, notifikasi WA | 23 Sep |
-| 🟡 3–5 hari | Isi race pack final — ada BIB? ada medali? | Copywriting benefit | 21 Sep |
-| 🟢 Sebelum live | PIC teknis pasca-event | Serah terima & pemeliharaan | 22 Sep |
-| 🟢 Fase 2 | Angka alokasi dana resmi dari pimpinan | Halaman transparansi | Pasca-event |
+| [Tinggi] Hari ini | Konfirmasi pemesanan jersey ke vendor sudah jalan? | RPC 8 Oktober | 16 Sep |
+| [Tinggi] Hari ini | PIC & dokumen pengajuan Midtrans | Pembayaran online | 16 Sep |
+| [Sedang] 1–2 hari | Domain/subdomain final | Email, Midtrans, materi cetak | 17–18 Sep |
+| [Sedang] 1–2 hari | Size chart jersey (cm) | Form pendaftaran | 17–18 Sep |
+| [Sedang] 1–2 hari | Rekening penampung atas nama lembaga | Jalur transfer manual | 17–18 Sep |
+| [Sedang] 1–2 hari | Jam mulai pasti (06.00 WIB?) | Copywriting hero & jadwal | 18 Sep |
+| [Standar] 3–5 hari | Tanggal pasti tutup pendaftaran (rekomendasi 5 Okt) | S&K, rekap produksi | 21 Sep |
+| [Standar] 3–5 hari | Status izin Polres/Dishub untuk rute | Boleh/tidaknya publikasi luas | 21 Sep |
+| [Standar] 3–5 hari | Lokasi & jadwal pasti RPC (rekomendasi 8–10 Okt) | E-ticket, notifikasi WA | 23 Sep |
+| [Standar] 3–5 hari | Isi race pack final — ada BIB? ada medali? | Copywriting benefit | 21 Sep |
+| [Rendah] Sebelum live | PIC teknis pasca-event | Serah terima & pemeliharaan | 22 Sep |
+| [Rendah] Fase 2 | Angka alokasi dana resmi dari pimpinan | Halaman transparansi | Pasca-event |
 
 ---
 
