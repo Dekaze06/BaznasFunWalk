@@ -94,16 +94,21 @@ p {
 
 .sec--dark {
   background: var(--ink);
-  color: #E6EFE4;
-}
-
-.sec--dark h1, .sec--dark h2, .sec--dark h3 {
-  color: #FFFFFF;
+  color: #F0F7EE;
 }
 
 .sec--deep {
   background: var(--ink-deep);
-  color: #E2ECE0;
+  color: #F0F7EE;
+}
+
+.sec--dark h1, .sec--dark h2, .sec--dark h3, .sec--dark h4,
+.sec--deep h1, .sec--deep h2, .sec--deep h3, .sec--deep h4 {
+  color: #FFFFFF !important;
+}
+
+.sec--dark p, .sec--deep p {
+  color: #E2EDE0;
 }
 
 .sec--tint {
@@ -116,8 +121,8 @@ p {
   color: var(--grey);
 }
 
-.sec--dark .lede {
-  color: #BED4BD;
+.sec--dark .lede, .sec--deep .lede {
+  color: #D6E8D5;
 }
 
 .kicker {
@@ -133,8 +138,8 @@ p {
   margin-bottom: 0.5rem;
 }
 
-.sec--dark .kicker {
-  color: var(--lime);
+.sec--dark .kicker, .sec--deep .kicker {
+  color: var(--lime) !important;
 }
 
 .pill {
