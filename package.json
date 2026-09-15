@@ -1,0 +1,14 @@
+{
+  "name": "baznas-fun-walk-2026",
+  "type": "module",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.4.2"
+  }
+}
