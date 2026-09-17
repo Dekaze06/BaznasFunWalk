@@ -91,7 +91,7 @@ export async function POST({ request }) {
     };
 
     // Filter payment method jika ada pilihan spesifik dari user
-    if (preferredPayment === 'bsi_va') {
+    if (preferredPayment === 'muamalat_va' || preferredPayment === 'bsi_va') {
       parameter.enabled_payments = ['bca_va', 'bni_va', 'bri_va', 'permata_va', 'other_va', 'gopay', 'shopeepay', 'qris'];
     }
 

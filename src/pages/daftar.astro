@@ -73,7 +73,6 @@ const snapJsUrl = isProduction
                   <small style="color:var(--leaf); font-weight:700">100% Disalurkan untuk ZIS</small>
                 </div>
                 <ul class="opt-perks">
-                  <li>✓ Tercatat resmi di BAZNAS Kab. Bandung</li>
                   <li style="color:var(--grey); opacity:0.7">✕ Tanpa kupon doorprize umroh</li>
                   <li style="color:var(--grey); opacity:0.7">✕ Tanpa jersey & race pack</li>
                 </ul>
@@ -90,8 +89,9 @@ const snapJsUrl = isProduction
                   <span class="pill pill--sun">Early Bird</span>
                 </div>
                 <div class="opt-price">
+                  <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 120.000</del>
                   <b>Rp 80.000</b>
-                  <small>Normal Rp 120.000</small>
+                  <small style="color:var(--leaf); font-weight:700">Early Bird (Termasuk Donasi Rp 20.000)</small>
                 </div>
                 <ul class="opt-perks">
                   <li>✓ Jersey Drifit, Tote Bag & Wristband</li>
@@ -140,12 +140,15 @@ const snapJsUrl = isProduction
                 <button type="button" class="don-chip" data-val="20000">+ Rp 20.000</button>
                 <button type="button" class="don-chip" data-val="50000">+ Rp 50.000</button>
                 <button type="button" class="don-chip" data-val="100000">+ Rp 100.000</button>
-                <button type="button" class="don-chip" id="btnCustomDonasi" data-val="custom">Input Sendiri</button>
+                <button type="button" class="don-chip" id="btnCustomDonasi" data-val="custom">Nominal Lainnya (Infaq Sukarela)</button>
               </div>
               <div id="customDonasiWrap" style="display:none; margin-top:14px">
+                <label for="customDonasiInput" style="display:block; font-size:0.85rem; color:var(--moss); font-weight:600; margin-bottom:6px">
+                  Silakan tentukan nominal infaq / donasi sukarela secara manual:
+                </label>
                 <div class="custom-don-input-box">
                   <span class="curr-prefix">Rp</span>
-                  <input type="number" id="customDonasiInput" placeholder="Masukkan nominal tambahan (contoh: 25000)" min="1000" step="5000" />
+                  <input type="number" id="customDonasiInput" placeholder="Masukkan nominal infaq (contoh: 25000)" min="1000" step="5000" />
                 </div>
               </div>
             </div>
@@ -224,34 +227,17 @@ const snapJsUrl = isProduction
             </div>
 
             <div id="regularJerseySection">
-              <h3 class="step-title">Pilih Ukuran Jersey Resmi</h3>
-              <p class="hint" style="margin-bottom:20px">Jersey Microfiber Drifit unisex standar lari. Tersedia ukuran Anak dan Dewasa.</p>
-
-              <!-- Ukuran Anak -->
-              <div style="margin-bottom:20px">
-                <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                  <span>Ukuran Anak</span>
-                  <small style="color:var(--grey); font-weight:normal">(Usia 4 – 12 Tahun)</small>
-                </h4>
-                <div class="jersey-picker-grid">
-                  {JERSEY_SIZES.filter(j => j.category === 'Anak').map(item => (
-                    <label class="jersey-choice-card" id={`cardSize_${item.size.replace(/\s+/g, '_')}`}>
-                      <input type="radio" name="ukuranJersey" value={item.size} class="sr-only">
-                      <div class="size-circle" style="background:#EBF5FF; color:#1E40AF">{item.size}</div>
-                      <div class="size-specs">
-                        <b>{item.desc}</b>
-                        <span>{item.chest}</span>
-                        <span>{item.length}</span>
-                      </div>
-                      <div class="stock-status-pill">Tersedia</div>
-                    </label>
-                  ))}
-                </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <h3 class="step-title" style="margin:0;">Pilih Ukuran Jersey Resmi</h3>
+                <button type="button" class="btn btn-ghost-dark btn-sm" id="btnOpenSizeChart" style="display:inline-flex; align-items:center; gap:6px; font-weight:600; border-color:var(--moss); color:var(--moss);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+                  <span>Panduan Ukuran (Size Chart)</span>
+                </button>
               </div>
+              <p class="hint" style="margin-bottom:20px">Jersey Microfiber Drifit unisex standar lari (Peserta Utama: Khusus Ukuran Dewasa).</p>
 
-              <!-- Ukuran Dewasa -->
+              <!-- Ukuran Dewasa (Peserta Utama) -->
               <div style="margin-bottom:20px">
-                <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:10px;">Ukuran Dewasa (Unisex)</h4>
                 <div class="jersey-picker-grid">
                   {JERSEY_SIZES.filter(j => j.category === 'Dewasa').map(item => (
                     <label class="jersey-choice-card" id={`cardSize_${item.size}`}>
@@ -259,8 +245,6 @@ const snapJsUrl = isProduction
                       <div class="size-circle">{item.size}</div>
                       <div class="size-specs">
                         <b>{item.desc}</b>
-                        <span>{item.chest}</span>
-                        <span>{item.length}</span>
                       </div>
                       <div class="stock-status-pill">Tersedia</div>
                     </label>
@@ -271,16 +255,35 @@ const snapJsUrl = isProduction
               <!-- Extra Jersey Picker for Family Pack (Peserta 2) -->
               <div id="familySecondJerseyBox" style="display:none; margin-top:28px; padding-top:24px; border-top:2px dashed var(--line);">
                 <h3 class="step-title">Pilih Ukuran Jersey Peserta Ke-2 (Family Pack)</h3>
-                <p class="hint" style="margin-bottom:16px">Pilih ukuran jersey untuk anggota keluarga / rekan Anda (bebas pilih Dewasa atau Anak):</p>
-                <div class="jersey-picker-grid">
-                  {JERSEY_SIZES.map(item => (
-                    <label class="jersey-choice-card jersey-choice-card--sec" id={`cardSecSize_${item.size.replace(/\s+/g, '_')}`}>
+                <p class="hint" style="margin-bottom:16px">Pilih ukuran jersey untuk anggota keluarga / rekan Anda (Tersedia Dewasa atau Anak):</p>
+                
+                <!-- Opsi Dewasa Peserta Ke-2 -->
+                <h4 style="font-size:0.95rem; color:var(--moss); margin:0 0 10px;">Ukuran Dewasa</h4>
+                <div class="jersey-picker-grid" style="margin-bottom:20px">
+                  {JERSEY_SIZES.filter(j => j.category === 'Dewasa').map(item => (
+                    <label class="jersey-choice-card jersey-choice-card--sec" id={`cardSecSize_${item.size}`}>
                       <input type="radio" name="ukuranJerseySec" value={item.size} class="sr-only">
-                      <div class="size-circle" style={item.category === 'Anak' ? 'background:#EBF5FF; color:#1E40AF' : ''}>{item.size}</div>
+                      <div class="size-circle">{item.size}</div>
                       <div class="size-specs">
                         <b>{item.desc}</b>
-                        <span>{item.chest}</span>
-                        <span>{item.length}</span>
+                      </div>
+                      <div class="stock-status-pill">Tersedia</div>
+                    </label>
+                  ))}
+                </div>
+
+                <!-- Opsi Anak Peserta Ke-2 (Khusus Family Pack) -->
+                <h4 style="font-size:0.95rem; color:var(--moss); margin:0 0 10px; display:flex; align-items:center; gap:6px;">
+                  <span>Ukuran Anak</span>
+                  <small style="color:var(--grey); font-weight:normal">(Usia 4 – 12 Tahun)</small>
+                </h4>
+                <div class="jersey-picker-grid">
+                  {JERSEY_SIZES.filter(j => j.category === 'Anak').map(item => (
+                    <label class="jersey-choice-card jersey-choice-card--sec" id={`cardSecSize_${item.size.replace(/\s+/g, '_')}`}>
+                      <input type="radio" name="ukuranJerseySec" value={item.size} class="sr-only">
+                      <div class="size-circle" style="background:#EBF5FF; color:#1E40AF">{item.size}</div>
+                      <div class="size-specs">
+                        <b>{item.desc}</b>
                       </div>
                       <div class="stock-status-pill">Tersedia</div>
                     </label>
@@ -353,13 +356,13 @@ const snapJsUrl = isProduction
                   <div class="pay-title">QRIS Instan</div>
                   <span class="pill pill--dark" style="background:var(--leaf);color:#fff;font-size:0.75rem;padding:2px 8px">Rekomendasi</span>
                 </div>
-                <div class="pay-desc">Semua bank & e-wallet: BSI Mobile, BCA, Mandiri, BRI, GoPay, ShopeePay, OVO, DANA</div>
+                <div class="pay-desc">Semua bank & e-wallet: Muamalat DIN, BCA, Mandiri, BRI, GoPay, ShopeePay, OVO, DANA</div>
               </label>
 
               <label class="pay-method-card">
-                <input type="radio" name="metodeBayar" value="BSI Virtual Account" class="sr-only">
-                <div class="pay-title">BSI Virtual Account</div>
-                <div class="pay-desc">Bank Syariah Indonesia & ATM Bersama dengan nomor VA unik instan</div>
+                <input type="radio" name="metodeBayar" value="Bank Muamalat Virtual Account" class="sr-only">
+                <div class="pay-title">Bank Muamalat Virtual Account</div>
+                <div class="pay-desc">Bank Muamalat & Jaringan ATM Bersama / Prima dengan nomor VA unik instan</div>
               </label>
             </div>
 
@@ -444,8 +447,74 @@ const snapJsUrl = isProduction
       </div>
 
       <div class="modal-actions" style="margin-top:24px">
-        <a href="/cek-tiket" class="btn btn-leaf btn-lg" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
-        <button type="button" class="btn btn-ghost-dark" onclick="window.print()">Cetak / Simpan Bukti PDF</button>
+        <button type="button" class="btn btn-leaf btn-lg" onclick="downloadTicketImageFromModal()" style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Unduh E-Ticket (PNG)</span>
+        </button>
+        <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Panduan Ukuran (Size Chart) -->
+  <div class="modal-backdrop" id="sizeChartModal" style="display:none">
+    <div class="modal-card" style="max-width:620px; text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:18px;">
+        <h3 style="margin:0; color:var(--ink); font-size:1.2rem; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.4rem;">📏</span> Panduan Ukuran Jersey (Size Chart)
+        </h3>
+        <button type="button" id="btnCloseSizeChart" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--grey); line-height:1;">&times;</button>
+      </div>
+      <p style="font-size:0.88rem; color:var(--grey-d); margin-bottom:16px;">
+        Jersey BAZNAS Fun Walk 2026 menggunakan bahan Microfiber Drifit Premium yang elastis, lembut, dan cepat menyerap keringat.
+      </p>
+      
+      <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:8px;">Tabel Ukuran Dewasa (Unisex)</h4>
+      <div style="overflow-x:auto; margin-bottom:18px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:center;">
+          <thead>
+            <tr style="background:var(--paper-2); color:var(--ink); border-bottom:2px solid var(--line);">
+              <th style="padding:8px 12px; text-align:left;">Ukuran</th>
+              <th style="padding:8px 12px;">Lebar Dada</th>
+              <th style="padding:8px 12px;">Panjang Badan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">S</td><td>48 cm (LD 96 cm)</td><td>66 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">M</td><td>50 cm (LD 100 cm)</td><td>68 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">L</td><td>52 cm (LD 104 cm)</td><td>70 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XL</td><td>54 cm (LD 108 cm)</td><td>72 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XXL</td><td>57 cm (LD 114 cm)</td><td>74 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XXXL</td><td>60 cm (LD 120 cm)</td><td>76 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:8px;">Tabel Ukuran Anak (Khusus Family Pack)</h4>
+      <div style="overflow-x:auto; margin-bottom:18px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:center;">
+          <thead>
+            <tr style="background:var(--paper-2); color:var(--ink); border-bottom:2px solid var(--line);">
+              <th style="padding:8px 12px; text-align:left;">Ukuran</th>
+              <th style="padding:8px 12px;">Estimasi Usia</th>
+              <th style="padding:8px 12px;">Lebar Dada</th>
+              <th style="padding:8px 12px;">Panjang Badan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak S</td><td>4 – 6 Tahun</td><td>36 cm (LD 72 cm)</td><td>48 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak M</td><td>7 – 9 Tahun</td><td>40 cm (LD 80 cm)</td><td>54 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak L</td><td>10 – 12 Tahun</td><td>44 cm (LD 88 cm)</td><td>60 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#FEFCE8; border:1px solid #FEF08A; border-radius:8px; padding:12px; font-size:0.82rem; color:#854D0E; margin-bottom:18px;">
+        💡 <b>Tips Memilih:</b> Toleransi jahit ±1-2 cm. Apabila menyukai ukuran longgar atau berhijab, disarankan memilih 1 tingkat lebih besar (up-size).
+      </div>
+
+      <div style="text-align:right;">
+        <button type="button" class="btn btn-leaf btn-sm" id="btnCloseSizeChartBtn">Tutup Panduan</button>
       </div>
     </div>
   </div>
@@ -988,6 +1057,7 @@ const snapJsUrl = isProduction
   let selectedSize2 = 'M';
   let selectedPayment = 'QRIS Instan';
   let additionalDonasi = 0;
+  let currentParticipantData = null;
 
   // Option Cards
   const optDonasi = document.getElementById('optDonasi');
@@ -997,15 +1067,6 @@ const snapJsUrl = isProduction
   if (optDonasi) optDonasi.addEventListener('click', () => selectPackage('donasi'));
   if (optReguler) optReguler.addEventListener('click', () => selectPackage('reguler'));
   if (optFamily) optFamily.addEventListener('click', () => selectPackage('family'));
-
-  // Check URL param for pre-selected package
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramPaket = urlParams.get('paket');
-  if (paramPaket && ['donasi', 'reguler', 'family'].includes(paramPaket)) {
-    selectPackage(paramPaket);
-  } else {
-    selectPackage('reguler');
-  }
 
   function selectPackage(pkg) {
     selectedPaket = pkg;
@@ -1038,7 +1099,7 @@ const snapJsUrl = isProduction
 
   // Additional Donation Chips
   const donChips = document.querySelectorAll('.don-chip');
-  const customDonBox = document.getElementById('customDonasiBox');
+  const customDonBox = document.getElementById('customDonasiWrap') || document.getElementById('customDonasiBox');
   const customDonInput = document.getElementById('customDonasiInput');
 
   donChips.forEach(chip => {
@@ -1065,6 +1126,48 @@ const snapJsUrl = isProduction
       const val = parseInt(e.target.value || 0, 10);
       additionalDonasi = isNaN(val) || val < 0 ? 0 : val;
     });
+  }
+
+  // Check URL params for pre-selected package, donation, and step
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramPaket = urlParams.get('paket');
+  if (paramPaket && ['donasi', 'reguler', 'family'].includes(paramPaket)) {
+    selectPackage(paramPaket);
+  } else {
+    selectPackage('reguler');
+  }
+
+  const paramDonasi = urlParams.get('donasi');
+  if (paramDonasi) {
+    const dVal = parseInt(paramDonasi, 10);
+    if (!isNaN(dVal) && dVal > 0) {
+      additionalDonasi = dVal;
+      let matched = false;
+      donChips.forEach(c => {
+        if (c.getAttribute('data-val') === String(dVal)) {
+          donChips.forEach(ch => ch.classList.remove('active'));
+          c.classList.add('active');
+          matched = true;
+        }
+      });
+      if (!matched) {
+        donChips.forEach(ch => ch.classList.remove('active'));
+        const customChip = document.getElementById('btnCustomDonasi');
+        if (customChip) customChip.classList.add('active');
+        if (customDonBox) customDonBox.style.display = 'block';
+        if (customDonInput) customDonInput.value = dVal;
+      }
+    }
+  }
+
+  const paramStep = urlParams.get('step');
+  if (paramStep === '2') {
+    // Auto advance directly to step 2 (Data Diri)
+    setTimeout(() => {
+      if (typeof window.nextStep === 'function') {
+        window.nextStep(2);
+      }
+    }, 50);
   }
 
   // Primary Jersey Card selection
@@ -1265,11 +1368,14 @@ const snapJsUrl = isProduction
 
   // Helper to show modal
   function showTicketModal(participantData) {
+    currentParticipantData = participantData;
     document.getElementById('modalRegId').textContent = participantData.id;
     document.getElementById('modalNama').textContent = participantData.nama;
     document.getElementById('modalPaket').textContent = participantData.paketNama;
     document.getElementById('modalSize').textContent = participantData.ukuranJersey !== '-' 
-      ? `Ukuran ${participantData.ukuranJersey}` 
+      ? (participantData.ukuranJersey2 && participantData.ukuranJersey2 !== '-' 
+          ? `Peserta 1: ${participantData.ukuranJersey} | Peserta 2: ${participantData.ukuranJersey2}` 
+          : `Ukuran ${participantData.ukuranJersey}`)
       : 'Tanpa Jersey';
     document.getElementById('modalMetode').textContent = participantData.metodeBayar;
 
@@ -1286,6 +1392,213 @@ const snapJsUrl = isProduction
 
     document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${participantData.id}`;
     document.getElementById('successModal').style.display = 'flex';
+  }
+
+  // Unduh E-Ticket Digital High-Res PNG via HTML5 Canvas
+  window.downloadTicketImageFromModal = function() {
+    const p = currentParticipantData;
+    const regId = p?.id || document.getElementById('modalRegId')?.textContent || 'BFW26-0000';
+    const nama = p?.nama || document.getElementById('modalNama')?.textContent || '-';
+    const paket = p?.paketNama || document.getElementById('modalPaket')?.textContent || '-';
+    const jersey = p?.ukuranJersey && p.ukuranJersey !== '-' 
+      ? (p.ukuranJersey2 && p.ukuranJersey2 !== '-' ? `${p.ukuranJersey} & ${p.ukuranJersey2}` : p.ukuranJersey)
+      : (document.getElementById('modalSize')?.textContent || 'Tanpa Jersey');
+    const wa = p?.whatsapp || '-';
+    const isPaid = p?.status === 'PAID';
+    const status = isPaid ? 'LUNAS / VERIFIED' : 'MENUNGGU PEMBAYARAN';
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = 1000;
+    const height = 620;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Background Canvas
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, width, height);
+
+    // Header Background (Dark Green / Forest)
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(0, 0, width, 110);
+
+    // Header Accent Line (Gold)
+    ctx.fillStyle = '#C59A27';
+    ctx.fillRect(0, 105, width, 5);
+
+    // Header Text
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px system-ui, -apple-system, sans-serif';
+    ctx.fillText('BAZNAS FUN WALK 2026', 40, 52);
+
+    ctx.fillStyle = '#A3E635';
+    ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Healthy & Charity  •  Sabtu, 21 November 2026  •  Gedung Baznas Centre Soreang', 40, 84);
+
+    // Status Badge Top Right
+    ctx.fillStyle = isPaid ? '#166534' : '#9A3412';
+    ctx.beginPath();
+    ctx.roundRect(width - 240, 36, 200, 38, [8]);
+    ctx.fill();
+    ctx.fillStyle = isPaid ? '#DCFCE7' : '#FFEDD5';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(isPaid ? '✓ ' + status : status, width - 140, 61);
+    ctx.textAlign = 'left';
+
+    // Left Box: QR & ID Container
+    ctx.fillStyle = '#F8FAFC';
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(40, 140, 240, 310, [12]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw Simulated Clean Barcode / QR Box
+    ctx.fillStyle = '#062E16';
+    // Top-left finder
+    ctx.fillRect(75, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 180, 15, 15);
+
+    // Top-right finder
+    ctx.fillRect(195, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(203, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(210, 180, 15, 15);
+
+    // Bottom-left finder
+    ctx.fillRect(75, 275, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 283, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 290, 15, 15);
+
+    // Center data points
+    ctx.fillRect(145, 175, 25, 25);
+    ctx.fillRect(145, 220, 25, 30);
+    ctx.fillRect(195, 235, 20, 15);
+    ctx.fillRect(180, 275, 35, 20);
+    ctx.fillRect(145, 275, 20, 45);
+    ctx.fillRect(220, 295, 20, 25);
+
+    // Reg ID Text Badge
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(regId, 160, 375);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Tunjukkan barcode ini di meja RPC', 160, 405);
+    ctx.textAlign = 'left';
+
+    // Right Column: Participant Details
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NAMA LENGKAP PESERTA:', 320, 165);
+
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+    ctx.fillText(nama, 320, 198);
+
+    // Detail Grid
+    // Col 1: Kategori Paket & Jersey
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('KATEGORI PAKET:', 320, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(paket, 320, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('UKURAN JERSEY:', 320, 315);
+    ctx.fillStyle = '#065F46';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(jersey, 320, 340);
+
+    // Col 2: WhatsApp & Status RPC
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NOMOR WHATSAPP:', 620, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(wa, 620, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('PENGAMBILAN RACE PACK:', 620, 315);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.fillText('19–20 Nov 2026 @ Gedung Baznas Centre', 620, 340);
+
+    // Jazakumullah Khairan Katsiran Card on Canvas
+    ctx.fillStyle = '#F0FDF4';
+    ctx.strokeStyle = '#86EFAC';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(320, 380, 640, 70, [8]);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#166534';
+    ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Jazakumullah Khairan Katsiran', 336, 405);
+    ctx.fillStyle = '#15803D';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Terima kasih atas partisipasi dan kepedulian Anda dalam BAZNAS Fun Walk 2026.', 336, 426);
+    ctx.fillText('Setiap langkah dan donasi Anda memberdayakan para mustahik di Kabupaten Bandung.', 336, 442);
+
+    // Footer Info Strip
+    ctx.fillStyle = '#F1F5F9';
+    ctx.fillRect(0, 520, width, 100);
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.beginPath();
+    ctx.moveTo(0, 520);
+    ctx.lineTo(width, 520);
+    ctx.stroke();
+
+    ctx.fillStyle = '#334155';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
+    ctx.fillText('Lokasi Acara: Gedung Baznas Centre (samping Yogya Soreang), Jl. Raya Soreang, Kab. Bandung', 40, 580);
+
+    // Trigger Download PNG
+    const safeName = String(nama).replace(/[^a-zA-Z0-9]/g, '_');
+    const fileName = `E-Ticket_${regId}_${safeName}.png`;
+    const imageUri = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = imageUri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Event handler untuk modal size chart
+  const btnOpenSize = document.getElementById('btnOpenSizeChart');
+  const modalSize = document.getElementById('sizeChartModal');
+  const btnCloseSize = document.getElementById('btnCloseSizeChart');
+  const btnCloseSizeBtn = document.getElementById('btnCloseSizeChartBtn');
+  if (btnOpenSize && modalSize) {
+    btnOpenSize.addEventListener('click', () => modalSize.style.display = 'flex');
+  }
+  if (btnCloseSize && modalSize) {
+    btnCloseSize.addEventListener('click', () => modalSize.style.display = 'none');
+  }
+  if (btnCloseSizeBtn && modalSize) {
+    btnCloseSizeBtn.addEventListener('click', () => modalSize.style.display = 'none');
+  }
+  if (modalSize) {
+    modalSize.addEventListener('click', (e) => {
+      if (e.target === modalSize) modalSize.style.display = 'none';
+    });
   }
 
   function resetSubmitBtn() {
@@ -1378,7 +1691,7 @@ const snapJsUrl = isProduction
           },
           body: JSON.stringify({
             ...participantData,
-            preferredPayment: selectedPayment.includes('BSI') ? 'bsi_va' : 'all'
+            preferredPayment: selectedPayment.includes('Muamalat') ? 'muamalat_va' : 'all'
           })
         });
 

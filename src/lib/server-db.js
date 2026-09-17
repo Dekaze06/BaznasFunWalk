@@ -227,6 +227,7 @@ export function getAllParticipants(filters = {}) {
     const q = String(filters.search).toLowerCase().trim();
     list = list.filter(p =>
       (p.nama && p.nama.toLowerCase().includes(q)) ||
+      (p.namaPeserta2 && p.namaPeserta2.toLowerCase().includes(q)) ||
       (p.id && p.id.toLowerCase().includes(q)) ||
       (p.nik && p.nik.includes(q)) ||
       (p.whatsapp && p.whatsapp.includes(q)) ||
@@ -234,12 +235,16 @@ export function getAllParticipants(filters = {}) {
     );
   }
 
-  if (filters.status && filters.status !== 'SEMUA') {
+  if (filters.status && filters.status !== 'SEMUA' && filters.status !== 'ALL') {
     list = list.filter(p => p.status === filters.status);
   }
 
-  if (filters.paket && filters.paket !== 'SEMUA') {
-    list = list.filter(p => p.paket === filters.paket);
+  if (filters.paket && filters.paket !== 'SEMUA' && filters.paket !== 'ALL') {
+    list = list.filter(p => 
+      p.paket === filters.paket ||
+      (filters.paket === 'donasi' && p.paket === 'charity') ||
+      (filters.paket === 'charity' && p.paket === 'donasi')
+    );
   }
 
   if (filters.racepackClaimed !== undefined) {
