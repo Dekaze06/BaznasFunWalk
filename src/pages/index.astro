@@ -329,7 +329,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <li style="color:var(--grey); opacity:0.7">✕ Tidak perlu ambil racepack</li>
                     </ul>
 
-                    <button type="button" class="btn btn-ghost-dark home-pkg-btn" data-pkg="donasi" style="width:100%">Pilih Donasi Only</button>
+                    <a href="/daftar?paket=donasi&step=2" class="btn btn-ghost-dark" style="width:100%; text-align:center;">Pilih Donasi Only</a>
                   </div>
 
                   <!-- Paket Reguler -->
@@ -355,7 +355,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <li><b>Termasuk Donasi ZIS Rp 20.000</b></li>
                     </ul>
 
-                    <button type="button" class="btn btn-sun home-pkg-btn" data-pkg="reguler" style="width:100%">Pilih Regular Pack</button>
+                    <a href="/daftar?paket=reguler&step=2" class="btn btn-sun" style="width:100%; text-align:center;">Pilih Regular Pack</a>
                   </div>
 
                   <!-- Family Pack -->
@@ -379,47 +379,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <li><b>Termasuk Donasi ZIS Rp 20.000</b></li>
                     </ul>
 
-                    <button type="button" class="btn btn-leaf home-pkg-btn" data-pkg="family" style="width:100%">Pilih Family Pack</button>
-                  </div>
-                </div>
-
-                <!-- Interactive Additional Donation Section (Muncul setelah memilih paket di beranda) -->
-                <div id="homeAdditionalDonation" class="card-clean" style="display:none; margin-top:28px; border:2px solid var(--leaf); background:#F8FCF8; border-radius:var(--r-md); padding:24px; animation:fadeIn 0.3s ease">
-                  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
-                    <div>
-                      <span class="ac-step-badge" id="homeBadgePkg" style="background:var(--leaf); color:#fff">Paket Terpilih: Regular Pack 5K</span>
-                      <h3 style="margin:8px 0 4px; color:var(--ink); font-size:1.2rem;">Tambah Infaq / Donasi Sukarela (Opsional)</h3>
-                      <p style="margin:0; font-size:0.88rem; color:var(--grey);">Berapapun donasi tambahan Anda, seluruhnya disalurkan untuk beasiswa dhuafa & lansia prasejahtera di Kabupaten Bandung.</p>
-                    </div>
-                    <div style="text-align:right;">
-                      <span style="font-size:0.8rem; color:var(--grey); display:block;">Total Biaya & Infaq:</span>
-                      <b id="homeSummaryTotal" style="font-size:1.5rem; color:var(--leaf);">Rp 80.000</b>
-                    </div>
-                  </div>
-
-                  <div class="donation-chips-grid" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
-                    <button type="button" class="don-chip home-don-chip active" data-val="0">Rp 0</button>
-                    <button type="button" class="don-chip home-don-chip" data-val="10000">+ Rp 10.000</button>
-                    <button type="button" class="don-chip home-don-chip" data-val="20000">+ Rp 20.000</button>
-                    <button type="button" class="don-chip home-don-chip" data-val="50000">+ Rp 50.000</button>
-                    <button type="button" class="don-chip home-don-chip" data-val="100000">+ Rp 100.000</button>
-                    <button type="button" class="don-chip home-don-chip" id="btnHomeCustomDonasi" data-val="custom">Nominal Lainnya (Infaq Sukarela)</button>
-                  </div>
-
-                  <div id="homeCustomDonasiWrap" style="display:none; margin-bottom:16px;">
-                    <label for="homeCustomDonasiInput" style="display:block; font-size:0.85rem; color:var(--moss); font-weight:600; margin-bottom:6px">
-                      Silakan tentukan nominal infaq / donasi sukarela secara manual:
-                    </label>
-                    <div class="custom-don-input-box" style="display:flex; align-items:center; background:#fff; border:1.5px solid var(--leaf); border-radius:8px; padding:0 12px; max-width:340px;">
-                      <span style="font-weight:700; color:var(--moss); margin-right:6px">Rp</span>
-                      <input type="number" id="homeCustomDonasiInput" placeholder="Masukkan nominal (contoh: 25000)" min="1000" step="5000" style="border:none; outline:none; width:100%; height:40px; font-weight:700; font-size:1rem;" />
-                    </div>
-                  </div>
-
-                  <div style="display:flex; justify-content:flex-end; align-items:center; gap:12px; margin-top:20px; border-top:1px solid #E2E8F0; padding-top:16px;">
-                    <button type="button" id="btnHomeGoToDataDiri" class="btn btn-leaf btn-lg" style="box-shadow:var(--shadow-md);">
-                      <span>Lanjut ke Pengisian Data Diri →</span>
-                    </button>
+                    <a href="/daftar?paket=family&step=2" class="btn btn-leaf" style="width:100%; text-align:center;">Pilih Family Pack</a>
                   </div>
                 </div>
 
@@ -1571,94 +1531,6 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
   }
 
   loadCrowdfundingStats();
-
-  // Homepage Package Selection & Additional Donation Handler
-  let homeSelectedPkg = 'reguler';
-  let homePkgBasePrice = 80000;
-  let homePkgTitle = 'Regular Pack 5K';
-  let homeAdditionalDonasi = 0;
-
-  const pkgMeta = {
-    donasi: { title: 'Donasi Only', basePrice: 50000 },
-    reguler: { title: 'Regular Pack 5K', basePrice: 80000 },
-    family: { title: 'Family Pack (2 Orang)', basePrice: 180000 }
-  };
-
-  function updateHomeSummary() {
-    const total = homePkgBasePrice + homeAdditionalDonasi;
-    const totalEl = document.getElementById('homeSummaryTotal');
-    if (totalEl) totalEl.textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(total);
-    const badgeEl = document.getElementById('homeBadgePkg');
-    if (badgeEl) badgeEl.textContent = `Paket Terpilih: ${homePkgTitle}`;
-  }
-
-  function selectHomePackage(pkgKey) {
-    if (!pkgMeta[pkgKey]) return;
-    homeSelectedPkg = pkgKey;
-    homePkgTitle = pkgMeta[pkgKey].title;
-    homePkgBasePrice = pkgMeta[pkgKey].basePrice;
-
-    // Highlight card
-    document.querySelectorAll('.paket-card').forEach(c => c.classList.remove('active'));
-    const targetCard = document.getElementById(`cardHome_${pkgKey}`);
-    if (targetCard) targetCard.classList.add('active');
-
-    // Show additional donation drawer
-    const addonBox = document.getElementById('homeAdditionalDonation');
-    if (addonBox) {
-      addonBox.style.display = 'block';
-      addonBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    updateHomeSummary();
-  }
-
-  // Bind package buttons
-  document.querySelectorAll('.home-pkg-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const pkg = btn.getAttribute('data-pkg');
-      selectHomePackage(pkg);
-    });
-  });
-
-  // Bind donation chips
-  document.querySelectorAll('.home-don-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.home-don-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-
-      const val = chip.getAttribute('data-val');
-      const customWrap = document.getElementById('homeCustomDonasiWrap');
-      const customInput = document.getElementById('homeCustomDonasiInput');
-
-      if (val === 'custom') {
-        if (customWrap) customWrap.style.display = 'block';
-        homeAdditionalDonasi = customInput ? (parseInt(customInput.value) || 0) : 0;
-      } else {
-        if (customWrap) customWrap.style.display = 'none';
-        homeAdditionalDonasi = parseInt(val) || 0;
-      }
-      updateHomeSummary();
-    });
-  });
-
-  const customInputEl = document.getElementById('homeCustomDonasiInput');
-  if (customInputEl) {
-    customInputEl.addEventListener('input', () => {
-      homeAdditionalDonasi = Math.max(0, parseInt(customInputEl.value) || 0);
-      updateHomeSummary();
-    });
-  }
-
-  // Go to data diri button (Step 2)
-  const btnGoDataDiri = document.getElementById('btnHomeGoToDataDiri');
-  if (btnGoDataDiri) {
-    btnGoDataDiri.addEventListener('click', () => {
-      const url = `/daftar?paket=${homeSelectedPkg}&donasi=${homeAdditionalDonasi}&step=2`;
-      window.location.href = url;
-    });
-  }
 
   // Aceternity Timeline Scroll-driven Beam Animation
   function initTimelineScroll() {
