@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /daftar
+Allow: /cek-tiket
+Allow: /paket
+Allow: /rute
+Allow: /jadwal
+Allow: /faq
+
+# Jangan crawl panel admin & API backend
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://funwalk.baznaskabbandung.org/sitemap.xml

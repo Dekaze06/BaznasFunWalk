@@ -1,0 +1,13 @@
+{
+  "statusEvent": "DIBUKA",
+  "tierHarga": "EARLY_BIRD",
+  "hargaDonasiOnly": 50000,
+  "hargaRegulerEarlyBird": 80000,
+  "hargaRegulerNormal": 120000,
+  "hargaFamilyPack": 180000,
+  "donasiReguler": 20000,
+  "donasiFamily": 20000,
+  "targetPeserta": 2000,
+  "targetDonasi": 50000000,
+  "rekeningBank": "Bank Muamalat Virtual Account via Midtrans Payment Gateway (Otomatis 24 Jam)"
+}

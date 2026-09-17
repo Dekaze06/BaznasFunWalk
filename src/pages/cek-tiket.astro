@@ -58,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
               <img src="/assets/logo-baznas.png" alt="BAZNAS Kab. Bandung" class="th-logo" width="40" height="40">
               <div>
                 <div class="th-title">BAZNAS FUN WALK 2026</div>
-                <div class="th-sub">Healthy and Charity · 11 Oktober 2026 · Soreang</div>
+                <div class="th-sub">Healthy & Charity · Sabtu, 21 November 2026 · Gedung Baznas Centre Soreang</div>
               </div>
             </div>
             <div class="th-badge-box">
@@ -93,16 +93,19 @@ import Layout from '../layouts/Layout.astro';
               <div class="info-group">
                 <span class="lbl">Nama Lengkap Peserta:</span>
                 <h3 class="val-nama" id="tNama">Ahmad Fauzi Ridwan</h3>
+                <div id="tNama2Row" style="display:none; margin-top:4px; font-size:0.95rem; color:var(--moss)">
+                  <span>Peserta Ke-2: </span><b id="tNama2">-</b>
+                </div>
               </div>
 
               <div class="info-grid">
                 <div>
                   <span class="lbl">Kategori Paket:</span>
-                  <b id="tPaket">Charity Pack 5K</b>
+                  <b id="tPaket">Regular Pack 5K</b>
                 </div>
                 <div>
                   <span class="lbl">Ukuran Jersey:</span>
-                  <b class="jersey-pill" id="tJersey">L (Sedang)</b>
+                  <b class="jersey-pill" id="tJersey">L</b>
                 </div>
                 <div>
                   <span class="lbl">Nomor WhatsApp:</span>
@@ -114,9 +117,12 @@ import Layout from '../layouts/Layout.astro';
                 </div>
               </div>
 
-              <div class="ticket-address-box">
-                <span class="lbl">Alamat Domisili:</span>
-                <p id="tAlamat">Jl. Raya Soreang No. 45, Soreang, Kab. Bandung</p>
+              <!-- Thank You Card -->
+              <div class="thank-you-card" style="background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:1.5px solid #86EFAC; border-radius:var(--r-md); padding:14px 18px; margin-top:14px;">
+                <b style="color:var(--ink); font-size:0.95rem; display:block; margin-bottom:4px;">Jazakumullah Khairan Katsiran</b>
+                <p style="margin:0; font-size:0.84rem; color:#166534; line-height:1.45;">
+                  Terima kasih atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah Anda dan donasi yang dititipkan menjadi berkah nyata yang memberdayakan mustahik di Kabupaten Bandung.
+                </p>
               </div>
             </div>
           </div>
@@ -124,11 +130,12 @@ import Layout from '../layouts/Layout.astro';
           <!-- Bottom Notice -->
           <div class="ticket-footer">
             <div class="tf-notice">
-              <b>Pengambilan Race Pack (RPC):</b> 8–10 Oktober 2026 di Lobby Gedung Budaya Sabilulungan, Soreang. Bawa E-Ticket ini dan KTP asli/salinan.
+              <b>Pengambilan Race Pack (RPC):</b> 19–20 November 2026 di Gedung Baznas Centre (samping Yogya Soreang), Jl. Raya Soreang. Tunjukkan E-Ticket digital ini kepada panitia.
             </div>
             <div class="tf-actions">
-              <button type="button" class="btn btn-sun btn-sm" onclick="window.print()">
-                <span>Cetak E-Ticket</span>
+              <button type="button" class="btn btn-leaf btn-sm" id="downloadTicketBtn" onclick="downloadTicketImage()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Unduh E-Ticket</span>
               </button>
             </div>
           </div>
@@ -400,7 +407,7 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  import { getStore } from '../lib/store.js';
+  import { getStore, fetchParticipantById } from '../lib/store.js';
 
   // Check URL query parameter
   const urlParams = new URLSearchParams(window.location.search);
@@ -426,15 +433,9 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  function performSearch(kw) {
-    const participants = getStore();
-    const cleanKw = kw.toLowerCase().trim();
-
-    const found = participants.find(p => 
-      p.id.toLowerCase() === cleanKw ||
-      p.whatsapp.toLowerCase().replace(/[^0-9]/g, '') === cleanKw.replace(/[^0-9]/g, '') ||
-      p.email.toLowerCase() === cleanKw
-    );
+  async function performSearch(kw) {
+    // Cari langsung ke server backend dengan fallback ke cache lokal
+    const found = await fetchParticipantById(kw);
 
     const notFoundEl = document.getElementById('notFoundBox');
     const resultEl = document.getElementById('ticketResultBox');
@@ -449,12 +450,37 @@ import Layout from '../layouts/Layout.astro';
     if (resultEl) resultEl.style.display = 'block';
 
     // Populate data
+    // Populate data
     document.getElementById('tRegId').textContent = found.id;
     document.getElementById('tNama').textContent = found.nama;
     document.getElementById('tPaket').textContent = found.paketNama;
-    document.getElementById('tJersey').textContent = `Ukuran ${found.ukuranJersey}`;
+    
+    // Family pack member 2
+    const tNama2Row = document.getElementById('tNama2Row');
+    const tNama2 = document.getElementById('tNama2');
+    if (tNama2Row && tNama2) {
+      if (found.namaPeserta2 && found.namaPeserta2 !== '-') {
+        tNama2Row.style.display = 'block';
+        tNama2.textContent = found.namaPeserta2;
+      } else {
+        tNama2Row.style.display = 'none';
+      }
+    }
+
+    // Jersey display
+    const jerseyEl = document.getElementById('tJersey');
+    if (jerseyEl) {
+      if (found.paket === 'donasi' || found.ukuranJersey === '-') {
+        jerseyEl.textContent = 'Tanpa Jersey';
+      } else if (found.ukuranJersey2 && found.ukuranJersey2 !== '-') {
+        jerseyEl.textContent = `P1: ${found.ukuranJersey} | P2: ${found.ukuranJersey2}`;
+      } else {
+        jerseyEl.textContent = `Ukuran ${found.ukuranJersey}`;
+      }
+    }
+
     document.getElementById('tWhatsapp').textContent = found.whatsapp;
-    document.getElementById('tAlamat').textContent = found.alamat;
+    document.getElementById('tAlamat').textContent = found.alamat || 'Kabupaten Bandung';
 
     const badge = document.getElementById('ticketStatusBadge');
     if (badge) {
@@ -474,10 +500,194 @@ import Layout from '../layouts/Layout.astro';
         rpcStatus.textContent = `✓ Sudah Diambil (${found.claimedBy || 'Panitia'})`;
       } else {
         rpcStatus.style.color = '#B26A00';
-        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 8–10 Okt)';
+        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 19–20 Nov @ Gedung Baznas Centre)';
       }
     }
 
     resultEl.scrollIntoView({ behavior: 'smooth' });
   }
+
+  // Fungsi Unduh E-Ticket dalam bentuk Gambar (Canvas PNG)
+  window.downloadTicketImage = function() {
+    const regId = document.getElementById('tRegId')?.textContent || 'TIKET';
+    const nama = document.getElementById('tNama')?.textContent || 'Peserta';
+    const paket = document.getElementById('tPaket')?.textContent || '-';
+    const jersey = document.getElementById('tJersey')?.textContent || '-';
+    const wa = document.getElementById('tWhatsapp')?.textContent || '-';
+    const status = document.getElementById('ticketStatusBadge')?.textContent || 'LUNAS';
+
+    // Buat canvas resolusi tinggi (HD)
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = 1000;
+    const height = 620;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Background Canvas
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, width, height);
+
+    // Header Background (Dark Green / Forest)
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(0, 0, width, 110);
+
+    // Header Accent Line (Gold)
+    ctx.fillStyle = '#C59A27';
+    ctx.fillRect(0, 105, width, 5);
+
+    // Header Text
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px system-ui, -apple-system, sans-serif';
+    ctx.fillText('BAZNAS FUN WALK 2026', 40, 52);
+
+    ctx.fillStyle = '#A3E635';
+    ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Healthy & Charity  •  Sabtu, 21 November 2026  •  Gedung Baznas Centre Soreang', 40, 84);
+
+    // Status Badge Top Right
+    ctx.fillStyle = '#166534';
+    ctx.beginPath();
+    ctx.roundRect(width - 240, 36, 200, 38, [8]);
+    ctx.fill();
+    ctx.fillStyle = '#DCFCE7';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('✓ ' + status, width - 140, 61);
+    ctx.textAlign = 'left';
+
+    // Left Box: QR & ID Container
+    ctx.fillStyle = '#F8FAFC';
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(40, 140, 240, 310, [12]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw Simulated Clean Barcode / QR Box
+    ctx.fillStyle = '#062E16';
+    // Top-left finder
+    ctx.fillRect(75, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 180, 15, 15);
+
+    // Top-right finder
+    ctx.fillRect(195, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(203, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(210, 180, 15, 15);
+
+    // Bottom-left finder
+    ctx.fillRect(75, 275, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 283, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 290, 15, 15);
+
+    // Center data points
+    ctx.fillRect(145, 175, 25, 25);
+    ctx.fillRect(145, 220, 25, 30);
+    ctx.fillRect(195, 235, 20, 15);
+    ctx.fillRect(180, 275, 35, 20);
+    ctx.fillRect(145, 275, 20, 45);
+    ctx.fillRect(220, 295, 20, 25);
+
+    // Reg ID Text Badge
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(regId, 160, 375);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Tunjukkan barcode ini di meja RPC', 160, 405);
+    ctx.textAlign = 'left';
+
+    // Right Column: Participant Details
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NAMA LENGKAP PESERTA:', 320, 165);
+
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+    ctx.fillText(nama, 320, 198);
+
+    // Detail Grid
+    // Col 1: Kategori Paket & Jersey
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('KATEGORI PAKET:', 320, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(paket, 320, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('UKURAN JERSEY:', 320, 315);
+    ctx.fillStyle = '#065F46';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(jersey, 320, 340);
+
+    // Col 2: WhatsApp & Status RPC
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NOMOR WHATSAPP:', 620, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(wa, 620, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('PENGAMBILAN RACE PACK:', 620, 315);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.fillText('19–20 Nov 2026 @ Gedung Baznas Centre', 620, 340);
+
+    // Jazakumullah Khairan Katsiran Card on Canvas
+    ctx.fillStyle = '#F0FDF4';
+    ctx.strokeStyle = '#86EFAC';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(320, 380, 640, 70, [8]);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#166534';
+    ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Jazakumullah Khairan Katsiran', 336, 405);
+    ctx.fillStyle = '#15803D';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Terima kasih atas partisipasi dan kepedulian Anda dalam BAZNAS Fun Walk 2026.', 336, 426);
+    ctx.fillText('Setiap langkah dan donasi Anda memberdayakan para mustahik di Kabupaten Bandung.', 336, 442);
+
+    // Footer Info Strip
+    ctx.fillStyle = '#F1F5F9';
+    ctx.fillRect(0, 520, width, 100);
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.beginPath();
+    ctx.moveTo(0, 520);
+    ctx.lineTo(width, 520);
+    ctx.stroke();
+
+    ctx.fillStyle = '#334155';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
+    ctx.fillText('Lokasi Acara: Gedung Baznas Centre (samping Yogya Soreang), Jl. Raya Soreang, Kab. Bandung', 40, 580);
+
+    // Trigger Download PNG
+    const safeName = nama.replace(/[^a-zA-Z0-9]/g, '_');
+    const fileName = `E-Ticket_${regId}_${safeName}.png`;
+    const imageUri = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = imageUri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 </script>

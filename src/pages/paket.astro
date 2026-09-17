@@ -34,7 +34,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <p class="kicker">Perlengkapan Resmi</p>
         <h2>Setiap Peserta Mendapatkan Perlengkapan Lengkap</h2>
         <p class="lede">
-          Semua peserta terdaftar (baik Paket Reguler maupun Charity Pack) berhak menerima paket race pack resmi yang diserahkan saat Race Pack Collection (RPC) tanggal 8–10 Oktober 2026.
+          Semua peserta terdaftar untuk jalan sehat (baik Regular Pack maupun Family Pack) berhak menerima paket race pack resmi yang diserahkan saat Race Pack Collection (RPC) tanggal 19–20 November 2026 di Gedung Baznas Centre (samping Yogya Soreang).
         </p>
 
         <div class="items-list">
@@ -44,7 +44,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
             </span>
             <div>
               <h4>Jersey Eksklusif BAZNAS Fun Walk</h4>
-              <p>Menggunakan bahan Microfiber Drifit premium yang sejuk, menyerap keringat dengan cepat, elastis, dan nyaman dipakai berjalan 5 kilometer.</p>
+              <p>Menggunakan bahan Microfiber Drifit premium yang sejuk, menyerap keringat dengan cepat, elastis, dan nyaman dipakai berjalan 5 kilometer. Tersedia ukuran Anak dan Dewasa.</p>
             </div>
           </div>
           <div class="item-card">
@@ -71,7 +71,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
             </span>
             <div>
               <h4>Nomor BIB & Kupon Doorprize Utama</h4>
-              <p>Nomor kepesertaan unik yang terhubung dengan sistem undian doorprize berhadiah paket Umroh, sepeda motor, dan aneka elektronik.</p>
+              <p>Nomor kepesertaan unik yang terhubung dengan sistem undian doorprize berhadiah utama Paket Umroh dan puluhan hadiah menarik lainnya.</p>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <p class="kicker">Perbandingan Kategori</p>
         <h2>Pilih Paket yang Sesuai untuk Anda</h2>
         <p class="lede" style="margin:0 auto">
-          Semua peserta menikmati jalur 5K, fasilitas medis, refreshment, dan hak doorprize yang setara.
+          Tersedia paket donasi murni, perseorangan, dan keluarga. Termasuk donasi ZIS yang disalurkan langsung melalui BAZNAS Kabupaten Bandung.
         </p>
       </div>
 
@@ -94,70 +94,87 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <table class="compare-table">
           <thead>
             <tr>
-              <th style="width:40%">Benefit & Fasilitas</th>
-              <th style="width:30%" class="col-reguler">
-                <div class="th-title">Paket Reguler</div>
-                <div class="th-price">Rp 50.000 <small>(Early Bird)</small></div>
+              <th style="width:31%">Benefit & Fasilitas</th>
+              <th style="width:23%" class="col-donasi">
+                <div class="th-title">Donasi Only</div>
+                <div class="th-price">Rp 50.000</div>
+                <small style="color:var(--grey); font-size:0.75rem">100% Donasi ZIS</small>
               </th>
-              <th style="width:30%" class="col-charity">
-                <div class="th-title">Charity Pack </div>
-                <div class="th-price">Rp 150.000 <small>(Tetap)</small></div>
+              <th style="width:23%" class="col-reguler">
+                <div class="th-title">Regular Pack</div>
+                <div class="th-price">
+                  <del style="opacity:0.6; font-size:0.85rem; text-decoration:line-through; margin-right:4px">Rp 120.000</del>
+                  <b>Rp 80.000</b> <small>(Early Bird)</small>
+                </div>
+                <small style="color:var(--grey); font-size:0.75rem">Termasuk Rp 20.000 Donasi</small>
+              </th>
+              <th style="width:23%" class="col-family">
+                <div class="th-title">Family Pack</div>
+                <div class="th-price">Rp 180.000 <small>(2 Orang)</small></div>
+                <small style="color:var(--grey); font-size:0.75rem">Termasuk Rp 20.000 Donasi</small>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Jersey Drifit Resmi BAZNAS Fun Walk</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-no">— (Tidak dapat)</td>
+              <td class="check-yes">✓ 1 Pcs (Dewasa/Anak)</td>
+              <td class="check-yes">✓ 2 Pcs (Bebas Kombinasi)</td>
             </tr>
             <tr>
               <td>Official Eco Tote Bag</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓ 1 Pcs</td>
+              <td class="check-yes">✓ 2 Pcs</td>
             </tr>
             <tr>
               <td>Official Silicone Wristband</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓ 1 Pcs</td>
+              <td class="check-yes">✓ 2 Pcs</td>
             </tr>
             <tr>
               <td>Nomor BIB & Kupon Doorprize Umroh</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-no">— (Tidak dapat)</td>
+              <td class="check-yes">✓ 1 Kupon Undian</td>
+              <td class="check-yes">✓ 2 Kupon Undian</td>
             </tr>
             <tr>
-              <td>Refreshment Air Minum & Buah di Water Station</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td>Refreshment Air Mineral</td>
+              <td class="check-no">—</td>
+              <td class="check-yes">✓ Termasuk (1 Orang)</td>
+              <td class="check-yes">✓ Termasuk (2 Orang)</td>
             </tr>
             <tr>
               <td>Medali Finisher & E-Certificate</td>
-              <td class="check-yes">✓ Termasuk</td>
-              <td class="check-yes">✓ Termasuk</td>
+              <td class="check-yes">✓ E-Certificate Donatur</td>
+              <td class="check-yes">✓ Medali & E-Certificate</td>
+              <td class="check-yes">✓ 2x Medali & 2x E-Cert</td>
             </tr>
             <tr class="row-highlight">
               <td>
-                <b>Donasi ZIS Rp 50.000 atas nama peserta</b>
-                <div class="hint">Disalurkan untuk program pemberdayaan dhuafa di Kab. Bandung</div>
+                <b>Alokasi Donasi ZIS Terhitung</b>
+                <div class="hint">Disalurkan untuk program kemanusiaan & mustahik BAZNAS</div>
               </td>
-              <td class="check-no">—</td>
-              <td class="check-yes"><b>✓ Rp 50.000 Otomatis Dicatat</b></td>
+              <td class="check-yes"><b>✓ Rp 50.000 (100%)</b></td>
+              <td class="check-yes"><b>✓ Rp 20.000 (Otomatis)</b></td>
+              <td class="check-yes"><b>✓ Rp 20.000 (Otomatis)</b></td>
             </tr>
             <tr class="row-highlight">
-              <td><b>Bukti Setor Donasi ZIS Digital (Resmi BAZNAS)</b></td>
-              <td class="check-no">—</td>
-              <td class="check-yes"><b>✓ Diterbitkan</b></td>
-            </tr>
-            <tr class="row-highlight">
-              <td><b>Pencantuman Nama di Halaman Khusus Donatur</b></td>
-              <td class="check-no">—</td>
-              <td class="check-yes"><b>✓ Dicantumkan</b></td>
+              <td>
+                <b>Opsi Tambahan Infaq Sukarela</b>
+                <div class="hint">Pilihan nominal 10k, 20k, 50k, 100k, atau nominal lainnya</div>
+              </td>
+              <td class="check-yes">✓ Tersedia</td>
+              <td class="check-yes">✓ Tersedia</td>
+              <td class="check-yes">✓ Tersedia</td>
             </tr>
             <tr>
               <td>Aksi Pendaftaran</td>
+              <td><a href="/daftar?paket=donasi" class="btn btn-ghost-dark btn-sm" style="width:100%">Donasi Only</a></td>
               <td><a href="/daftar?paket=reguler" class="btn btn-sun btn-sm" style="width:100%">Daftar Reguler</a></td>
-              <td><a href="/daftar?paket=charity" class="btn btn-leaf btn-sm" style="width:100%">Daftar Charity Pack</a></td>
+              <td><a href="/daftar?paket=family" class="btn btn-leaf btn-sm" style="width:100%">Daftar Family</a></td>
             </tr>
           </tbody>
         </table>
@@ -170,9 +187,9 @@ import { JERSEY_SIZES } from '../lib/utils.js';
     <div class="wrap">
       <div style="text-align:center; max-width:700px; margin:0 auto 40px">
         <p class="kicker">Panduan Ukuran</p>
-        <h2>Size Chart Jersey Resmi (Unisex)</h2>
+        <h2>Size Chart Jersey Resmi (Anak & Dewasa)</h2>
         <p class="lede" style="margin:0 auto">
-          Pastikan Anda memilih ukuran jersey yang pas sebelum menyelesaikan proses pendaftaran.
+          Tersedia ukuran lengkap dari anak-anak hingga dewasa. Pastikan Anda memilih ukuran jersey yang pas saat pendaftaran.
         </p>
       </div>
 
@@ -181,15 +198,21 @@ import { JERSEY_SIZES } from '../lib/utils.js';
           <table class="size-table">
             <thead>
               <tr>
+                <th>Kategori</th>
                 <th>Ukuran</th>
-                <th>Lebar Dada (LD)</th>
-                <th>Panjang Badan (PB)</th>
-                <th>Kategori Pas</th>
+                <th>Lebar Dada</th>
+                <th>Panjang Badan</th>
+                <th>Rekomendasi</th>
               </tr>
             </thead>
             <tbody>
               {JERSEY_SIZES.map(item => (
                 <tr>
+                  <td>
+                    <span class={item.category === 'Anak' ? 'cat-pill cat-pill--child' : 'cat-pill cat-pill--adult'}>
+                      {item.category}
+                    </span>
+                  </td>
                   <td><b class="size-tag">{item.size}</b></td>
                   <td>{item.chest}</td>
                   <td>{item.length}</td>
@@ -203,12 +226,13 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <div class="card-clean fit-tips">
           <h4>Tips Memilih Ukuran:</h4>
           <ul class="tips-list">
-            <li><b>Bahan Drifit:</b> Bersifat lentur dan elastis. Jika Anda menyukai pakaian yang pas badan, pilih ukuran biasa.</li>
-            <li><b>Suka Longgar:</b> Untuk kenyamanan berhijab atau gaya pakaian longgar, kami sarankan naik 1 ukuran (misal dari M ke L).</li>
-            <li><b>Toleransi Jahitan:</b> Toleransi ukuran konveksi adalah ±1 sampai 2 cm.</li>
+            <li><b>Ukuran Anak:</b> Didesain proporsional untuk rentang usia 4 hingga 12 tahun.</li>
+            <li><b>Bahan Drifit:</b> Bersifat lentur, sejuk, dan elastis. Jika Anda menyukai pakaian pas badan, pilih ukuran biasa.</li>
+            <li><b>Suka Longgar / Hijab:</b> Untuk kenyamanan berhijab atau gaya pakaian longgar, kami sarankan naik 1 ukuran (misal dari M ke L).</li>
+            <li><b>Toleransi Jahitan:</b> Toleransi standar konveksi adalah ±1 sampai 2 cm.</li>
           </ul>
           <div style="margin-top:24px">
-            <a href="/daftar" class="btn btn-leaf" style="width:100%">Lanjut ke Formulir Pendaftaran</a>
+            <a href="/daftar" class="btn btn-leaf" style="width:100%">Lanjut ke Formulir Pendaftaran →</a>
           </div>
         </div>
       </div>
@@ -305,13 +329,36 @@ import { JERSEY_SIZES } from '../lib/utils.js';
     font-size: 1.05rem;
   }
 
+  .col-donasi {
+    background: #F8FBF8;
+  }
+
   .col-reguler {
     background: #FFFDF5;
   }
 
-  .col-charity {
+  .col-family {
     background: #F2F9F2;
     border-left: 2px solid var(--leaf);
+  }
+
+  .cat-pill {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .cat-pill--child {
+    background: #EBF5FF;
+    color: #1E40AF;
+  }
+
+  .cat-pill--adult {
+    background: var(--paper-2);
+    color: var(--ink);
+    border: 1px solid var(--line);
   }
 
   .th-title {

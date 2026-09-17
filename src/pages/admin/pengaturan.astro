@@ -20,25 +20,62 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <div class="form-group">
         <label for="tierHarga">Skema Harga Aktif:</label>
         <select id="tierHarga">
-          <option value="EARLY_BIRD">Early Bird — Rp 50.000 (s.d. 30 September)</option>
-          <option value="NORMAL">Harga Normal — Rp 100.000 (Mulai 1 Oktober)</option>
+          <option value="EARLY_BIRD">Early Bird — Rp 80.000 (1 – 14 Oktober)</option>
+          <option value="NORMAL">Harga Normal — Rp 120.000 (15 Oktober – 17 November)</option>
         </select>
       </div>
 
       <div class="form-group">
         <label for="rekeningBank">Rekening Resmi Pembayaran Manual (Muncul di Form & Footer):</label>
-        <textarea id="rekeningBank" rows="3">BSI (Bank Syariah Indonesia) No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG</textarea>
+        <textarea id="rekeningBank" rows="3">Bank Muamalat No. 141-001-2345 a.n. BAZNAS KABUPATEN BANDUNG</textarea>
       </div>
 
       <div class="form-group">
         <label for="targetPeserta">Target Kuota Peserta:</label>
-        <input type="number" id="targetPeserta" value="1000">
+        <input type="number" id="targetPeserta" value="2000">
+      </div>
+
+      <div class="form-group">
+        <label for="targetDonasi">Target Dana Donasi / ZIS (IDR):</label>
+        <input type="number" id="targetDonasi" value="50000000" step="1000000">
       </div>
 
       <div style="margin-top:28px">
         <button type="submit" class="btn btn-leaf btn-lg">✓ Simpan Perubahan Pengaturan</button>
       </div>
     </form>
+  </div>
+
+  <div class="card-clean" style="max-width:800px; margin-top:24px">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+      <h3 style="margin:0">Konfigurasi Midtrans Payment Gateway</h3>
+      <span class="pill pill--dark" style="background:var(--leaf); color:#fff">Aktif</span>
+    </div>
+    <p class="hint" style="margin-bottom:20px">
+      Status gateway pembayaran terintegrasi untuk verifikasi instan via Snap API & Webhook Notification.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:12px; background:var(--paper-2); padding:16px; border-radius:var(--r-sm); border:1px solid var(--line); font-size:0.9rem">
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Mode Gateway:</span>
+        <b style="color:var(--sun)">Sandbox / Uji Coba</b>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">File Konfigurasi Kredensial:</span>
+        <code>.env</code>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Endpoint Webhook (Notifikasi URL):</span>
+        <code style="background:#fff; padding:2px 6px; border:1px solid var(--line); border-radius:4px">/api/midtrans/notification</code>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Endpoint Generate Token Snap:</span>
+        <code style="background:#fff; padding:2px 6px; border:1px solid var(--line); border-radius:4px">/api/midtrans/token</code>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:14px; font-size:0.82rem">
+      <b>Panduan Dashboard Midtrans:</b> Pada menu <i>Settings &gt; Configuration</i> di Dashboard Midtrans, isi field <b>Payment Notification URL</b> dengan alamat domain Anda diikuti <code>/api/midtrans/notification</code> agar status pembayaran terupdate secara otomatis.
+    </p>
   </div>
 </AdminLayout>
 
@@ -49,7 +86,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   if (document.getElementById('statusEvent')) document.getElementById('statusEvent').value = settings.statusEvent || 'DIBUKA';
   if (document.getElementById('tierHarga')) document.getElementById('tierHarga').value = settings.tierHarga || 'EARLY_BIRD';
   if (document.getElementById('rekeningBank')) document.getElementById('rekeningBank').value = settings.rekeningBank || '';
-  if (document.getElementById('targetPeserta')) document.getElementById('targetPeserta').value = settings.targetPeserta || 1000;
+  if (document.getElementById('targetPeserta')) document.getElementById('targetPeserta').value = settings.targetPeserta || 2000;
+  if (document.getElementById('targetDonasi')) document.getElementById('targetDonasi').value = settings.targetDonasi || 50000000;
 
   const form = document.getElementById('settingsForm');
   if (form) {
@@ -59,7 +97,8 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         statusEvent: document.getElementById('statusEvent')?.value,
         tierHarga: document.getElementById('tierHarga')?.value,
         rekeningBank: document.getElementById('rekeningBank')?.value,
-        targetPeserta: parseInt(document.getElementById('targetPeserta')?.value) || 1000
+        targetPeserta: parseInt(document.getElementById('targetPeserta')?.value) || 2000,
+        targetDonasi: parseInt(document.getElementById('targetDonasi')?.value) || 50000000
       });
       alert('Pengaturan sistem berhasil disimpan!');
     });
