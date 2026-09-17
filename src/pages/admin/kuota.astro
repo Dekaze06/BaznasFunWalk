@@ -4,12 +4,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
 <AdminLayout title="Manajemen Kuota Jersey — Admin BAZNAS Fun Walk 2026" activeSection="kuota">
   <!-- Page Header Overview -->
-  <div class="card-clean" style="margin-bottom:24px; padding:26px">
+  <div class="card-clean" style="margin-bottom:24px; padding:24px">
     <div class="quota-header-row">
       <div>
-        <h2 style="font-size:1.45rem; font-weight:800; color:#0F172A; margin:0 0 6px">Alokasi & Pemantauan Kuota Jersey 1.000 Pcs</h2>
-        <p class="hint" style="margin:0; font-size:0.9rem">
-          Pemantauan stok produksi vendor jersey resmi (Proporsi S: 8%, M: 22%, L: 28%, XL: 22%, XXL: 13%, XXXL: 7%).
+        <h2 style="font-size:1.4rem; font-weight:800; color:#0F172A; margin:0 0 6px">Pemantauan & Alokasi Kuota Jersey</h2>
+        <p class="hint" style="margin:0; font-size:0.88rem; color:#64748B">
+          Monitoring ketersediaan stok produksi vendor untuk 2.000 pcs jersey peserta BAZNAS Fun Walk 2026.
         </p>
       </div>
 
@@ -17,17 +17,33 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <div class="header-metrics-strip">
         <div class="metric-pill">
           <span class="m-lbl">TOTAL ALOKASI</span>
-          <b class="m-val" id="kpiTotalQuota">1.000 Pcs</b>
+          <b class="m-val" id="kpiTotalQuota">2.000 Pcs</b>
         </div>
-        <div class="metric-pill" style="border-color:#BBF7D0; background:#F0FDF4">
-          <span class="m-lbl" style="color:#166534">TERPAKAI</span>
-          <b class="m-val" id="kpiTotalUsed" style="color:#15803D">0 Pcs</b>
+        <div class="metric-pill metric-pill--used">
+          <span class="m-lbl">TERPAKAI</span>
+          <b class="m-val" id="kpiTotalUsed">0 Pcs</b>
         </div>
-        <div class="metric-pill" style="border-color:#BAE6FD; background:#F0F9FF">
-          <span class="m-lbl" style="color:#0369A1">SISA TERSEDIA</span>
-          <b class="m-val" id="kpiTotalRemaining" style="color:#0284C7">1.000 Pcs</b>
+        <div class="metric-pill metric-pill--rem">
+          <span class="m-lbl">SISA TERSEDIA</span>
+          <b class="m-val" id="kpiTotalRemaining">2.000 Pcs</b>
+        </div>
+        <div class="metric-pill metric-pill--pct">
+          <span class="m-lbl">TERISI</span>
+          <b class="m-val" id="kpiTotalPct">0%</b>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="filter-bar" style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px">
+    <div class="filter-tabs">
+      <button type="button" class="tab-btn active" data-filter="all" onclick="setFilter('all')">Semua Ukuran (9)</button>
+      <button type="button" class="tab-btn" data-filter="dewasa" onclick="setFilter('dewasa')">Jersey Dewasa (6)</button>
+      <button type="button" class="tab-btn" data-filter="anak" onclick="setFilter('anak')">Jersey Anak (3)</button>
+    </div>
+    <div style="font-size:0.85rem; color:#64748B;">
+      Status: <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10B981; margin-right:4px"></span> Real-time auto-sync
     </div>
   </div>
 
@@ -59,12 +75,33 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     padding: 10px 18px;
     display: flex;
     flex-direction: column;
-    min-width: 120px;
+    min-width: 110px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
   }
 
+  .metric-pill--used {
+    border-color: #BBF7D0;
+    background: #F0FDF4;
+  }
+  .metric-pill--used .m-lbl { color: #166534; }
+  .metric-pill--used .m-val { color: #15803D; }
+
+  .metric-pill--rem {
+    border-color: #BAE6FD;
+    background: #F0F9FF;
+  }
+  .metric-pill--rem .m-lbl { color: #0369A1; }
+  .metric-pill--rem .m-val { color: #0284C7; }
+
+  .metric-pill--pct {
+    border-color: #FED7AA;
+    background: #FFF7ED;
+  }
+  .metric-pill--pct .m-lbl { color: #9A3412; }
+  .metric-pill--pct .m-val { color: #EA580C; }
+
   .m-lbl {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 800;
     color: #64748B;
     letter-spacing: 0.05em;
@@ -73,169 +110,198 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   .m-val {
     font-family: 'Baloo 2', sans-serif;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #0F172A;
     line-height: 1.1;
+  }
+
+  .filter-tabs {
+    display: flex;
+    background: #F1F5F9;
+    padding: 4px;
+    border-radius: 10px;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .tab-btn:hover {
+    color: #0F172A;
+  }
+
+  .tab-btn.active {
+    background: #FFFFFF;
+    color: #0F172A;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
 
   .quota-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    gap: 18px;
   }
 
-  :global(.quota-card) {
+  :global(.quota-card-clean) {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     display: flex;
     flex-direction: column;
+    gap: 14px;
   }
 
-  :global(.quota-card:hover) {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  :global(.quota-card-clean:hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: #CBD5E1;
   }
 
-  :global(.qc-top) {
+  :global(.qcc-header) {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 18px;
+    align-items: center;
   }
 
-  :global(.qc-size-badge) {
+  :global(.qcc-badge-group) {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
-  :global(.qc-size-pill) {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+  :global(.qcc-size-tag) {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  :global(.qcc-size-tag--adult) {
     background: #062313;
     color: #86EFAC;
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 3px 8px rgba(6, 35, 19, 0.2);
-    flex-shrink: 0;
+    border: 1px solid #14532D;
   }
 
-  :global(.qc-size-title) {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 800;
+  :global(.qcc-size-tag--kids) {
+    background: #1E293B;
+    color: #38BDF8;
+    border: 1px solid #334155;
+  }
+
+  :global(.qcc-size-name) {
+    font-weight: 700;
     color: #0F172A;
-    line-height: 1.1;
+    font-size: 0.95rem;
   }
 
-  :global(.qc-spec) {
-    font-size: 0.8rem;
-    color: #64748B;
-    margin-top: 2px;
-  }
-
-  :global(.qc-status-badge) {
-    padding: 4px 10px;
+  :global(.qcc-status-pill) {
+    padding: 3px 10px;
     border-radius: 99px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.02em;
   }
 
-  :global(.qc-status-available) {
+  :global(.qcc-status--ok) {
     background: #ECFDF5;
     color: #059669;
     border: 1px solid #A7F3D0;
   }
 
-  :global(.qc-status-low) {
+  :global(.qcc-status--low) {
     background: #FFFBEB;
     color: #D97706;
     border: 1px solid #FDE68A;
   }
 
-  :global(.qc-status-empty) {
+  :global(.qcc-status--empty) {
     background: #FEF2F2;
     color: #DC2626;
     border: 1px solid #FECACA;
   }
 
-  :global(.qc-bar-box) {
-    margin: 8px 0 16px;
+  :global(.qcc-metrics-row) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: #F8FAFC;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+    border: 1px solid #F1F5F9;
   }
 
-  :global(.qc-bar-info) {
+  :global(.qcc-metric-cell) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  :global(.qcc-metric-cell:not(:last-child)) {
+    border-right: 1px solid #E2E8F0;
+  }
+
+  :global(.qcc-m-lbl) {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  :global(.qcc-m-val) {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-top: 2px;
+  }
+
+  :global(.qcc-progress-section) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  :global(.qcc-progress-labels) {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #64748B;
     font-weight: 600;
-    margin-bottom: 6px;
   }
 
-  :global(.qc-bar-track) {
-    height: 10px;
+  :global(.qcc-bar-track) {
+    height: 8px;
     background: #F1F5F9;
     border-radius: 99px;
     overflow: hidden;
   }
 
-  :global(.qc-bar-fill) {
+  :global(.qcc-bar-fill) {
     height: 100%;
     background: linear-gradient(90deg, #10B981 0%, #059669 100%);
     border-radius: 99px;
-    transition: width 0.4s ease;
-  }
-
-  :global(.qc-stats-grid) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    background: #F8FAFC;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    border: 1px solid #F1F5F9;
-  }
-
-  :global(.qc-stat-item) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  :global(.qc-stat-lbl) {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #64748B;
-    text-transform: uppercase;
-  }
-
-  :global(.qc-stat-val) {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #0F172A;
-    line-height: 1.15;
-    margin-top: 2px;
-  }
-
-  :global(.qc-footer) {
-    margin-top: auto;
-    border-top: 1px solid #F1F5F9;
-    padding-top: 12px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #64748B;
+    transition: width 0.3s ease;
   }
 
   @media (max-width: 1100px) {
@@ -244,7 +310,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 700px) {
     .quota-grid {
       grid-template-columns: 1fr;
     }
@@ -257,12 +323,23 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     }
     .metric-pill {
       flex: 1;
+      min-width: 80px;
     }
   }
 </style>
 
 <script>
   import { getStockSummary } from '../../lib/store.js';
+
+  let currentCategoryFilter = 'all';
+
+  window.setFilter = function(filter) {
+    currentCategoryFilter = filter;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+    });
+    renderQuota();
+  };
 
   function renderQuota() {
     const container = document.getElementById('quotaCardsGrid');
@@ -281,62 +358,74 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       remainingAll += st.remaining;
     });
 
+    const overallPct = totalAll > 0 ? Math.round((usedAll / totalAll) * 100) : 0;
+
     const kpiTotal = document.getElementById('kpiTotalQuota');
     const kpiUsed = document.getElementById('kpiTotalUsed');
     const kpiRemaining = document.getElementById('kpiTotalRemaining');
+    const kpiPct = document.getElementById('kpiTotalPct');
 
     if (kpiTotal) kpiTotal.textContent = `${totalAll.toLocaleString('id-ID')} Pcs`;
     if (kpiUsed) kpiUsed.textContent = `${usedAll.toLocaleString('id-ID')} Pcs`;
     if (kpiRemaining) kpiRemaining.textContent = `${remainingAll.toLocaleString('id-ID')} Pcs`;
+    if (kpiPct) kpiPct.textContent = `${overallPct}%`;
 
-    container.innerHTML = stocks.map(st => {
-      let statusClass = 'qc-status-available';
+    // Filter stocks
+    const filtered = stocks.filter(st => {
+      const isKid = st.size.toLowerCase().includes('anak');
+      if (currentCategoryFilter === 'dewasa') return !isKid;
+      if (currentCategoryFilter === 'anak') return isKid;
+      return true;
+    });
+
+    container.innerHTML = filtered.map(st => {
+      const isKid = st.size.toLowerCase().includes('anak');
+      let statusClass = 'qcc-status--ok';
       let statusText = 'Tersedia';
       if (st.remaining === 0) {
-        statusClass = 'qc-status-empty';
-        statusText = 'Kuota Habis';
+        statusClass = 'qcc-status--empty';
+        statusText = 'Habis';
       } else if (st.remaining <= 15) {
-        statusClass = 'qc-status-low';
+        statusClass = 'qcc-status--low';
         statusText = 'Menipis';
       }
 
+      const badgeClass = isKid ? 'qcc-size-tag--kids' : 'qcc-size-tag--adult';
+      const labelName = isKid ? st.size : `Ukuran ${st.size}`;
+
       return `
-        <div class="quota-card">
-          <div class="qc-top">
-            <div class="qc-size-badge">
-              <div class="qc-size-pill">${st.size}</div>
-              <div>
-                <div class="qc-size-title">Ukuran ${st.size}</div>
-                <div class="qc-spec">Lebar ${st.chest} · Panjang ${st.length}</div>
-              </div>
+        <div class="quota-card-clean">
+          <div class="qcc-header">
+            <div class="qcc-badge-group">
+              <span class="qcc-size-tag ${badgeClass}">${st.size}</span>
+              <span class="qcc-size-name">${labelName}</span>
             </div>
-            <span class="qc-status-badge ${statusClass}">${statusText}</span>
+            <span class="qcc-status-pill ${statusClass}">${statusText}</span>
           </div>
 
-          <div class="qc-stats-grid">
-            <div class="qc-stat-item">
-              <span class="qc-stat-lbl">Terpakai</span>
-              <span class="qc-stat-val" style="color:#0F172A">${st.used} <small style="font-size:0.75rem; font-weight:600; color:#64748B">pcs</small></span>
+          <div class="qcc-metrics-row">
+            <div class="qcc-metric-cell">
+              <span class="qcc-m-lbl">Terpakai</span>
+              <span class="qcc-m-val" style="color:#0F172A">${st.used}</span>
             </div>
-            <div class="qc-stat-item">
-              <span class="qc-stat-lbl">Sisa Kuota</span>
-              <span class="qc-stat-val" style="color:#059669">${st.remaining} <small style="font-size:0.75rem; font-weight:600; color:#64748B">pcs</small></span>
+            <div class="qcc-metric-cell">
+              <span class="qcc-m-lbl">Sisa Kuota</span>
+              <span class="qcc-m-val" style="color:#059669">${st.remaining}</span>
             </div>
-          </div>
-
-          <div class="qc-bar-box">
-            <div class="qc-bar-info">
-              <span>Progres Alokasi</span>
-              <b style="color:#0F172A">${st.percent}%</b>
-            </div>
-            <div class="qc-bar-track">
-              <div class="qc-bar-fill" style="width:${Math.min(100, Math.max(2, st.percent))}%"></div>
+            <div class="qcc-metric-cell">
+              <span class="qcc-m-lbl">Alokasi</span>
+              <span class="qcc-m-val" style="color:#64748B">${st.total}</span>
             </div>
           </div>
 
-          <div class="qc-footer">
-            <span>Total Alokasi: <b style="color:#0F172A">${st.total} pcs</b></span>
-            <span>Tersisa: <b style="color:#059669">${100 - st.percent}%</b></span>
+          <div class="qcc-progress-section">
+            <div class="qcc-progress-labels">
+              <span>Terisi: <b style="color:#0F172A">${st.percent}%</b></span>
+              <span>Sisa: <b style="color:#059669">${100 - st.percent}%</b></span>
+            </div>
+            <div class="qcc-bar-track">
+              <div class="qcc-bar-fill" style="width:${Math.min(100, Math.max(2, st.percent))}%"></div>
+            </div>
           </div>
         </div>
       `;

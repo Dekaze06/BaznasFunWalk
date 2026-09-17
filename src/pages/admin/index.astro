@@ -412,16 +412,26 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
 
     // Counts
     const totalCount = list.length;
-    document.getElementById('totalPesertaCount').textContent = `${totalCount} Peserta`;
+    const elTotalPeserta = document.getElementById('totalPesertaCount');
+    if (elTotalPeserta) elTotalPeserta.textContent = `${totalCount} Peserta`;
+
     const pct = Math.min(100, Math.round((totalCount / targetPeserta) * 1000) / 10);
-    document.getElementById('totalProgressBar').style.width = `${pct}%`;
-    document.getElementById('targetPercentText').textContent = `${pct}%`;
-    if (document.getElementById('targetPesertaLbl')) {
-      document.getElementById('targetPesertaLbl').innerHTML = `Target: <b>${targetPeserta.toLocaleString('id-ID')} Peserta</b>`;
+    const elProgressBar = document.getElementById('totalProgressBar');
+    if (elProgressBar) elProgressBar.style.width = `${pct}%`;
+
+    const elTargetPercent = document.getElementById('targetPercentText');
+    if (elTargetPercent) elTargetPercent.textContent = `${pct}%`;
+
+    const elTargetPeserta = document.getElementById('targetPesertaLbl');
+    if (elTargetPeserta) {
+      elTargetPeserta.innerHTML = `Target: <b>${targetPeserta.toLocaleString('id-ID')} Peserta</b>`;
     }
 
-    document.getElementById('paidPesertaCount').textContent = `${paidList.length} Peserta`;
-    document.getElementById('pendingTag').textContent = `${pendingList.length} Pending`;
+    const elPaidPeserta = document.getElementById('paidPesertaCount');
+    if (elPaidPeserta) elPaidPeserta.textContent = `${paidList.length} Peserta`;
+
+    const elPendingTag = document.getElementById('pendingTag');
+    if (elPendingTag) elPendingTag.textContent = `${pendingList.length} Pending`;
 
     // Revenues
     let totalRev = 0;
@@ -434,13 +444,19 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
       totalRegFee += p.nominalRegistrasi;
     });
 
-    document.getElementById('totalRevenue').textContent = formatRupiah(totalRev);
-    document.getElementById('totalZisDonation').textContent = formatRupiah(totalZis);
-    document.getElementById('revReguler').textContent = formatRupiah(totalRegFee);
+    const elTotalRev = document.getElementById('totalRevenue');
+    if (elTotalRev) elTotalRev.textContent = formatRupiah(totalRev);
 
-    if (document.getElementById('adminZisTargetHint')) {
+    const elTotalZis = document.getElementById('totalZisDonation');
+    if (elTotalZis) elTotalZis.textContent = formatRupiah(totalZis);
+
+    const elRevReguler = document.getElementById('revReguler');
+    if (elRevReguler) elRevReguler.textContent = formatRupiah(totalRegFee);
+
+    const elZisTargetHint = document.getElementById('adminZisTargetHint');
+    if (elZisTargetHint) {
       const zisPct = Math.min(100, Math.round((totalZis / targetDonasi) * 1000) / 10);
-      document.getElementById('adminZisTargetHint').textContent = `Target: ${formatRupiah(targetDonasi)} (${zisPct}%)`;
+      elZisTargetHint.textContent = `Target: ${formatRupiah(targetDonasi)} (${zisPct}%)`;
     }
 
     // Render Recent Table (first 5)
