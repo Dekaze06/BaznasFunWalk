@@ -489,4 +489,7 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   }
 
   renderDashboard();
+
+  // Dengarkan event perubahan store agar dashboard terupdate otomatis
+  window.addEventListener('baznas:store_updated', renderDashboard);
 </script>

@@ -150,7 +150,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           email: cols[3],
           gender: cols[4] || 'Laki-laki',
           alamat: cols[5] || 'Kab. Bandung',
-          paket: cols[6].toLowerCase().includes('charity') ? 'charity' : 'reguler',
+          paket: cols[6].toLowerCase().includes('family') ? 'family' : (cols[6].toLowerCase().includes('donasi') ? 'donasi' : (cols[6].toLowerCase().includes('charity') ? 'charity' : 'reguler')),
           ukuranJersey: cols[7] || 'L'
         });
       }
@@ -164,7 +164,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           <td><b>${r.nama}</b></td>
           <td>${r.nik}</td>
           <td>${r.whatsapp}</td>
-          <td>${r.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
+          <td>${r.paket === 'family' ? '<span class="badge badge--sun">Family Pack</span>' : (r.paket === 'donasi' || r.paket === 'charity') ? '<span class="badge badge--success">Donasi Only</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
           <td><b>${r.ukuranJersey}</b></td>
           <td><span class="badge badge--success">Siap Diimpor</span></td>
         </tr>
@@ -184,8 +184,19 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     parsedRows.forEach((r, idx) => {
       const regId = `BFW26-${Math.floor(1000 + Math.random() * 9000)}`;
-      const total = r.paket === 'charity' ? 150000 : 50000;
-      const donasi = r.paket === 'charity' ? 50000 : 0;
+      let total = 80000;
+      let donasi = 20000;
+      let title = 'Regular Pack 5K Early Bird';
+
+      if (r.paket === 'family') {
+        total = 180000;
+        donasi = 20000;
+        title = 'Family Pack 5K (2 Orang)';
+      } else if (r.paket === 'donasi' || r.paket === 'charity') {
+        total = 50000;
+        donasi = 50000;
+        title = 'Donasi Only 5K';
+      }
 
       saveParticipant({
         id: regId,
@@ -198,9 +209,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         golDarah: '-',
         kontakDaruratNama: 'Instansi / Kolektif',
         kontakDaruratHp: r.whatsapp,
-        paket: r.paket,
-        paketNama: r.paket === 'charity' ? 'Charity Pack 5K' : 'Paket Reguler 5K',
-        ukuranJersey: r.ukuranJersey,
+        paket: r.paket === 'charity' ? 'donasi' : r.paket,
+        paketNama: title,
+        ukuranJersey: (r.paket === 'donasi' || r.paket === 'charity') ? '-' : r.ukuranJersey,
+        ukuranJersey2: '-',
         nominalRegistrasi: total - donasi,
         nominalDonasi: donasi,
         totalBayar: total,

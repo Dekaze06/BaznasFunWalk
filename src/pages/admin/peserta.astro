@@ -627,18 +627,21 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   // CSV Export
   window.exportToCSV = function() {
     const list = getStore();
-    const headers = ['ID Peserta', 'Nama', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey', 'Total Bayar', 'Metode', 'Status Bayar', 'Klaim RPC'];
+    const headers = ['ID Peserta', 'Nama Peserta Utama', 'Nama Peserta 2', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey 1', 'Ukuran Jersey 2', 'Total Bayar', 'Nominal Donasi', 'Metode Bayar', 'Status Bayar', 'Klaim RPC'];
     const rows = list.map(p => [
       p.id,
       `"${p.nama}"`,
-      `'${p.nik}`,
-      `'${p.whatsapp}`,
-      p.email,
-      p.gender,
-      `"${p.alamat}"`,
+      `"${p.namaPeserta2 || '-'}"`,
+      `'${p.nik || '-'}`,
+      `'${p.whatsapp || '-'}`,
+      p.email || '-',
+      p.gender || '-',
+      `"${p.alamat || '-'}"`,
       p.paket,
-      p.ukuranJersey,
+      p.ukuranJersey || '-',
+      p.ukuranJersey2 || '-',
       p.totalBayar,
+      p.nominalDonasi || 0,
       p.metodeBayar,
       p.status,
       p.racepackClaimed ? 'SUDAH' : 'BELUM'
@@ -695,4 +698,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   });
 
   renderTable();
+
+  // Dengarkan event perubahan store agar tabel reaktif otomatis
+  window.addEventListener('baznas:store_updated', renderTable);
 </script>

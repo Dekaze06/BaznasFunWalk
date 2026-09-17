@@ -187,4 +187,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   renderFinancials();
+
+  // Dengarkan event perubahan store agar rekap keuangan reaktif otomatis
+  window.addEventListener('baznas:store_updated', renderFinancials);
 </script>

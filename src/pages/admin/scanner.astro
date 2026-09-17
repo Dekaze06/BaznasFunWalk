@@ -329,9 +329,15 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (resultEl) resultEl.style.display = 'block';
 
     document.getElementById('pId').textContent = p.id;
-    document.getElementById('pNama').textContent = p.nama;
+    document.getElementById('pNama').textContent = p.nama + (p.namaPeserta2 && p.namaPeserta2 !== '-' ? ` & ${p.namaPeserta2}` : '');
     document.getElementById('pPaket').textContent = p.paketNama;
-    document.getElementById('pJersey').textContent = `UKURAN ${p.ukuranJersey}`;
+    if (p.paket === 'donasi') {
+      document.getElementById('pJersey').textContent = 'TANPA JERSEY (DONASI ONLY)';
+    } else if (p.paket === 'family') {
+      document.getElementById('pJersey').textContent = `J1: ${p.ukuranJersey || '-'}  •  J2: ${p.ukuranJersey2 || '-'}`;
+    } else {
+      document.getElementById('pJersey').textContent = `UKURAN ${p.ukuranJersey || '-'}`;
+    }
     document.getElementById('pWhatsapp').textContent = p.whatsapp;
     document.getElementById('pNik').textContent = p.nik;
 
