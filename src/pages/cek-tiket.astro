@@ -400,13 +400,13 @@ import Layout from '../layouts/Layout.astro';
   const urlParams = new URLSearchParams(window.location.search);
   const idFromUrl = urlParams.get('id');
   if (idFromUrl) {
-    const input = document.getElementById('searchKeyword');
+    const input = document.getElementById('searchKeyword') as HTMLInputElement | null;
     if (input) input.value = idFromUrl;
     performSearch(idFromUrl);
   }
 
-  window.quickSearch = function(val) {
-    const input = document.getElementById('searchKeyword');
+  (window as any).quickSearch = function(val: string) {
+    const input = document.getElementById('searchKeyword') as HTMLInputElement | null;
     if (input) input.value = val;
     performSearch(val);
   };
@@ -415,12 +415,12 @@ import Layout from '../layouts/Layout.astro';
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const kw = document.getElementById('searchKeyword')?.value?.trim();
+      const kw = (document.getElementById('searchKeyword') as HTMLInputElement | null)?.value?.trim();
       if (kw) performSearch(kw);
     });
   }
 
-  async function performSearch(kw) {
+  async function performSearch(kw: string) {
     // Cari langsung ke server backend dengan fallback ke cache lokal
     const found = await fetchParticipantById(kw);
 
@@ -436,7 +436,6 @@ import Layout from '../layouts/Layout.astro';
     if (notFoundEl) notFoundEl.style.display = 'none';
     if (resultEl) resultEl.style.display = 'block';
 
-    // Populate data
     // Populate data
     const elRegId = document.getElementById('tRegId');
     if (elRegId) elRegId.textContent = found.id;
@@ -473,8 +472,10 @@ import Layout from '../layouts/Layout.astro';
       }
     }
 
-    document.getElementById('tWhatsapp').textContent = found.whatsapp;
-    document.getElementById('tAlamat').textContent = found.alamat || 'Kabupaten Bandung';
+    const tWhatsapp = document.getElementById('tWhatsapp');
+    if (tWhatsapp) tWhatsapp.textContent = found.whatsapp;
+    const tAlamat = document.getElementById('tAlamat');
+    if (tAlamat) tAlamat.textContent = found.alamat || 'Kabupaten Bandung';
 
     const badge = document.getElementById('ticketStatusBadge');
     if (badge) {
@@ -498,11 +499,13 @@ import Layout from '../layouts/Layout.astro';
       }
     }
 
-    resultEl.scrollIntoView({ behavior: 'smooth' });
+    if (resultEl) {
+      resultEl.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   // Fungsi Unduh E-Ticket dalam bentuk Gambar (Canvas PNG)
-  window.downloadTicketImage = function() {
+  (window as any).downloadTicketImage = function() {
     const regId = document.getElementById('tRegId')?.textContent || 'TIKET';
     const nama = document.getElementById('tNama')?.textContent || 'Peserta';
     const paket = document.getElementById('tPaket')?.textContent || '-';
@@ -513,6 +516,7 @@ import Layout from '../layouts/Layout.astro';
     // Buat canvas resolusi tinggi (HD)
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     const width = 1000;
     const height = 620;
     canvas.width = width;

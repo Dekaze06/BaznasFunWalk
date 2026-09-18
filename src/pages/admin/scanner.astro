@@ -27,11 +27,14 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <!-- Camera Controls -->
       <div style="margin-top:14px;">
         <button type="button" class="btn btn-leaf btn-lg" id="btnToggleCamera" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px">
-          <span id="btnCamIcon">📷</span>
+          <span id="btnCamIcon" style="display:inline-flex; align-items:center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </span>
           <span id="btnCamText">Aktifkan Kamera HP untuk Scan QR</span>
         </button>
-        <button type="button" class="btn btn-ghost-dark btn-sm" id="btnSwitchCamera" style="display:none; margin-top:8px; width:100%; justify-content:center;">
-          🔄 Putar Kamera (Kamera Belakang / Depan)
+        <button type="button" class="btn btn-ghost-dark btn-sm" id="btnSwitchCamera" style="display:none; margin-top:8px; width:100%; justify-content:center; align-items:center; gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          <span>Putar Kamera (Kamera Belakang / Depan)</span>
         </button>
       </div>
 
