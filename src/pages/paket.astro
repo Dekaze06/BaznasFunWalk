@@ -86,7 +86,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <p class="kicker">Perbandingan Kategori</p>
         <h2>Pilih Paket yang Sesuai untuk Anda</h2>
         <p class="lede" style="margin:0 auto">
-          Tersedia paket donasi murni, perseorangan, dan keluarga. Termasuk donasi ZIS yang disalurkan langsung melalui BAZNAS Kabupaten Bandung.
+          Tersedia paket perseorangan (Regular Pack) dan keluarga (Family Pack). Termasuk donasi ZIS yang disalurkan langsung melalui BAZNAS Kabupaten Bandung.
         </p>
       </div>
 
@@ -94,13 +94,8 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <table class="compare-table">
           <thead>
             <tr>
-              <th style="width:31%">Benefit & Fasilitas</th>
-              <th style="width:23%" class="col-donasi">
-                <div class="th-title">Donasi Only</div>
-                <div class="th-price">Rp 50.000</div>
-                <small style="color:var(--grey); font-size:0.75rem">100% Donasi ZIS</small>
-              </th>
-              <th style="width:23%" class="col-reguler">
+              <th style="width:44%">Benefit & Fasilitas</th>
+              <th style="width:28%" class="col-reguler">
                 <div class="th-title">Regular Pack</div>
                 <div class="th-price">
                   <del style="opacity:0.6; font-size:0.85rem; text-decoration:line-through; margin-right:4px">Rp 120.000</del>
@@ -108,9 +103,9 @@ import { JERSEY_SIZES } from '../lib/utils.js';
                 </div>
                 <small style="color:var(--grey); font-size:0.75rem">Termasuk Rp 20.000 Donasi</small>
               </th>
-              <th style="width:23%" class="col-family">
+              <th style="width:28%" class="col-family">
                 <div class="th-title">Family Pack</div>
-                <div class="th-price">Rp 180.000 <small>(2 Orang)</small></div>
+                <div class="th-price"><b>Rp 200.000</b> <small>(2 Orang)</small></div>
                 <small style="color:var(--grey); font-size:0.75rem">Termasuk Rp 20.000 Donasi</small>
               </th>
             </tr>
@@ -118,37 +113,31 @@ import { JERSEY_SIZES } from '../lib/utils.js';
           <tbody>
             <tr>
               <td>Jersey Drifit Resmi BAZNAS Fun Walk</td>
-              <td class="check-no">— (Tidak dapat)</td>
               <td class="check-yes">✓ 1 Pcs</td>
               <td class="check-yes">✓ 2 Pcs</td>
             </tr>
             <tr>
               <td>Official Eco Tote Bag</td>
-              <td class="check-no">—</td>
               <td class="check-yes">✓ 1 Pcs</td>
               <td class="check-yes">✓ 2 Pcs</td>
             </tr>
             <tr>
               <td>Official Silicone Wristband</td>
-              <td class="check-no">—</td>
               <td class="check-yes">✓ 1 Pcs</td>
               <td class="check-yes">✓ 2 Pcs</td>
             </tr>
             <tr>
               <td>Nomor BIB & Kupon Doorprize Umroh</td>
-              <td class="check-no">— (Tidak dapat)</td>
               <td class="check-yes">✓ 1 Kupon Undian</td>
               <td class="check-yes">✓ 2 Kupon Undian</td>
             </tr>
             <tr>
               <td>Refreshment Air Mineral</td>
-              <td class="check-no">—</td>
               <td class="check-yes">✓ Termasuk (1 Orang)</td>
               <td class="check-yes">✓ Termasuk (2 Orang)</td>
             </tr>
             <tr>
               <td>Medali Finisher & E-Certificate</td>
-              <td class="check-yes">✓ E-Certificate Donatur</td>
               <td class="check-yes">✓ Medali & E-Certificate</td>
               <td class="check-yes">✓ 2x Medali & 2x E-Cert</td>
             </tr>
@@ -157,7 +146,6 @@ import { JERSEY_SIZES } from '../lib/utils.js';
                 <b>Alokasi Donasi ZIS Terhitung</b>
                 <div class="hint">Disalurkan untuk program kemanusiaan & mustahik BAZNAS</div>
               </td>
-              <td class="check-yes"><b>✓ Rp 50.000 (100%)</b></td>
               <td class="check-yes"><b>✓ Rp 20.000 (Otomatis)</b></td>
               <td class="check-yes"><b>✓ Rp 20.000 (Otomatis)</b></td>
             </tr>
@@ -168,11 +156,9 @@ import { JERSEY_SIZES } from '../lib/utils.js';
               </td>
               <td class="check-yes">✓ Tersedia</td>
               <td class="check-yes">✓ Tersedia</td>
-              <td class="check-yes">✓ Tersedia</td>
             </tr>
             <tr>
               <td>Aksi Pendaftaran</td>
-              <td><a href="/daftar?paket=donasi" class="btn btn-ghost-dark btn-sm" style="width:100%">Donasi Only</a></td>
               <td><a href="/daftar?paket=reguler" class="btn btn-sun btn-sm" style="width:100%">Daftar Reguler</a></td>
               <td><a href="/daftar?paket=family" class="btn btn-leaf btn-sm" style="width:100%">Daftar Family</a></td>
             </tr>
