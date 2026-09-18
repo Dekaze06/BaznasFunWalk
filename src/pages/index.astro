@@ -312,7 +312,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                 <div class="paket-cards-grid" id="homePaketCardsGrid">
                   <!-- Paket Reguler -->
                   <div class="card-clean paket-card paket-card--featured active" id="cardHome_reguler">
-                    <div class="card-pill card-pill--sun">Paling Populer</div>
+                    <div class="card-pill card-pill--sun">Waktu & Kuota Terbatas</div>
                     <h3>Regular Pack 5K</h3>
                     <p class="card-sub">Jalan sehat 5K lengkap untuk 1 orang peserta.</p>
                     
@@ -321,6 +321,24 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <span class="price-val">Rp 80.000</span>
                       <span class="price-period">/ orang (Early Bird)</span>
                     </div>
+
+                    <!-- Mini Countdown Early Bird didalam kotak harga -->
+                    <div class="early-bird-mini-timer" id="earlyBirdMiniTimer">
+                      <div class="ebm-label">
+                        <span class="ebm-dot"></span>
+                        <span>Promo Early Bird Berakhir:</span>
+                      </div>
+                      <div class="ebm-countdown">
+                        <span class="ebm-num"><b id="ebmDays">14</b><small>h</small></span>
+                        <span class="ebm-sep">:</span>
+                        <span class="ebm-num"><b id="ebmHours">19</b><small>j</small></span>
+                        <span class="ebm-sep">:</span>
+                        <span class="ebm-num"><b id="ebmMins">35</b><small>m</small></span>
+                        <span class="ebm-sep">:</span>
+                        <span class="ebm-num"><b id="ebmSecs">20</b><small>d</small></span>
+                      </div>
+                    </div>
+
                     <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Harga Spesial Early Bird (Termasuk Donasi Rp 20.000)</div>
 
                     <ul class="benefit-checklist">
@@ -1091,6 +1109,80 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     margin-bottom: 24px;
   }
 
+  /* Mini Countdown in Price Card */
+  .early-bird-mini-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.16) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: var(--r-sm);
+    padding: 6px 12px;
+    margin: 8px 0 14px 0;
+    font-size: 0.82rem;
+  }
+
+  .ebm-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    color: #B45309;
+  }
+
+  .ebm-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #DC2626;
+    display: inline-block;
+    box-shadow: 0 0 6px #DC2626;
+    animation: ebmPulse 1.5s infinite;
+  }
+
+  @keyframes ebmPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .ebm-countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: 'Baloo 2', monospace, sans-serif;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .ebm-num {
+    background: #FFFFFF;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 1px 5px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .ebm-num b {
+    font-size: 0.88rem;
+    color: #B45309;
+  }
+
+  .ebm-num small {
+    font-size: 0.68rem;
+    color: var(--grey);
+    font-weight: 600;
+  }
+
+  .ebm-sep {
+    color: #B45309;
+    font-weight: 800;
+    font-size: 0.75rem;
+  }
+
   .benefit-checklist {
     list-style: none;
     margin-bottom: 28px;
@@ -1456,6 +1548,8 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     if (diff <= 0) {
       const container = document.getElementById('heroCountdown');
       if (container) container.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-weight:700;color:var(--leaf);padding:10px">Periode Early Bird Berakhir</div>';
+      const miniTimer = document.getElementById('earlyBirdMiniTimer');
+      if (miniTimer) miniTimer.style.display = 'none';
       return;
     }
 
@@ -1473,6 +1567,17 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     if (hEl) hEl.textContent = hours.toString().padStart(2, '0');
     if (mEl) mEl.textContent = mins.toString().padStart(2, '0');
     if (sEl) sEl.textContent = secs.toString().padStart(2, '0');
+
+    // Mini countdown inside price card
+    const ebmD = document.getElementById('ebmDays');
+    const ebmH = document.getElementById('ebmHours');
+    const ebmM = document.getElementById('ebmMins');
+    const ebmS = document.getElementById('ebmSecs');
+
+    if (ebmD) ebmD.textContent = days.toString();
+    if (ebmH) ebmH.textContent = hours.toString().padStart(2, '0');
+    if (ebmM) ebmM.textContent = mins.toString().padStart(2, '0');
+    if (ebmS) ebmS.textContent = secs.toString().padStart(2, '0');
   }
 
   setInterval(updateCountdown, 1000);
