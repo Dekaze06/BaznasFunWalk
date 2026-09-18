@@ -92,9 +92,8 @@ const snapJsUrl = isProduction
                   <span class="pill pill--lime" style="background:var(--leaf); color:#fff">Hemat Berdua</span>
                 </div>
                 <div class="opt-price">
-                  <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 200.000</del>
-                  <b>Rp 180.000</b>
-                  <small style="color:var(--leaf); font-weight:700">Early Bird (Termasuk Donasi Rp 20.000)</small>
+                  <b>Rp 200.000</b>
+                  <small style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 20.000</small>
                 </div>
                 <ul class="opt-perks">
                   <li>✓ 2x Jersey Resmi</li>
@@ -1049,41 +1048,25 @@ const snapJsUrl = isProduction
   let currentParticipantData: any = null;
 
   // Option Cards
-  const optDonasi = document.getElementById('optDonasi');
   const optReguler = document.getElementById('optReguler');
   const optFamily = document.getElementById('optFamily');
 
-  if (optDonasi) optDonasi.addEventListener('click', () => selectPackage('donasi'));
   if (optReguler) optReguler.addEventListener('click', () => selectPackage('reguler'));
   if (optFamily) optFamily.addEventListener('click', () => selectPackage('family'));
 
   function selectPackage(pkg: string) {
-    selectedPaket = pkg;
-    if (optDonasi) optDonasi.classList.toggle('active', pkg === 'donasi');
-    if (optReguler) optReguler.classList.toggle('active', pkg === 'reguler');
-    if (optFamily) optFamily.classList.toggle('active', pkg === 'family');
+    selectedPaket = pkg === 'family' ? 'family' : 'reguler';
+    if (optReguler) optReguler.classList.toggle('active', selectedPaket === 'reguler');
+    if (optFamily) optFamily.classList.toggle('active', selectedPaket === 'family');
 
-    const input = document.querySelector(`input[name="paket"][value="${pkg}"]`) as HTMLInputElement | null;
+    const input = document.querySelector(`input[name="paket"][value="${selectedPaket}"]`) as HTMLInputElement | null;
     if (input) input.checked = true;
 
     // Toggle Family Member fields in Step 2 & 3
     const famRow = document.getElementById('familyMemberRow');
     const famJersey = document.getElementById('familySecondJerseyBox');
-    if (famRow) famRow.style.display = pkg === 'family' ? 'block' : 'none';
-    if (famJersey) famJersey.style.display = pkg === 'family' ? 'block' : 'none';
-
-    // Toggle Donasi Only notice in Step 3
-    const donasiNotice = document.getElementById('donasiOnlyJerseyNotice');
-    const regJerseySec = document.getElementById('regularJerseySection');
-    if (donasiNotice && regJerseySec) {
-      if (pkg === 'donasi') {
-        donasiNotice.style.display = 'block';
-        regJerseySec.style.display = 'none';
-      } else {
-        donasiNotice.style.display = 'none';
-        regJerseySec.style.display = 'block';
-      }
-    }
+    if (famRow) famRow.style.display = selectedPaket === 'family' ? 'block' : 'none';
+    if (famJersey) famJersey.style.display = selectedPaket === 'family' ? 'block' : 'none';
   }
 
   // Additional Donation Chips
@@ -1325,9 +1308,7 @@ const snapJsUrl = isProduction
     // Size summary
     const elSumSize = document.getElementById('summarySize');
     if (elSumSize) {
-      if (selectedPaket === 'donasi') {
-        elSumSize.textContent = 'Tanpa Jersey (Donasi Only)';
-      } else if (selectedPaket === 'family') {
+      if (selectedPaket === 'family') {
         elSumSize.textContent = `Peserta 1: ${selectedSize} | Peserta 2: ${selectedSize2}`;
       } else {
         elSumSize.textContent = `Ukuran ${selectedSize}`;
@@ -1342,19 +1323,12 @@ const snapJsUrl = isProduction
     const elSumBiaya = document.getElementById('summaryBiayaEvent');
     const elSumDonasi = document.getElementById('summaryDonasiVal');
 
-    if (selectedPaket === 'donasi') {
-      basePaketPrice = 50000;
-      baseDonasi = 50000;
-      baseRegFee = 0;
-      if (elSumPaket) elSumPaket.textContent = 'Donasi Only (Rp 50.000)';
-      if (elSumBiaya) elSumBiaya.textContent = 'Rp 0';
-      if (elSumDonasi) elSumDonasi.textContent = 'Rp 50.000 (100% Donasi ZIS)';
-    } else if (selectedPaket === 'family') {
-      basePaketPrice = 180000;
+    if (selectedPaket === 'family') {
+      basePaketPrice = 200000;
       baseDonasi = 20000;
-      baseRegFee = 160000;
-      if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 180.000 untuk 2 orang)';
-      if (elSumBiaya) elSumBiaya.textContent = 'Rp 160.000';
+      baseRegFee = 180000;
+      if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 200.000 untuk 2 orang)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 180.000';
       if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
     } else {
       basePaketPrice = 80000;
@@ -1662,12 +1636,8 @@ const snapJsUrl = isProduction
       let baseDonasi = 20000;
       let paketTitle = 'Regular Pack 5K Early Bird';
 
-      if (selectedPaket === 'donasi') {
-        basePrice = 50000;
-        baseDonasi = 50000;
-        paketTitle = 'Donasi Only 5K';
-      } else if (selectedPaket === 'family') {
-        basePrice = 180000;
+      if (selectedPaket === 'family') {
+        basePrice = 200000;
         baseDonasi = 20000;
         paketTitle = 'Family Pack 5K (2 Orang)';
       }
