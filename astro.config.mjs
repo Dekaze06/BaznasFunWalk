@@ -1,12 +1,10 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://funwalk.baznaskabbandung.org',
-  adapter: node({
-    mode: 'standalone'
-  }),
+  adapter: vercel(),
   server: {
     port: 4321
   },
