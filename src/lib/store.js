@@ -371,11 +371,8 @@ export function getSettings() {
   const defaults = {
     statusEvent: 'DIBUKA',
     tierHarga: 'EARLY_BIRD',
-    hargaDonasiOnly: 50000,
     hargaRegulerEarlyBird: 80000,
     hargaRegulerNormal: 120000,
-    hargaFamilyPackEarlyBird: 180000,
-    hargaFamilyPackNormal: 200000,
     hargaFamilyPack: 200000,
     donasiReguler: 20000,
     donasiFamily: 20000,
