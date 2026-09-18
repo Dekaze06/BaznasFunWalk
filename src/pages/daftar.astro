@@ -58,27 +58,7 @@ const snapJsUrl = isProduction
             <h3 class="step-title">Pilih Kategori Paket Kepesertaan</h3>
             <p class="hint" style="margin-bottom:24px">Silakan pilih kategori yang Anda inginkan. Fasilitas jalur 5K dan doorprize sama lengkapnya.</p>
 
-            <div class="package-selector-grid package-selector-grid--3">
-              <!-- Donasi Only -->
-              <label class="package-option-card" id="optDonasi">
-                <input type="radio" name="paket" value="donasi" class="sr-only">
-                <div class="opt-header">
-                  <div>
-                    <div class="opt-name">Donasi Only</div>
-                    <div class="opt-desc">Dukungan murni program ZIS BAZNAS</div>
-                  </div>
-                  <span class="pill pill--dark" style="background:var(--moss); color:#fff">Murni ZIS</span>
-                </div>
-                <div class="opt-price">
-                  <b>Rp 50.000</b>
-                  <small style="color:var(--leaf); font-weight:700">100% Disalurkan untuk ZIS</small>
-                </div>
-                <ul class="opt-perks">
-                  <li style="color:var(--grey); opacity:0.7">✕ Tanpa kupon doorprize umroh</li>
-                  <li style="color:var(--grey); opacity:0.7">✕ Tanpa jersey & race pack</li>
-                </ul>
-              </label>
-
+            <div class="package-selector-grid">
               <!-- Paket Reguler -->
               <label class="package-option-card active" id="optReguler">
                 <input type="radio" name="paket" value="reguler" checked class="sr-only">
@@ -112,8 +92,9 @@ const snapJsUrl = isProduction
                   <span class="pill pill--lime" style="background:var(--leaf); color:#fff">Hemat Berdua</span>
                 </div>
                 <div class="opt-price">
+                  <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 200.000</del>
                   <b>Rp 180.000</b>
-                  <small style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 20.000</small>
+                  <small style="color:var(--leaf); font-weight:700">Early Bird (Termasuk Donasi Rp 20.000)</small>
                 </div>
                 <ul class="opt-perks">
                   <li>✓ 2x Jersey Resmi</li>
@@ -599,8 +580,10 @@ const snapJsUrl = isProduction
   /* Step 1 Packages */
   .package-selector-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 860px;
+    margin: 0 auto;
   }
 
   @media (max-width: 960px) {
