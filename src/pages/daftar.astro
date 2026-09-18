@@ -2,8 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import { JERSEY_SIZES } from '../lib/utils.js';
 
-const clientKey = process.env.PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-sandbox-demo-key';
-const isProduction = process.env.MIDTRANS_IS_PRODUCTION === 'true';
+declare const process: any;
+const clientKey = (typeof process !== 'undefined' && process.env?.PUBLIC_MIDTRANS_CLIENT_KEY) || (import.meta as any).env?.PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-sandbox-demo-key';
+const isProduction = (typeof process !== 'undefined' && process.env?.MIDTRANS_IS_PRODUCTION === 'true') || (import.meta as any).env?.MIDTRANS_IS_PRODUCTION === 'true';
 const snapJsUrl = isProduction 
   ? 'https://app.midtrans.com/snap/snap.js' 
   : 'https://app.sandbox.midtrans.com/snap/snap.js';
@@ -1051,13 +1052,25 @@ const snapJsUrl = isProduction
   import { saveParticipant, getStockSummary } from '../lib/store.js';
   import { formatRupiah } from '../lib/utils.js';
 
+  // Global declarations for TypeScript linter in IDE
+  declare global {
+    interface Window {
+      nextStep?: (step: number) => void;
+      prevStep?: (step: number) => void;
+      validateStep2?: () => void;
+      validateStep3?: () => void;
+      downloadTicketImageFromModal?: () => void;
+      snap?: any;
+    }
+  }
+
   let currentStep = 1;
   let selectedPaket = 'reguler';
   let selectedSize = 'L';
   let selectedSize2 = 'M';
   let selectedPayment = 'QRIS Instan';
   let additionalDonasi = 0;
-  let currentParticipantData = null;
+  let currentParticipantData: any = null;
 
   // Option Cards
   const optDonasi = document.getElementById('optDonasi');
@@ -1068,13 +1081,13 @@ const snapJsUrl = isProduction
   if (optReguler) optReguler.addEventListener('click', () => selectPackage('reguler'));
   if (optFamily) optFamily.addEventListener('click', () => selectPackage('family'));
 
-  function selectPackage(pkg) {
+  function selectPackage(pkg: string) {
     selectedPaket = pkg;
     if (optDonasi) optDonasi.classList.toggle('active', pkg === 'donasi');
     if (optReguler) optReguler.classList.toggle('active', pkg === 'reguler');
     if (optFamily) optFamily.classList.toggle('active', pkg === 'family');
 
-    const input = document.querySelector(`input[name="paket"][value="${pkg}"]`);
+    const input = document.querySelector(`input[name="paket"][value="${pkg}"]`) as HTMLInputElement | null;
     if (input) input.checked = true;
 
     // Toggle Family Member fields in Step 2 & 3
@@ -1100,7 +1113,7 @@ const snapJsUrl = isProduction
   // Additional Donation Chips
   const donChips = document.querySelectorAll('.don-chip');
   const customDonBox = document.getElementById('customDonasiWrap') || document.getElementById('customDonasiBox');
-  const customDonInput = document.getElementById('customDonasiInput');
+  const customDonInput = document.getElementById('customDonasiInput') as HTMLInputElement | null;
 
   donChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -1112,11 +1125,11 @@ const snapJsUrl = isProduction
         if (customDonBox) customDonBox.style.display = 'block';
         if (customDonInput) {
           customDonInput.focus();
-          additionalDonasi = parseInt(customDonInput.value || 0, 10);
+          additionalDonasi = parseInt(customDonInput.value || '0', 10) || 0;
         }
       } else {
         if (customDonBox) customDonBox.style.display = 'none';
-        additionalDonasi = parseInt(val || 0, 10);
+        additionalDonasi = parseInt(val || '0', 10) || 0;
       }
       updateSummary();
     });
@@ -1124,7 +1137,8 @@ const snapJsUrl = isProduction
 
   if (customDonInput) {
     customDonInput.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value || 0, 10);
+      const target = e.target as HTMLInputElement | null;
+      const val = parseInt(target?.value || '0', 10);
       additionalDonasi = isNaN(val) || val < 0 ? 0 : val;
       updateSummary();
     });
@@ -1157,7 +1171,7 @@ const snapJsUrl = isProduction
         const customChip = document.getElementById('btnCustomDonasi');
         if (customChip) customChip.classList.add('active');
         if (customDonBox) customDonBox.style.display = 'block';
-        if (customDonInput) customDonInput.value = dVal;
+        if (customDonInput) customDonInput.value = String(dVal);
       }
     }
   }
@@ -1178,7 +1192,7 @@ const snapJsUrl = isProduction
     card.addEventListener('click', () => {
       primaryJerseyCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      const radio = card.querySelector('input[type="radio"]');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
       if (radio) {
         radio.checked = true;
         selectedSize = radio.value;
@@ -1192,7 +1206,7 @@ const snapJsUrl = isProduction
     card.addEventListener('click', () => {
       secJerseyCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      const radio = card.querySelector('input[type="radio"]');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
       if (radio) {
         radio.checked = true;
         selectedSize2 = radio.value;
@@ -1204,7 +1218,7 @@ const snapJsUrl = isProduction
   const defaultSizeCard = document.getElementById(`cardSize_L`);
   if (defaultSizeCard) {
     defaultSizeCard.classList.add('active');
-    const rad = defaultSizeCard.querySelector('input');
+    const rad = defaultSizeCard.querySelector('input') as HTMLInputElement | null;
     if (rad) rad.checked = true;
   }
 
@@ -1212,7 +1226,7 @@ const snapJsUrl = isProduction
   const defaultSecCard = document.getElementById(`cardSecSize_M`);
   if (defaultSecCard) {
     defaultSecCard.classList.add('active');
-    const rad = defaultSecCard.querySelector('input');
+    const rad = defaultSecCard.querySelector('input') as HTMLInputElement | null;
     if (rad) rad.checked = true;
   }
 
@@ -1222,7 +1236,7 @@ const snapJsUrl = isProduction
     card.addEventListener('click', () => {
       payCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      const radio = card.querySelector('input[type="radio"]');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
       if (radio) {
         radio.checked = true;
         selectedPayment = radio.value;
@@ -1231,13 +1245,19 @@ const snapJsUrl = isProduction
   });
 
   // Navigation functions
-  window.nextStep = function(step) {
-    document.getElementById(`step${currentStep}`).style.display = 'none';
-    document.getElementById(`step${step}`).style.display = 'block';
+  function nextStep(step: number) {
+    const prevEl = document.getElementById(`step${currentStep}`);
+    const nextEl = document.getElementById(`step${step}`);
+    if (prevEl) prevEl.style.display = 'none';
+    if (nextEl) nextEl.style.display = 'block';
     
-    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
-    document.getElementById(`stepPill${currentStep}`).classList.add('done');
-    document.getElementById(`stepPill${step}`).classList.add('active');
+    const prevPill = document.getElementById(`stepPill${currentStep}`);
+    const nextPill = document.getElementById(`stepPill${step}`);
+    if (prevPill) {
+      prevPill.classList.remove('active');
+      prevPill.classList.add('done');
+    }
+    if (nextPill) nextPill.classList.add('active');
 
     currentStep = step;
     window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -1245,23 +1265,29 @@ const snapJsUrl = isProduction
     if (step === 4) {
       updateSummary();
     }
-  };
+  }
+  window.nextStep = nextStep;
 
-  window.prevStep = function(step) {
-    document.getElementById(`step${currentStep}`).style.display = 'none';
-    document.getElementById(`step${step}`).style.display = 'block';
+  function prevStep(step: number) {
+    const prevEl = document.getElementById(`step${currentStep}`);
+    const nextEl = document.getElementById(`step${step}`);
+    if (prevEl) prevEl.style.display = 'none';
+    if (nextEl) nextEl.style.display = 'block';
 
-    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
-    document.getElementById(`stepPill${step}`).classList.add('active');
+    const prevPill = document.getElementById(`stepPill${currentStep}`);
+    const nextPill = document.getElementById(`stepPill${step}`);
+    if (prevPill) prevPill.classList.remove('active');
+    if (nextPill) nextPill.classList.add('active');
 
     currentStep = step;
     window.scrollTo({ top: 100, behavior: 'smooth' });
-  };
+  }
+  window.prevStep = prevStep;
 
-  window.validateStep2 = function() {
-    const nama = document.getElementById('nama')?.value?.trim();
-    const wa = document.getElementById('whatsapp')?.value?.trim();
-    const email = document.getElementById('email')?.value?.trim();
+  function validateStep2() {
+    const nama = (document.getElementById('nama') as HTMLInputElement)?.value?.trim();
+    const wa = (document.getElementById('whatsapp') as HTMLInputElement)?.value?.trim();
+    const email = (document.getElementById('email') as HTMLInputElement)?.value?.trim();
 
     if (!nama || !wa || !email) {
       alert('Harap lengkapi Nama, WhatsApp, dan Email Anda.');
@@ -1272,15 +1298,16 @@ const snapJsUrl = isProduction
       return;
     }
     nextStep(3);
-  };
+  }
+  window.validateStep2 = validateStep2;
 
-  window.validateStep3 = function() {
+  function validateStep3() {
     if (selectedPaket === 'donasi') {
       nextStep(4);
       return;
     }
 
-    const checkedSize = document.querySelector('input[name="ukuranJersey"]:checked');
+    const checkedSize = document.querySelector('input[name="ukuranJersey"]:checked') as HTMLInputElement | null;
     if (!checkedSize) {
       alert('Harap pilih ukuran jersey untuk Peserta Utama.');
       return;
@@ -1288,7 +1315,7 @@ const snapJsUrl = isProduction
     selectedSize = checkedSize.value;
 
     if (selectedPaket === 'family') {
-      const checkedSize2 = document.querySelector('input[name="ukuranJerseySec"]:checked');
+      const checkedSize2 = document.querySelector('input[name="ukuranJerseySec"]:checked') as HTMLInputElement | null;
       if (!checkedSize2) {
         alert('Harap pilih ukuran jersey untuk Peserta Ke-2 (Family Pack).');
         return;
@@ -1297,16 +1324,19 @@ const snapJsUrl = isProduction
     }
 
     nextStep(4);
-  };
+  }
+  window.validateStep3 = validateStep3;
 
   function updateSummary() {
-    const nama = document.getElementById('nama')?.value || '-';
-    const nama2 = document.getElementById('namaPeserta2')?.value || '';
-    const wa = document.getElementById('whatsapp')?.value || '-';
-    const email = document.getElementById('email')?.value || '-';
+    const nama = (document.getElementById('nama') as HTMLInputElement)?.value || '-';
+    const nama2 = (document.getElementById('namaPeserta2') as HTMLInputElement)?.value || '';
+    const wa = (document.getElementById('whatsapp') as HTMLInputElement)?.value || '-';
+    const email = (document.getElementById('email') as HTMLInputElement)?.value || '-';
 
-    document.getElementById('summaryNama').textContent = nama;
-    document.getElementById('summaryKontak').textContent = `${wa} / ${email}`;
+    const elSumNama = document.getElementById('summaryNama');
+    if (elSumNama) elSumNama.textContent = nama;
+    const elSumKontak = document.getElementById('summaryKontak');
+    if (elSumKontak) elSumKontak.textContent = `${wa} / ${email}`;
 
     // Family pack member 2 row
     const sumPeserta2Row = document.getElementById('summaryPeserta2Row');
@@ -1317,39 +1347,46 @@ const snapJsUrl = isProduction
     }
 
     // Size summary
-    if (selectedPaket === 'donasi') {
-      document.getElementById('summarySize').textContent = 'Tanpa Jersey (Donasi Only)';
-    } else if (selectedPaket === 'family') {
-      document.getElementById('summarySize').textContent = `Peserta 1: ${selectedSize} | Peserta 2: ${selectedSize2}`;
-    } else {
-      document.getElementById('summarySize').textContent = `Ukuran ${selectedSize}`;
+    const elSumSize = document.getElementById('summarySize');
+    if (elSumSize) {
+      if (selectedPaket === 'donasi') {
+        elSumSize.textContent = 'Tanpa Jersey (Donasi Only)';
+      } else if (selectedPaket === 'family') {
+        elSumSize.textContent = `Peserta 1: ${selectedSize} | Peserta 2: ${selectedSize2}`;
+      } else {
+        elSumSize.textContent = `Ukuran ${selectedSize}`;
+      }
     }
 
     let basePaketPrice = 80000;
     let baseDonasi = 20000;
     let baseRegFee = 60000;
 
+    const elSumPaket = document.getElementById('summaryPaket');
+    const elSumBiaya = document.getElementById('summaryBiayaEvent');
+    const elSumDonasi = document.getElementById('summaryDonasiVal');
+
     if (selectedPaket === 'donasi') {
       basePaketPrice = 50000;
       baseDonasi = 50000;
       baseRegFee = 0;
-      document.getElementById('summaryPaket').textContent = 'Donasi Only (Rp 50.000)';
-      document.getElementById('summaryBiayaEvent').textContent = 'Rp 0';
-      document.getElementById('summaryDonasiVal').textContent = 'Rp 50.000 (100% Donasi ZIS)';
+      if (elSumPaket) elSumPaket.textContent = 'Donasi Only (Rp 50.000)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 0';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 50.000 (100% Donasi ZIS)';
     } else if (selectedPaket === 'family') {
       basePaketPrice = 180000;
       baseDonasi = 20000;
       baseRegFee = 160000;
-      document.getElementById('summaryPaket').textContent = 'Family Pack 5K (Rp 180.000 untuk 2 orang)';
-      document.getElementById('summaryBiayaEvent').textContent = 'Rp 160.000';
-      document.getElementById('summaryDonasiVal').textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 180.000 untuk 2 orang)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 160.000';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
     } else {
       basePaketPrice = 80000;
       baseDonasi = 20000;
       baseRegFee = 60000;
-      document.getElementById('summaryPaket').textContent = 'Regular Pack 5K Early Bird (Rp 80.000)';
-      document.getElementById('summaryBiayaEvent').textContent = 'Rp 60.000';
-      document.getElementById('summaryDonasiVal').textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 80.000)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 60.000';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
     }
 
     // Extra Donation Row
@@ -1365,21 +1402,29 @@ const snapJsUrl = isProduction
     }
 
     const grandTotal = basePaketPrice + additionalDonasi;
-    document.getElementById('summaryTotal').textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+    const elSumTotal = document.getElementById('summaryTotal');
+    if (elSumTotal) elSumTotal.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
   }
 
   // Helper to show modal
-  function showTicketModal(participantData) {
+  function showTicketModal(participantData: any) {
     currentParticipantData = participantData;
-    document.getElementById('modalRegId').textContent = participantData.id;
-    document.getElementById('modalNama').textContent = participantData.nama;
-    document.getElementById('modalPaket').textContent = participantData.paketNama;
-    document.getElementById('modalSize').textContent = participantData.ukuranJersey !== '-' 
-      ? (participantData.ukuranJersey2 && participantData.ukuranJersey2 !== '-' 
-          ? `Peserta 1: ${participantData.ukuranJersey} | Peserta 2: ${participantData.ukuranJersey2}` 
-          : `Ukuran ${participantData.ukuranJersey}`)
-      : 'Tanpa Jersey';
-    document.getElementById('modalMetode').textContent = participantData.metodeBayar;
+    const elId = document.getElementById('modalRegId');
+    if (elId) elId.textContent = participantData.id;
+    const elNama = document.getElementById('modalNama');
+    if (elNama) elNama.textContent = participantData.nama;
+    const elPaket = document.getElementById('modalPaket');
+    if (elPaket) elPaket.textContent = participantData.paketNama;
+    const elSize = document.getElementById('modalSize');
+    if (elSize) {
+      elSize.textContent = participantData.ukuranJersey !== '-' 
+        ? (participantData.ukuranJersey2 && participantData.ukuranJersey2 !== '-' 
+            ? `Peserta 1: ${participantData.ukuranJersey} | Peserta 2: ${participantData.ukuranJersey2}` 
+            : `Ukuran ${participantData.ukuranJersey}`)
+        : 'Tanpa Jersey';
+    }
+    const elMetode = document.getElementById('modalMetode');
+    if (elMetode) elMetode.textContent = participantData.metodeBayar;
 
     const badge = document.getElementById('modalBadge');
     if (badge) {
@@ -1392,12 +1437,14 @@ const snapJsUrl = isProduction
       }
     }
 
-    document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${participantData.id}`;
-    document.getElementById('successModal').style.display = 'flex';
+    const btnView = document.getElementById('modalViewTicketBtn') as HTMLAnchorElement | null;
+    if (btnView) btnView.href = `/cek-tiket?id=${participantData.id}`;
+    const modal = document.getElementById('successModal');
+    if (modal) modal.style.display = 'flex';
   }
 
   // Unduh E-Ticket Digital High-Res PNG via HTML5 Canvas
-  window.downloadTicketImageFromModal = function() {
+  function downloadTicketImageFromModal() {
     const p = currentParticipantData;
     const regId = p?.id || document.getElementById('modalRegId')?.textContent || 'BFW26-0000';
     const nama = p?.nama || document.getElementById('modalNama')?.textContent || '-';
@@ -1411,6 +1458,7 @@ const snapJsUrl = isProduction
 
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     const width = 1000;
     const height = 620;
     canvas.width = width;
@@ -1581,7 +1629,8 @@ const snapJsUrl = isProduction
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+  }
+  window.downloadTicketImageFromModal = downloadTicketImageFromModal;
 
   // Event handler untuk modal size chart
   const btnOpenSize = document.getElementById('btnOpenSizeChart');
@@ -1604,7 +1653,7 @@ const snapJsUrl = isProduction
   }
 
   function resetSubmitBtn() {
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<span>Konfirmasi & Bayar Sekarang →</span>';
@@ -1617,13 +1666,13 @@ const snapJsUrl = isProduction
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const agree = document.getElementById('agreeWaiver')?.checked;
+      const agree = (document.getElementById('agreeWaiver') as HTMLInputElement | null)?.checked;
       if (!agree) {
         alert('Anda harus menyetujui Syarat & Ketentuan serta Waiver Kesehatan untuk mendaftar.');
         return;
       }
 
-      const submitBtn = document.getElementById('submitBtn');
+      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Menyiapkan Midtrans Gateway...</span>';
@@ -1651,16 +1700,19 @@ const snapJsUrl = isProduction
       const donasiTotal = baseDonasi + additionalDonasi;
       const regFee = total - donasiTotal;
 
-      const nama2Val = document.getElementById('namaPeserta2')?.value?.trim();
-      const kontakDaruratNama = document.getElementById('kontakDaruratNama')?.value?.trim() || '-';
-      const kontakDaruratHp = document.getElementById('kontakDaruratHp')?.value?.trim() || '-';
+      const namaVal = (document.getElementById('nama') as HTMLInputElement | null)?.value?.trim() || '-';
+      const nama2Val = (document.getElementById('namaPeserta2') as HTMLInputElement | null)?.value?.trim();
+      const emailVal = (document.getElementById('email') as HTMLInputElement | null)?.value?.trim() || '-';
+      const waVal = (document.getElementById('whatsapp') as HTMLInputElement | null)?.value?.trim() || '-';
+      const kontakDaruratNama = (document.getElementById('kontakDaruratNama') as HTMLInputElement | null)?.value?.trim() || '-';
+      const kontakDaruratHp = (document.getElementById('kontakDaruratHp') as HTMLInputElement | null)?.value?.trim() || '-';
 
-      const participantData = {
+      const participantData: any = {
         id: regId,
-        nama: document.getElementById('nama')?.value?.trim(),
+        nama: namaVal,
         namaPeserta2: selectedPaket === 'family' ? (nama2Val || 'Peserta Ke-2') : '-',
-        email: document.getElementById('email')?.value?.trim(),
-        whatsapp: document.getElementById('whatsapp')?.value?.trim(),
+        email: emailVal,
+        whatsapp: waVal,
         gender: '-',
         nik: '-',
         alamat: '-',
@@ -1704,9 +1756,10 @@ const snapJsUrl = isProduction
         }
 
         // Cek apakah snap SDK terpasang di window dan bukan mock mode
-        if (window.snap && typeof window.snap.pay === 'function' && !result.isMock) {
-          window.snap.pay(result.token, {
-            onSuccess: function(payResult) {
+        const snapGlobal = (window as any).snap;
+        if (snapGlobal && typeof snapGlobal.pay === 'function' && !result.isMock) {
+          snapGlobal.pay(result.token, {
+            onSuccess: function(payResult: any) {
               participantData.status = 'PAID';
               participantData.waktuBayar = new Date().toISOString();
               participantData.metodeBayar = payResult.payment_type 
@@ -1715,7 +1768,7 @@ const snapJsUrl = isProduction
               saveParticipant(participantData);
               showTicketModal(participantData);
             },
-            onPending: function(payResult) {
+            onPending: function(payResult: any) {
               participantData.status = 'PENDING';
               participantData.metodeBayar = payResult.payment_type 
                 ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
@@ -1724,7 +1777,7 @@ const snapJsUrl = isProduction
               showTicketModal(participantData);
               alert('Pesanan tercatat! Silakan selesaikan pembayaran sesuai instruksi VA/QRIS Anda.');
             },
-            onError: function(err) {
+            onError: function(err: any) {
               console.error('Midtrans payment error:', err);
               alert('Pembayaran gagal atau dibatalkan. Silakan ulangi kembali.');
               resetSubmitBtn();
@@ -1764,9 +1817,9 @@ const snapJsUrl = isProduction
           }
           resetSubmitBtn();
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error saat inisiasi Midtrans:', err);
-        alert(`Terjadi kendala: ${err.message || 'Gagal memproses pembayaran'}`);
+        alert(`Terjadi kendala: ${err?.message || 'Gagal memproses pembayaran'}`);
         resetSubmitBtn();
       }
     });

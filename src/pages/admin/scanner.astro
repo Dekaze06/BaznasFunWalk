@@ -3,21 +3,36 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 ---
 
 <AdminLayout title="Scanner QR Race Pack — Admin BAZNAS Fun Walk 2026" activeSection="scanner">
+  <!-- html5-qrcode library for real camera QR scanning on mobile & desktop -->
+  <script is:inline src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
   <div class="scanner-page-grid">
     <!-- Camera & Input Col -->
     <div class="card-clean scanner-box">
       <div class="scanner-header">
         <h3>Validasi Pengambilan Race Pack (RPC)</h3>
-        <p class="hint">Arahkan kamera ke QR Code e-ticket peserta atau ketikkan nomor registrasi secara manual.</p>
+        <p class="hint">Arahkan kamera HP ke QR Code e-ticket peserta atau ketikkan nomor registrasi / nomor WhatsApp secara manual.</p>
       </div>
 
-      <!-- Live Viewfinder simulation -->
-      <div class="viewfinder-box">
-        <div class="viewfinder-camera-feed">
+      <!-- Real Camera Viewfinder -->
+      <div class="viewfinder-box" id="scannerViewfinderWrap">
+        <div id="qrReader" style="width:100%; height:100%; display:none; background:#000;"></div>
+        <div id="cameraPlaceholder" class="viewfinder-camera-feed">
           <div class="scan-laser"></div>
           <div class="target-corners"></div>
-          <div class="cam-text">Kamera Scanner Aktif</div>
+          <div class="cam-text" id="camStatusText">Kamera Siap Diaktifkan</div>
         </div>
+      </div>
+
+      <!-- Camera Controls -->
+      <div style="margin-top:14px;">
+        <button type="button" class="btn btn-leaf btn-lg" id="btnToggleCamera" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px">
+          <span id="btnCamIcon">📷</span>
+          <span id="btnCamText">Aktifkan Kamera HP untuk Scan QR</span>
+        </button>
+        <button type="button" class="btn btn-ghost-dark btn-sm" id="btnSwitchCamera" style="display:none; margin-top:8px; width:100%; justify-content:center;">
+          🔄 Putar Kamera (Kamera Belakang / Depan)
+        </button>
       </div>
 
       <!-- Manual ID Input -->
@@ -289,10 +304,152 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   import { getStore, markClaimed } from '../../lib/store.js';
   import { formatDateTime } from '../../lib/utils.js';
 
-  let currentFoundParticipant = null;
+  let currentFoundParticipant: any = null;
+  let html5QrCode: any = null;
+  let isCameraRunning = false;
+  let currentFacingMode = "environment"; // default ke kamera belakang HP
+  let lastScannedCode = "";
+  let lastScanTime = 0;
 
-  window.scanTest = function(id) {
-    const input = document.getElementById('manualScanId');
+  // Sound & Vibration Feedback
+  function playBeep() {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(987.77, ctx.currentTime); // B5 note
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.18);
+    } catch (e) {
+      console.warn('AudioContext not allowed without user interaction:', e);
+    }
+  }
+
+  // Camera Management
+  async function startCamera() {
+    const qrReader = document.getElementById('qrReader');
+    const placeholder = document.getElementById('cameraPlaceholder');
+    const btnToggle = document.getElementById('btnToggleCamera');
+    const btnCamText = document.getElementById('btnCamText');
+    const btnSwitch = document.getElementById('btnSwitchCamera');
+    const Html5QrcodeClass = (window as any).Html5Qrcode;
+
+    if (!Html5QrcodeClass) {
+      alert('Pustaka scanner kamera sedang dimuat... Silakan tunggu 2 detik lalu tekan kembali.');
+      return;
+    }
+
+    try {
+      if (!html5QrCode) {
+        html5QrCode = new Html5QrcodeClass("qrReader");
+      }
+
+      if (placeholder) placeholder.style.display = 'none';
+      if (qrReader) qrReader.style.display = 'block';
+
+      const config = {
+        fps: 15,
+        qrbox: { width: 240, height: 240 },
+        aspectRatio: 1.0
+      };
+
+      await html5QrCode.start(
+        { facingMode: currentFacingMode },
+        config,
+        (decodedText: string) => {
+          const now = Date.now();
+          // Throttling: cegah spam scan kode yang sama dalam rentang 2 detik
+          if (decodedText === lastScannedCode && (now - lastScanTime) < 2500) {
+            return;
+          }
+          lastScannedCode = decodedText;
+          lastScanTime = now;
+
+          playBeep();
+          if (navigator.vibrate) navigator.vibrate(120);
+
+          // Ekstrak ID dari URL jika formatnya link (misal https://.../cek-tiket?id=BFW26-0001)
+          let cleanId = decodedText.trim();
+          if (cleanId.includes('id=')) {
+            const match = cleanId.match(/id=([A-Za-z0-9_-]+)/);
+            if (match) cleanId = match[1];
+          }
+
+          const input = document.getElementById('manualScanId') as HTMLInputElement | null;
+          if (input) input.value = cleanId;
+
+          processScan(cleanId);
+        },
+        () => {
+          // Frame stream listener tanpa QR - abaikan
+        }
+      );
+
+      isCameraRunning = true;
+      if (btnCamText) btnCamText.textContent = "Matikan Kamera Scanner";
+      if (btnToggle) btnToggle.className = "btn btn-ghost-dark btn-lg";
+      if (btnSwitch) btnSwitch.style.display = "inline-flex";
+    } catch (err: any) {
+      console.error("Gagal membuka kamera HP:", err);
+      alert("Tidak dapat mengakses kamera: " + (err?.message || "Izin kamera ditolak.") + "\n\nTips: Pastikan browser di HP mengizinkan izin Kamera. Anda juga bisa memasukkan nomor tiket / WA secara manual di bawah.");
+      stopCamera();
+    }
+  }
+
+  async function stopCamera() {
+    if (html5QrCode && isCameraRunning) {
+      try {
+        await html5QrCode.stop();
+      } catch (e) {
+        console.warn('Error stopping camera:', e);
+      }
+    }
+    isCameraRunning = false;
+
+    const qrReader = document.getElementById('qrReader');
+    const placeholder = document.getElementById('cameraPlaceholder');
+    const btnToggle = document.getElementById('btnToggleCamera');
+    const btnCamText = document.getElementById('btnCamText');
+    const btnSwitch = document.getElementById('btnSwitchCamera');
+
+    if (qrReader) qrReader.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'flex';
+    if (btnCamText) btnCamText.textContent = "Aktifkan Kamera HP untuk Scan QR";
+    if (btnToggle) btnToggle.className = "btn btn-leaf btn-lg";
+    if (btnSwitch) btnSwitch.style.display = "none";
+  }
+
+  // Toggle Camera Button
+  const btnToggle = document.getElementById('btnToggleCamera');
+  if (btnToggle) {
+    btnToggle.addEventListener('click', () => {
+      if (isCameraRunning) {
+        stopCamera();
+      } else {
+        startCamera();
+      }
+    });
+  }
+
+  // Switch Camera Button (Depan/Belakang)
+  const btnSwitch = document.getElementById('btnSwitchCamera');
+  if (btnSwitch) {
+    btnSwitch.addEventListener('click', async () => {
+      currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
+      await stopCamera();
+      await startCamera();
+    });
+  }
+
+  window.scanTest = function(id: string) {
+    const input = document.getElementById('manualScanId') as HTMLInputElement | null;
     if (input) input.value = id;
     processScan(id);
   };
@@ -301,12 +458,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const id = document.getElementById('manualScanId')?.value?.trim();
+      const id = (document.getElementById('manualScanId') as HTMLInputElement | null)?.value?.trim();
       if (id) processScan(id);
     });
   }
 
-  function processScan(kw) {
+  function processScan(kw: string) {
     const list = getStore();
     const cleanKw = kw.toLowerCase().trim();
 
@@ -328,50 +485,66 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (idleEl) idleEl.style.display = 'none';
     if (resultEl) resultEl.style.display = 'block';
 
-    document.getElementById('pId').textContent = p.id;
-    document.getElementById('pNama').textContent = p.nama + (p.namaPeserta2 && p.namaPeserta2 !== '-' ? ` & ${p.namaPeserta2}` : '');
-    document.getElementById('pPaket').textContent = p.paketNama;
-    if (p.paket === 'donasi') {
-      document.getElementById('pJersey').textContent = 'TANPA JERSEY (DONASI ONLY)';
-    } else if (p.paket === 'family') {
-      document.getElementById('pJersey').textContent = `J1: ${p.ukuranJersey || '-'}  •  J2: ${p.ukuranJersey2 || '-'}`;
-    } else {
-      document.getElementById('pJersey').textContent = `UKURAN ${p.ukuranJersey || '-'}`;
+    const elPid = document.getElementById('pId');
+    if (elPid) elPid.textContent = p.id;
+    const elPnama = document.getElementById('pNama');
+    if (elPnama) elPnama.textContent = p.nama + (p.namaPeserta2 && p.namaPeserta2 !== '-' ? ` & ${p.namaPeserta2}` : '');
+    const elPpaket = document.getElementById('pPaket');
+    if (elPpaket) elPpaket.textContent = p.paketNama;
+
+    const elPjersey = document.getElementById('pJersey');
+    if (elPjersey) {
+      if (p.paket === 'donasi') {
+        elPjersey.textContent = 'TANPA JERSEY (DONASI ONLY)';
+      } else if (p.paket === 'family') {
+        elPjersey.textContent = `J1: ${p.ukuranJersey || '-'}  •  J2: ${p.ukuranJersey2 || '-'}`;
+      } else {
+        elPjersey.textContent = `UKURAN ${p.ukuranJersey || '-'}`;
+      }
     }
-    document.getElementById('pWhatsapp').textContent = p.whatsapp;
-    document.getElementById('pNik').textContent = p.nik;
+
+    const elPwa = document.getElementById('pWhatsapp');
+    if (elPwa) elPwa.textContent = p.whatsapp;
+    const elPnik = document.getElementById('pNik');
+    if (elPnik) elPnik.textContent = p.nik || '-';
 
     const banner = document.getElementById('resBanner');
     const resIcon = document.getElementById('resIcon');
     const resTitle = document.getElementById('resTitle');
     const resSubtitle = document.getElementById('resSubtitle');
-    const btnHandover = document.getElementById('btnHandover');
+    const btnHandover = document.getElementById('btnHandover') as HTMLButtonElement | null;
     const claimLog = document.getElementById('claimLogBox');
 
     if (p.racepackClaimed) {
-      banner.className = 'status-banner banner--warning';
-      resIcon.textContent = '';
-      resTitle.textContent = 'Race Pack Sudah Pernah Diambil!';
-      resSubtitle.textContent = `Diambil pada ${formatDateTime(p.claimedAt)}`;
+      if (banner) banner.className = 'status-banner banner--warning';
+      if (resIcon) resIcon.textContent = '';
+      if (resTitle) resTitle.textContent = 'Race Pack Sudah Pernah Diambil!';
+      if (resSubtitle) resSubtitle.textContent = `Diambil pada ${formatDateTime(p.claimedAt)}`;
       
-      claimLog.style.display = 'block';
-      document.getElementById('pClaimedAt').textContent = formatDateTime(p.claimedAt);
-      document.getElementById('pClaimedBy').textContent = p.claimedBy || 'Panitia Meja';
+      if (claimLog) claimLog.style.display = 'block';
+      const elClaimedAt = document.getElementById('pClaimedAt');
+      if (elClaimedAt) elClaimedAt.textContent = formatDateTime(p.claimedAt);
+      const elClaimedBy = document.getElementById('pClaimedBy');
+      if (elClaimedBy) elClaimedBy.textContent = p.claimedBy || 'Panitia Meja';
 
-      btnHandover.disabled = true;
-      btnHandover.className = 'btn btn-ghost-dark btn-lg';
-      btnHandover.innerHTML = '<span>✕ Sudah Diserahkan Sebelumnya</span>';
+      if (btnHandover) {
+        btnHandover.disabled = true;
+        btnHandover.className = 'btn btn-ghost-dark btn-lg';
+        btnHandover.innerHTML = '<span>✕ Sudah Diserahkan Sebelumnya</span>';
+      }
     } else {
-      banner.className = 'status-banner banner--success';
-      resIcon.textContent = '';
-      resTitle.textContent = 'Tiket Valid & Terverifikasi Lunas';
-      resSubtitle.textContent = 'Silakan serahkan Jersey, Tote Bag, dan Wristband';
+      if (banner) banner.className = 'status-banner banner--success';
+      if (resIcon) resIcon.textContent = '';
+      if (resTitle) resTitle.textContent = 'Tiket Valid & Terverifikasi Lunas';
+      if (resSubtitle) resSubtitle.textContent = 'Silakan serahkan Jersey, Tote Bag, dan Wristband';
 
-      claimLog.style.display = 'none';
+      if (claimLog) claimLog.style.display = 'none';
 
-      btnHandover.disabled = false;
-      btnHandover.className = 'btn btn-leaf btn-lg';
-      btnHandover.innerHTML = '<span>Serahkan Race Pack & Catat Pengambilan</span>';
+      if (btnHandover) {
+        btnHandover.disabled = false;
+        btnHandover.className = 'btn btn-leaf btn-lg';
+        btnHandover.innerHTML = '<span>Serahkan Race Pack & Catat Pengambilan</span>';
+      }
     }
   }
 

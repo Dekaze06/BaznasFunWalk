@@ -67,23 +67,10 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Ticket Content -->
-          <div class="ticket-body">
             <div class="ticket-qr-col">
               <div class="qr-frame">
-                <!-- Vector QR representation -->
-                <svg width="150" height="150" viewBox="0 0 100 100" fill="currentColor">
-                  <rect x="5" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-                  <rect x="13" y="13" width="14" height="14" fill="currentColor"/>
-                  <rect x="65" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-                  <rect x="73" y="13" width="14" height="14" fill="currentColor"/>
-                  <rect x="5" y="65" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-                  <rect x="13" y="73" width="14" height="14" fill="currentColor"/>
-                  <rect x="42" y="10" width="8" height="20" fill="currentColor"/>
-                  <rect x="42" y="42" width="16" height="16" fill="currentColor"/>
-                  <rect x="65" y="42" width="20" height="8" fill="currentColor"/>
-                  <rect x="70" y="65" width="20" height="20" fill="currentColor"/>
-                  <rect x="42" y="70" width="12" height="15" fill="currentColor"/>
-                </svg>
+                <!-- Real Scannable QR Code -->
+                <img id="ticketQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=BFW26-0001&margin=6" alt="QR Code Tiket" width="140" height="140" style="display:block; border-radius:6px; background:#fff; margin:0 auto;" />
                 <div class="qr-id-text" id="tRegId">BFW26-0001</div>
               </div>
               <div class="qr-notice">Tunjukkan barcode ini saat pengambilan race pack</div>
@@ -451,9 +438,16 @@ import Layout from '../layouts/Layout.astro';
 
     // Populate data
     // Populate data
-    document.getElementById('tRegId').textContent = found.id;
-    document.getElementById('tNama').textContent = found.nama;
-    document.getElementById('tPaket').textContent = found.paketNama;
+    const elRegId = document.getElementById('tRegId');
+    if (elRegId) elRegId.textContent = found.id;
+    const qrImg = document.getElementById('ticketQrImage') as HTMLImageElement | null;
+    if (qrImg) {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(found.id)}&margin=6`;
+    }
+    const elNama = document.getElementById('tNama');
+    if (elNama) elNama.textContent = found.nama;
+    const elPaket = document.getElementById('tPaket');
+    if (elPaket) elPaket.textContent = found.paketNama;
     
     // Family pack member 2
     const tNama2Row = document.getElementById('tNama2Row');
