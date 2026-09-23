@@ -122,7 +122,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Bottom Notice -->
           <div class="ticket-footer">
             <div class="tf-notice">
-              <b>Pengambilan Race Pack (RPC):</b> 19–20 November 2026 di DOME Bale Rame, Soreang. Tunjukkan E-Ticket digital atau cetak ini kepada panitia meja.
+              <b>Pengambilan Race Pack (RPC):</b> 19–20 November 2026 di Jl. Terusan Alfathu KM 17 No.3 Desa Pamekaran, Soreang 40377 (Kantor BAZNAS Kabupaten Bandung Belakang Gedung Ormas). Tunjukkan E-Ticket digital atau cetak ini kepada panitia meja.
             </div>
             <div class="tf-actions" style="display:flex; gap:10px; flex-wrap:wrap">
               <button type="button" class="btn btn-leaf btn-sm" id="downloadTicketBtn" onclick="downloadTicketImage()">
@@ -530,7 +530,7 @@ import Layout from '../layouts/Layout.astro';
         rpcStatus.textContent = `✓ Sudah Diambil (${found.claimedBy || 'Panitia'})`;
       } else {
         rpcStatus.style.color = '#B26A00';
-        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 19–20 Nov @ DOME Bale Rame)';
+        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 19–20 Nov @ Kantor BAZNAS Kab. Bandung)';
       }
     }
 
@@ -682,7 +682,7 @@ import Layout from '../layouts/Layout.astro';
     ctx.fillText('PENGAMBILAN RACE PACK:', 620, 325);
     ctx.fillStyle = '#0F172A';
     ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
-    ctx.fillText('19–20 Nov 2026 @ DOME Bale Rame', 620, 352);
+    ctx.fillText('19–20 Nov 2026 @ Kantor BAZNAS', 620, 352);
 
     // Jazakumullah Khairan Katsiran Card on Canvas
     ctx.fillStyle = '#F0FDF4';
