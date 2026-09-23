@@ -1,9 +1,22 @@
 ---
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro';
 import { JERSEY_SIZES } from '../lib/utils.js';
 
-const clientKey = import.meta.env.PUBLIC_MIDTRANS_CLIENT_KEY || process.env.PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-sandbox-demo-key';
-const isProduction = (import.meta.env.MIDTRANS_IS_PRODUCTION || process.env.MIDTRANS_IS_PRODUCTION) === 'true';
+const clientKey = 
+  import.meta.env.PUBLIC_MIDTRANS_CLIENT_KEY || 
+  process.env.PUBLIC_MIDTRANS_CLIENT_KEY || 
+  'Mid-client-BeQOvPVTeP3L2epl';
+
+const isProduction = (
+  import.meta.env.PUBLIC_MIDTRANS_IS_PRODUCTION || 
+  process.env.PUBLIC_MIDTRANS_IS_PRODUCTION || 
+  import.meta.env.MIDTRANS_IS_PRODUCTION || 
+  process.env.MIDTRANS_IS_PRODUCTION || 
+  'true'
+) === 'true';
+
 const snapJsUrl = isProduction 
   ? 'https://app.midtrans.com/snap/snap.js' 
   : 'https://app.sandbox.midtrans.com/snap/snap.js';
@@ -1608,9 +1621,9 @@ const snapJsUrl = isProduction
         submitBtn.innerHTML = '<span>Menyiapkan Midtrans Gateway...</span>';
       }
 
-      // Generate Registration ID
-      const randomNum = Math.floor(1000 + Math.random() * 9000);
-      const regId = `BFW26-${randomNum}`;
+      // Generate Registration ID unik (timestamp + random alphanumeric)
+      const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const regId = `BFW26-${Date.now().toString(36).toUpperCase()}-${randomSuffix}`;
 
       let basePrice = 80000;
       let baseDonasi = 20000;
@@ -1682,10 +1695,34 @@ const snapJsUrl = isProduction
           throw new Error(result.message || 'Gagal menghubungi server pembayaran Midtrans.');
         }
 
+        // Sinkronisasi SDK Snap Midtrans agar environment (Production vs Sandbox) 100% cocok dengan token
+        if (!result.isMock) {
+          const targetDomain = result.isProduction ? 'app.midtrans.com' : 'app.sandbox.midtrans.com';
+          const targetSrc = `https://${targetDomain}/snap/snap.js`;
+          const existingScript = document.querySelector('script[src*="midtrans.com/snap/snap.js"]') as HTMLScriptElement | null;
+
+          if (!existingScript || !existingScript.src.includes(targetDomain) || !(window as any).snap) {
+            if (existingScript) existingScript.remove();
+            try { delete (window as any).snap; } catch(e) { (window as any).snap = undefined; }
+
+            await new Promise<void>((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = targetSrc;
+              script.setAttribute('data-client-key', result.clientKey || 'Mid-client-BeQOvPVTeP3L2epl');
+              script.async = true;
+              script.onload = () => setTimeout(resolve, 100);
+              script.onerror = () => reject(new Error(`Gagal memuat script Midtrans SDK (${targetDomain})`));
+              document.head.appendChild(script);
+            });
+          }
+        }
+
+        const snapInstance = (window as any).snap;
+
         // Cek apakah snap SDK terpasang di window dan bukan mock mode
-        if (window.snap && typeof window.snap.pay === 'function' && !result.isMock) {
-          window.snap.pay(result.token, {
-            onSuccess: function(payResult) {
+        if (snapInstance && typeof snapInstance.pay === 'function' && !result.isMock) {
+          snapInstance.pay(result.token, {
+            onSuccess: function(payResult: any) {
               participantData.status = 'PAID';
               participantData.waktuBayar = new Date().toISOString();
               participantData.metodeBayar = payResult.payment_type 
@@ -1694,7 +1731,7 @@ const snapJsUrl = isProduction
               saveParticipant(participantData);
               showTicketModal(participantData);
             },
-            onPending: function(payResult) {
+            onPending: function(payResult: any) {
               participantData.status = 'PENDING';
               participantData.metodeBayar = payResult.payment_type 
                 ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
@@ -1703,9 +1740,16 @@ const snapJsUrl = isProduction
               showTicketModal(participantData);
               alert('Pesanan tercatat! Silakan selesaikan pembayaran sesuai instruksi VA/QRIS Anda.');
             },
-            onError: function(err) {
+            onError: function(err: any) {
               console.error('Midtrans payment error:', err);
-              alert('Pembayaran gagal atau dibatalkan. Silakan ulangi kembali.');
+              if (result.redirect_url) {
+                const openDirect = confirm('Jendela pembayaran popup mengalami kendala. Ingin diarahkan ke halaman pembayaran Midtrans langsung?');
+                if (openDirect) {
+                  window.location.href = result.redirect_url;
+                  return;
+                }
+              }
+              alert('Pembayaran dibatalkan atau terjadi kendala. Silakan coba kembali.');
               resetSubmitBtn();
             },
             onClose: function() {
@@ -1715,6 +1759,9 @@ const snapJsUrl = isProduction
               resetSubmitBtn();
             }
           });
+        } else if (result.redirect_url && !result.isMock) {
+          // Direct fallback redirect jika Snap popup tidak didukung/diblokir browser
+          window.location.href = result.redirect_url;
         } else {
           // Mode Simulasi / Pengujian Alur Lokal
           const proceedSimulation = confirm(

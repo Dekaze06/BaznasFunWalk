@@ -2,8 +2,13 @@ import midtransClient from 'midtrans-client';
 
 // Ambil konfigurasi dari environment variables
 const SERVER_KEY = process.env.MIDTRANS_SERVER_KEY || import.meta.env?.MIDTRANS_SERVER_KEY || 'SB-Mid-server-sandbox-demo-key';
-const CLIENT_KEY = process.env.PUBLIC_MIDTRANS_CLIENT_KEY || import.meta.env?.PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-sandbox-demo-key';
-const IS_PRODUCTION = (process.env.MIDTRANS_IS_PRODUCTION || import.meta.env?.MIDTRANS_IS_PRODUCTION) === 'true';
+const CLIENT_KEY = process.env.PUBLIC_MIDTRANS_CLIENT_KEY || process.env.MIDTRANS_CLIENT_KEY || import.meta.env?.PUBLIC_MIDTRANS_CLIENT_KEY || import.meta.env?.MIDTRANS_CLIENT_KEY || 'Mid-client-BeQOvPVTeP3L2epl';
+const IS_PRODUCTION = (
+  process.env.MIDTRANS_IS_PRODUCTION ||
+  process.env.PUBLIC_MIDTRANS_IS_PRODUCTION ||
+  import.meta.env?.MIDTRANS_IS_PRODUCTION ||
+  import.meta.env?.PUBLIC_MIDTRANS_IS_PRODUCTION
+) === 'true';
 
 // Inisialisasi Midtrans Snap instance
 export const snap = new midtransClient.Snap({
