@@ -104,8 +104,8 @@ import Layout from '../layouts/Layout.astro';
                 </div>
               </div>
 
-              <!-- Thank You Card -->
-              <div class="thank-you-card" style="background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:1.5px solid #86EFAC; border-radius:var(--r-md); padding:14px 18px; margin-top:14px;">
+              <!-- Thank You Card / Payment Notice -->
+              <div class="thank-you-card" id="ticketThankYouCard" style="background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:1.5px solid #86EFAC; border-radius:var(--r-md); padding:14px 18px; margin-top:14px;">
                 <b style="color:var(--ink); font-size:0.95rem; display:block; margin-bottom:4px;">Jazakumullah Khairan Katsiran</b>
                 <p style="margin:0; font-size:0.84rem; color:#166534; line-height:1.45;">
                   Terima kasih atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah Anda dan donasi yang dititipkan menjadi berkah nyata yang memberdayakan mustahik di Kabupaten Bandung.
@@ -482,13 +482,34 @@ import Layout from '../layouts/Layout.astro';
     if (tAlamat) tAlamat.textContent = found.alamat || 'Kabupaten Bandung';
 
     const badge = document.getElementById('ticketStatusBadge');
+    const thankYouCard = document.getElementById('ticketThankYouCard');
     if (badge) {
       if (found.status === 'PAID') {
         badge.className = 'badge badge--success';
         badge.textContent = 'LUNAS / VERIFIED';
+        if (thankYouCard) {
+          thankYouCard.style.background = 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)';
+          thankYouCard.style.borderColor = '#86EFAC';
+          thankYouCard.innerHTML = `
+            <b style="color:var(--ink); font-size:0.95rem; display:block; margin-bottom:4px;">Jazakumullah Khairan Katsiran</b>
+            <p style="margin:0; font-size:0.84rem; color:#166534; line-height:1.45;">
+              Terima kasih atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah Anda dan donasi yang dititipkan menjadi berkah nyata yang memberdayakan mustahik di Kabupaten Bandung.
+            </p>
+          `;
+        }
       } else {
         badge.className = 'badge badge--warning';
-        badge.textContent = 'MENUNGGU VERIFIKASI';
+        badge.textContent = 'MENUNGGU PEMBAYARAN';
+        if (thankYouCard) {
+          thankYouCard.style.background = 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)';
+          thankYouCard.style.borderColor = '#FCD34D';
+          thankYouCard.innerHTML = `
+            <b style="color:#92400E; font-size:0.95rem; display:block; margin-bottom:4px;">⚠️ Status: Menunggu Pembayaran</b>
+            <p style="margin:0; font-size:0.84rem; color:#78350F; line-height:1.45;">
+              Pesanan Anda tercatat dengan status <b>Menunggu Pembayaran</b>. E-Ticket resmi & nomor BIB baru dapat digunakan untuk pengambilan Race Pack setelah pembayaran terkonfirmasi LUNAS.
+            </p>
+          `;
+        }
       }
     }
 
@@ -510,12 +531,17 @@ import Layout from '../layouts/Layout.astro';
 
   // Fungsi Unduh E-Ticket dalam bentuk Gambar (Canvas PNG)
   window.downloadTicketImage = function() {
+    const status = document.getElementById('ticketStatusBadge')?.textContent || 'LUNAS';
+    if (!status.includes('LUNAS')) {
+      alert('E-Ticket resmi dengan barcode valid hanya dapat diunduh setelah status pembayaran LUNAS.\n\nSilakan selesaikan pembayaran registrasi Anda terlebih dahulu.');
+      return;
+    }
+
     const regId = document.getElementById('tRegId')?.textContent || 'TIKET';
     const nama = document.getElementById('tNama')?.textContent || 'Peserta';
     const paket = document.getElementById('tPaket')?.textContent || '-';
     const jersey = document.getElementById('tJersey')?.textContent || '-';
     const wa = document.getElementById('tWhatsapp')?.textContent || '-';
-    const status = document.getElementById('ticketStatusBadge')?.textContent || 'LUNAS';
 
     // Buat canvas resolusi tinggi (HD)
     const canvas = document.createElement('canvas');

@@ -353,16 +353,27 @@ const snapJsUrl = isProduction
     </div>
   </section>
 
-  <!-- Modal Sukses Pendaftaran / E-Ticket Popup -->
+  <!-- Modal Status Pendaftaran / E-Ticket Popup -->
   <div class="modal-backdrop" id="successModal" style="display:none">
-    <div class="modal-card">
-      <div class="modal-icon"></div>
-      <h2>Pendaftaran Berhasil!</h2>
-      <p class="lede" style="font-size:1rem; margin-bottom:20px">
-        Pesanan Anda telah tercatat pada sistem BAZNAS Fun Walk 2026. Nomor registrasi dan tiket digital resmi Anda telah terbit.
+    <div class="modal-card" style="max-width:560px;">
+      <div class="modal-icon" id="modalIcon" style="margin-bottom:16px;"></div>
+      <h2 id="modalTitle" style="margin-bottom:6px;">Pendaftaran Berhasil!</h2>
+      <p class="lede" id="modalSubtitle" style="font-size:0.95rem; margin-bottom:16px; color:var(--grey-d);">
+        Pesanan Anda telah tercatat pada sistem BAZNAS Fun Walk 2026.
       </p>
 
-      <div class="ticket-preview-box">
+      <!-- Alert Card khusus jika status MENUNGGU PEMBAYARAN -->
+      <div id="modalPendingNotice" style="display:none; background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:12px; padding:14px 18px; margin-bottom:18px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:0.8rem; color:#92400E; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Total Tagihan Pembayaran:</span>
+          <span style="font-size:1.2rem; color:#B45309; font-weight:800;" id="modalTotalAmount">Rp 0</span>
+        </div>
+        <p style="margin:0; font-size:0.82rem; color:#78350F; line-height:1.45;">
+          Pesanan & alokasi jersey resmi Anda telah diamankan sementara. Silakan selesaikan pembayaran agar e-ticket resmi dan nomor BIB Anda aktif.
+        </p>
+      </div>
+
+      <div class="ticket-preview-box" style="margin-top:0;">
         <div class="tp-header">
           <div>
             <div class="tp-title">E-TICKET RESMI BAZNAS FUN WALK 2026</div>
@@ -374,7 +385,7 @@ const snapJsUrl = isProduction
         <div class="tp-body">
           <div class="tp-qr-box">
             <!-- Simulated QR Code SVG -->
-            <svg width="120" height="120" viewBox="0 0 100 100" fill="currentColor">
+            <svg width="110" height="110" viewBox="0 0 100 100" fill="currentColor">
               <rect x="5" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
               <rect x="13" y="13" width="14" height="14" fill="currentColor"/>
               <rect x="65" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
@@ -409,14 +420,33 @@ const snapJsUrl = isProduction
             </div>
           </div>
         </div>
+
+        <div id="modalTicketWatermark" style="display:none; background:#FEF3C7; color:#92400E; font-size:0.78rem; font-weight:600; padding:8px 12px; border-radius:6px; margin-top:14px; text-align:center; border:1px dashed #F59E0B;">
+          ⚠️ <b>Belum Lunas:</b> E-Ticket ini belum sah untuk ditukarkan di venue hingga pembayaran terverifikasi.
+        </div>
       </div>
 
-      <div class="modal-actions" style="margin-top:24px">
-        <button type="button" class="btn btn-leaf btn-lg" onclick="downloadTicketImageFromModal()" style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Unduh E-Ticket (PNG)</span>
+      <div class="modal-actions" style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+        <!-- Tombol Lanjutkan Pembayaran (muncul saat status PENDING) -->
+        <button type="button" class="btn btn-leaf btn-lg" id="modalPayNowBtn" style="display:none; width:100%; justify-content:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span>Selesaikan Pembayaran Sekarang</span>
         </button>
-        <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
+
+        <!-- Tombol Unduh E-Ticket (muncul saat status LUNAS) -->
+        <button type="button" class="btn btn-leaf btn-lg" id="modalDownloadBtn" onclick="downloadTicketImageFromModal()" style="display:inline-flex; width:100%; align-items:center; justify-content:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Unduh E-Ticket Resmi (PNG)</span>
+        </button>
+
+        <div style="display:flex; gap:10px; width:100%;">
+          <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn" style="flex:1; justify-content:center; font-size:0.9rem;">
+            Cek Status di Halaman Tiket
+          </a>
+          <button type="button" class="btn btn-ghost-dark" id="modalCloseBtn" style="justify-content:center; font-size:0.9rem;">
+            Tutup
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1349,9 +1379,17 @@ const snapJsUrl = isProduction
     if (elSumTotal) elSumTotal.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
   }
 
-  // Helper to show modal
-  function showTicketModal(participantData: any) {
+  let lastPaymentResult: any = null;
+
+  // Helper to show modal dengan status dinamis (LUNAS vs MENUNGGU PEMBAYARAN)
+  function showTicketModal(participantData: any, midtransResult?: any) {
     currentParticipantData = participantData;
+    if (midtransResult) {
+      lastPaymentResult = midtransResult;
+    }
+
+    const isPaid = participantData.status === 'PAID';
+
     const elId = document.getElementById('modalRegId');
     if (elId) elId.textContent = participantData.id;
     const elNama = document.getElementById('modalNama');
@@ -1369,14 +1407,70 @@ const snapJsUrl = isProduction
     const elMetode = document.getElementById('modalMetode');
     if (elMetode) elMetode.textContent = participantData.metodeBayar;
 
+    // Elemen dinamis status
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalPendingNotice = document.getElementById('modalPendingNotice');
+    const modalTotalAmount = document.getElementById('modalTotalAmount');
+    const modalTicketWatermark = document.getElementById('modalTicketWatermark');
+    const modalPayNowBtn = document.getElementById('modalPayNowBtn');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
     const badge = document.getElementById('modalBadge');
-    if (badge) {
-      if (participantData.status === 'PAID') {
+
+    if (modalTotalAmount) {
+      const amount = Number(participantData.totalBayar) || 0;
+      modalTotalAmount.textContent = `Rp ${amount.toLocaleString('id-ID')}`;
+    }
+
+    if (isPaid) {
+      // --- Tampilan jika SUDAH LUNAS ---
+      if (modalIcon) {
+        modalIcon.innerHTML = `
+          <div style="width:64px; height:64px; border-radius:50%; background:#DCFCE7; color:#16A34A; display:flex; align-items:center; justify-content:center; margin:0 auto; box-shadow:0 0 0 8px #F0FDF4;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        `;
+      }
+      if (modalTitle) modalTitle.textContent = 'Pembayaran Berhasil!';
+      if (modalSubtitle) {
+        modalSubtitle.textContent = 'Alhamdulillah, pembayaran Anda telah terkonfirmasi. Nomor registrasi dan tiket digital resmi Anda telah aktif.';
+      }
+      if (badge) {
         badge.className = 'badge badge--success';
         badge.textContent = 'LUNAS / VERIFIED';
-      } else {
+      }
+      if (modalPendingNotice) modalPendingNotice.style.display = 'none';
+      if (modalTicketWatermark) modalTicketWatermark.style.display = 'none';
+      if (modalPayNowBtn) modalPayNowBtn.style.display = 'none';
+      if (modalDownloadBtn) modalDownloadBtn.style.display = 'inline-flex';
+    } else {
+      // --- Tampilan jika BELUM LUNAS / MENUNGGU PEMBAYARAN ---
+      if (modalIcon) {
+        modalIcon.innerHTML = `
+          <div style="width:64px; height:64px; border-radius:50%; background:#FEF3C7; color:#D97706; display:flex; align-items:center; justify-content:center; margin:0 auto; box-shadow:0 0 0 8px #FFFBEB;">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+        `;
+      }
+      if (modalTitle) modalTitle.textContent = 'Menunggu Pembayaran';
+      if (modalSubtitle) {
+        modalSubtitle.textContent = 'Pesanan Anda telah tercatat pada sistem. Silakan selesaikan pembayaran untuk mengaktifkan e-ticket dan nomor BIB Anda.';
+      }
+      if (badge) {
         badge.className = 'badge badge--warning';
         badge.textContent = 'MENUNGGU PEMBAYARAN';
+      }
+      if (modalPendingNotice) modalPendingNotice.style.display = 'block';
+      if (modalTicketWatermark) modalTicketWatermark.style.display = 'block';
+
+      // Tombol bayar sekarang aktif jika ada Snap token / direct link
+      if (modalPayNowBtn) {
+        modalPayNowBtn.style.display = 'inline-flex';
+      }
+      // Sembunyikan tombol download e-ticket sampai status lunas
+      if (modalDownloadBtn) {
+        modalDownloadBtn.style.display = 'none';
       }
     }
 
@@ -1389,6 +1483,10 @@ const snapJsUrl = isProduction
   // Unduh E-Ticket Digital High-Res PNG via HTML5 Canvas
   function downloadTicketImageFromModal() {
     const p = currentParticipantData;
+    if (p && p.status !== 'PAID') {
+      alert('E-Ticket resmi dengan barcode valid hanya dapat diunduh setelah status pembayaran LUNAS.\n\nSilakan selesaikan pembayaran terlebih dahulu.');
+      return;
+    }
     const regId = p?.id || document.getElementById('modalRegId')?.textContent || 'BFW26-0000';
     const nama = p?.nama || document.getElementById('modalNama')?.textContent || '-';
     const paket = p?.paketNama || document.getElementById('modalPaket')?.textContent || '-';
@@ -1729,7 +1827,7 @@ const snapJsUrl = isProduction
                 ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
                 : selectedPayment;
               saveParticipant(participantData);
-              showTicketModal(participantData);
+              showTicketModal(participantData, result);
             },
             onPending: function(payResult: any) {
               participantData.status = 'PENDING';
@@ -1737,8 +1835,7 @@ const snapJsUrl = isProduction
                 ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
                 : selectedPayment;
               saveParticipant(participantData);
-              showTicketModal(participantData);
-              alert('Pesanan tercatat! Silakan selesaikan pembayaran sesuai instruksi VA/QRIS Anda.');
+              showTicketModal(participantData, result);
             },
             onError: function(err: any) {
               console.error('Midtrans payment error:', err);
@@ -1749,13 +1846,15 @@ const snapJsUrl = isProduction
                   return;
                 }
               }
-              alert('Pembayaran dibatalkan atau terjadi kendala. Silakan coba kembali.');
+              participantData.status = 'PENDING';
+              saveParticipant(participantData);
+              showTicketModal(participantData, result);
               resetSubmitBtn();
             },
             onClose: function() {
               participantData.status = 'PENDING';
               saveParticipant(participantData);
-              alert('Jendela pembayaran ditutup. Data pendaftaran Anda tersimpan sebagai PENDING.');
+              showTicketModal(participantData, result);
               resetSubmitBtn();
             }
           });
@@ -1780,12 +1879,12 @@ const snapJsUrl = isProduction
             participantData.waktuBayar = new Date().toISOString();
             participantData.metodeBayar = `${selectedPayment} (Midtrans Simulasi)`;
             saveParticipant(participantData);
-            showTicketModal(participantData);
+            showTicketModal(participantData, result);
           } else {
             participantData.status = 'PENDING';
             participantData.metodeBayar = `${selectedPayment} (Midtrans Pending)`;
             saveParticipant(participantData);
-            showTicketModal(participantData);
+            showTicketModal(participantData, result);
           }
           resetSubmitBtn();
         }
@@ -1794,6 +1893,53 @@ const snapJsUrl = isProduction
         alert(`Terjadi kendala: ${err.message || 'Gagal memproses pembayaran'}`);
         resetSubmitBtn();
       }
+    });
+  }
+
+  // Tombol Selesaikan Pembayaran Sekarang di dalam Modal
+  const modalPayNowBtn = document.getElementById('modalPayNowBtn');
+  if (modalPayNowBtn) {
+    modalPayNowBtn.addEventListener('click', () => {
+      if (lastPaymentResult && lastPaymentResult.token && (window as any).snap && typeof (window as any).snap.pay === 'function') {
+        (window as any).snap.pay(lastPaymentResult.token, {
+          onSuccess: function(payResult: any) {
+            if (currentParticipantData) {
+              currentParticipantData.status = 'PAID';
+              currentParticipantData.waktuBayar = new Date().toISOString();
+              currentParticipantData.metodeBayar = payResult.payment_type 
+                ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
+                : currentParticipantData.metodeBayar;
+              saveParticipant(currentParticipantData);
+              showTicketModal(currentParticipantData, lastPaymentResult);
+            }
+          },
+          onPending: function() {
+            alert('Menunggu konfirmasi pembayaran Anda. Silakan selesaikan tagihan pada aplikasi pembayaran.');
+          },
+          onError: function() {
+            if (lastPaymentResult.redirect_url) {
+              window.location.href = lastPaymentResult.redirect_url;
+            }
+          },
+          onClose: function() {
+            // Tetap berada pada modal pending
+          }
+        });
+      } else if (lastPaymentResult && lastPaymentResult.redirect_url) {
+        window.location.href = lastPaymentResult.redirect_url;
+      } else {
+        alert('Sesi pembayaran ini telah berakhir. Silakan cek status pendaftaran Anda di menu Cek Tiket.');
+      }
+    });
+  }
+
+  // Tombol Tutup di dalam Modal
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', () => {
+      const modal = document.getElementById('successModal');
+      if (modal) modal.style.display = 'none';
+      resetSubmitBtn();
     });
   }
 </script>
