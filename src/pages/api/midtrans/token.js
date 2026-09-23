@@ -77,9 +77,12 @@ export async function POST({ request }) {
     };
 
     // Filter payment method jika ada pilihan spesifik dari user
-    if (preferredPayment === 'bsi_va') {
-      parameter.enabled_payments = ['bca_va', 'bni_va', 'bri_va', 'permata_va', 'other_va', 'gopay', 'shopeepay', 'qris'];
+    if (preferredPayment === 'qris') {
+      parameter.enabled_payments = ['gopay', 'shopeepay', 'qris', 'other_qris'];
+    } else if (preferredPayment === 'bsi_va') {
+      parameter.enabled_payments = ['bca_va', 'bni_va', 'bri_va', 'permata_va', 'other_va'];
     }
+    // Jika 'all', tidak perlu filter — semua metode tampil di Snap popup
 
     const result = await createMidtransTransaction(parameter);
 

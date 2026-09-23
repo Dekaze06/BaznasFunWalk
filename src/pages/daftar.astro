@@ -293,27 +293,28 @@ const snapJsUrl = isProduction
               </div>
             </div>
 
-            <h4 style="margin:28px 0 12px; color:var(--ink)">Pilih Metode Pembayaran (Midtrans Payment Gateway)</h4>
+            <h4 style="margin:28px 0 12px; color:var(--ink)">Metode Pembayaran (Midtrans Payment Gateway)</h4>
+            <p class="hint" style="margin-bottom:14px; font-size:0.85rem">Semua metode pembayaran diproses secara otomatis 24/7 melalui Midtrans Payment Gateway resmi.</p>
             <div class="payment-methods-grid">
               <label class="pay-method-card active">
                 <input type="radio" name="metodeBayar" value="Midtrans Multi-Payment" checked class="sr-only">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <div class="pay-title">Midtrans Payment Gateway (Otomatis 24/7)</div>
+                  <div class="pay-title">Semua Metode Pembayaran</div>
                   <span class="pill pill--dark" style="background:var(--leaf);color:#fff;font-size:0.75rem;padding:2px 8px">Rekomendasi</span>
                 </div>
-                <div class="pay-desc">Semua metode otomatis: QRIS, BSI Virtual Account, Mandiri, BCA, BRI, GoPay, ShopeePay</div>
-              </label>
-
-              <label class="pay-method-card">
-                <input type="radio" name="metodeBayar" value="BSI Virtual Account" class="sr-only">
-                <div class="pay-title">BSI Virtual Account (via Midtrans)</div>
-                <div class="pay-desc">Bank Syariah Indonesia & ATM Bersama dengan nomor VA unik instan</div>
+                <div class="pay-desc">QRIS, Virtual Account (BSI, BCA, BNI, BRI, Mandiri, Permata), GoPay, ShopeePay, dll.</div>
               </label>
 
               <label class="pay-method-card">
                 <input type="radio" name="metodeBayar" value="QRIS Instan" class="sr-only">
-                <div class="pay-title">QRIS Instan (via Midtrans)</div>
-                <div class="pay-desc">BSI Mobile, BCA, Mandiri, BRI, GoPay, OVO, ShopeePay, DANA</div>
+                <div class="pay-title">QRIS (Scan & Bayar)</div>
+                <div class="pay-desc">Scan QR dari BSI Mobile, GoPay, OVO, ShopeePay, DANA, dan semua e-wallet/bank lainnya</div>
+              </label>
+
+              <label class="pay-method-card">
+                <input type="radio" name="metodeBayar" value="BSI Virtual Account" class="sr-only">
+                <div class="pay-title">Virtual Account (Transfer Bank)</div>
+                <div class="pay-desc">BSI, BCA, BNI, BRI, Mandiri, Permata — bayar lewat ATM, Mobile Banking, atau Internet Banking</div>
               </label>
             </div>
 
@@ -1022,7 +1023,7 @@ const snapJsUrl = isProduction
   let selectedPaket = 'reguler';
   let selectedSize = 'L';
   let selectedSize2 = 'M';
-  let selectedPayment = 'QRIS Instan';
+  let selectedPayment = 'Midtrans Multi-Payment';
   let additionalDonasi = 0;
   let currentParticipantData: any = null;
 
@@ -1589,37 +1590,6 @@ const snapJsUrl = isProduction
     }
   }
 
-  // Helper to show modal
-  function showTicketModal(participantData) {
-    document.getElementById('modalRegId').textContent = participantData.id;
-    document.getElementById('modalNama').textContent = participantData.nama;
-    document.getElementById('modalPaket').textContent = participantData.paketNama;
-    document.getElementById('modalSize').textContent = `Ukuran ${participantData.ukuranJersey}`;
-    document.getElementById('modalMetode').textContent = participantData.metodeBayar;
-
-    const badge = document.getElementById('modalBadge');
-    if (badge) {
-      if (participantData.status === 'PAID') {
-        badge.className = 'badge badge--success';
-        badge.textContent = 'LUNAS / VERIFIED';
-      } else {
-        badge.className = 'badge badge--warning';
-        badge.textContent = 'MENUNGGU PEMBAYARAN';
-      }
-    }
-
-    document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${participantData.id}`;
-    document.getElementById('successModal').style.display = 'flex';
-  }
-
-  function resetSubmitBtn() {
-    const submitBtn = document.getElementById('submitBtn');
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<span>Konfirmasi & Bayar Sekarang </span>';
-    }
-  }
-
   // Form Submit
   const form = document.getElementById('regForm');
   if (form) {
@@ -1700,7 +1670,9 @@ const snapJsUrl = isProduction
           },
           body: JSON.stringify({
             ...participantData,
-            preferredPayment: selectedPayment.includes('BSI') ? 'bsi_va' : 'all'
+            preferredPayment: selectedPayment.includes('QRIS') ? 'qris' 
+              : selectedPayment.includes('BSI') || selectedPayment.includes('Virtual Account') ? 'bsi_va' 
+              : 'all'
           })
         });
 
