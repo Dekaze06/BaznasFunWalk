@@ -84,12 +84,12 @@ const snapJsUrl = isProduction
                 <div class="opt-price">
                   <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 120.000</del>
                   <b>Rp 80.000</b>
-                  <small style="color:var(--leaf); font-weight:700">Early Bird (Termasuk Donasi Rp 20.000)</small>
+                  <small style="color:var(--leaf); font-weight:700">Early Bird Promo</small>
                 </div>
                 <ul class="opt-perks">
                   <li>✓ Jersey Drifit, Tote Bag & Wristband</li>
                   <li>✓ Nomor BIB & Kupon Doorprize Umroh</li>
-                  <li>✓ <b>Termasuk Donasi ZIS Rp 20.000</b></li>
+                  <li>✓ Akses Rute 5K & Refreshment</li>
                 </ul>
               </label>
 
@@ -262,9 +262,9 @@ const snapJsUrl = isProduction
                 <span>Biaya Paket:</span>
                 <b id="summaryBiayaEvent">Rp 80.000</b>
               </div>
-              <div class="summary-row" id="summaryDonasiRow">
+              <div class="summary-row" id="summaryDonasiRow" style="display:none">
                 <span>Termasuk Donasi ZIS:</span>
-                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 20.000</b>
+                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 0</b>
               </div>
               <div class="summary-row" id="summaryExtraDonasiRow" style="display:none">
                 <span>Infaq Sukarela Tambahan:</span>
@@ -1339,12 +1339,13 @@ const snapJsUrl = isProduction
     }
 
     let basePaketPrice = 80000;
-    let baseDonasi = 20000;
-    let baseRegFee = 60000;
+    let baseDonasi = 0;
+    let baseRegFee = 80000;
 
     const elSumPaket = document.getElementById('summaryPaket');
     const elSumBiaya = document.getElementById('summaryBiayaEvent');
     const elSumDonasi = document.getElementById('summaryDonasiVal');
+    const elRowDonasi = document.getElementById('summaryDonasiRow');
 
     if (selectedPaket === 'family') {
       basePaketPrice = 200000;
@@ -1353,13 +1354,15 @@ const snapJsUrl = isProduction
       if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 200.000 untuk 2 orang)';
       if (elSumBiaya) elSumBiaya.textContent = 'Rp 180.000';
       if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elRowDonasi) elRowDonasi.style.display = 'flex';
     } else {
       basePaketPrice = 80000;
-      baseDonasi = 20000;
-      baseRegFee = 60000;
+      baseDonasi = 0;
+      baseRegFee = 80000;
       if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 80.000)';
-      if (elSumBiaya) elSumBiaya.textContent = 'Rp 60.000';
-      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 80.000';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 0';
+      if (elRowDonasi) elRowDonasi.style.display = 'none';
     }
 
     // Extra Donation Row
@@ -1724,7 +1727,7 @@ const snapJsUrl = isProduction
       const regId = `BFW26-${Date.now().toString(36).toUpperCase()}-${randomSuffix}`;
 
       let basePrice = 80000;
-      let baseDonasi = 20000;
+      let baseDonasi = 0;
       let paketTitle = 'Regular Pack 5K Early Bird';
 
       if (selectedPaket === 'family') {
