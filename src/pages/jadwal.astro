@@ -73,81 +73,9 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Rundown Hari-H -->
-  <section class="sec sec--tint">
-    <div class="wrap">
-      <div style="text-align:center; max-width:700px; margin:0 auto 48px">
-        <p class="kicker">Rundown Hari Pelaksanaan</p>
-        <h2>Sabtu, 21 November 2026</h2>
-        <p class="lede" style="margin:0 auto">
-          Pastikan Anda tiba tepat waktu di lokasi DOME Bale Rame Soreang untuk mengikuti seluruh rangkaian acara.
-        </p>
-      </div>
-
-      <div class="rundown-table-card card-clean">
-        <table class="rundown-table">
-          <thead>
-            <tr>
-              <th style="width:160px">Waktu (WIB)</th>
-              <th>Agenda Kegiatan</th>
-              <th>Keterangan / Lokasi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b class="time-tag">05.00 – 05.30</b></td>
-              <td><b>Kedatangan Peserta & Shalat Subuh</b></td>
-              <td>Tersedia mushola di kawasan DOME Bale Rame & area sekitar lokasi</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">05.30 – 05.45</b></td>
-              <td><b>Senam Pemanasan Ringan Bersama</b></td>
-              <td>Dipandu oleh instruktur senam profesional di panggung utama</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">05.45 – 06.00</b></td>
-              <td><b>Seremoni Pembukaan & Doa Bersama</b></td>
-              <td>Sambutan Ketua BAZNAS Kab. Bandung & Doa Keselamatan</td>
-            </tr>
-            <tr class="row-highlight">
-              <td><b class="time-tag time-tag--flag">06.00 WIB</b></td>
-              <td><b>FLAG-OFF START BAZNAS FUN WALK 5K </b></td>
-              <td>Pelepasan peserta di Gerbang Start DOME Bale Rame, Jl. Al Fathu</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">06.00 – 07.45</b></td>
-              <td><b>Pelaksanaan Jalan Sehat 5K</b></td>
-              <td>Menikmati rute Soreang, mampir di Water Station & Pos Foto</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">07.45 – 08.15</b></td>
-              <td><b>Finish, Pembagian Refreshment & Sarapan</b></td>
-              <td>Penukaran gelang peserta dengan paket snack & sarapan UMKM BAZNAS</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">08.15 – 09.00</b></td>
-              <td><b>Panggung Hiburan Musik Islami & Tausiyah</b></td>
-              <td>Tausiyah inspiratif seputar keutamaan sedekah & kesehatan keluarga</td>
-            </tr>
-            <tr class="row-highlight">
-              <td><b class="time-tag time-tag--doorprize">09.00 – 10.15</b></td>
-              <td><b>PENGUNDIAN DOORPRIZE UTAMA </b></td>
-              <td>Hadiah Utama Paket Umroh dan Puluhan Hadiah Menarik Lainnya</td>
-            </tr>
-            <tr>
-              <td><b class="time-tag">10.15 – 10.30</b></td>
-              <td><b>Penutupan & Sesi Foto Bersama</b></td>
-              <td>Acara selesai, peserta kembali dengan tertib</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div style="text-align:center; margin-top:36px">
-        <a href="/daftar" class="btn btn-sun btn-lg">Daftar Sekarang Agar Tidak Ketinggalan →</a>
-      </div>
+    <div style="text-align:center; margin-top:48px">
+      <a href="/daftar" class="btn btn-sun btn-lg">Daftar Sekarang Ikut Jalan Sehat 5K →</a>
     </div>
   </section>
 </Layout>
@@ -173,78 +101,78 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .rpc-card--highlight {
-    border-color: var(--leaf);
-    background: #FAFCF9;
+    background: var(--paper-2);
   }
 
   .rpc-day {
-    font-family: 'Baloo 2', sans-serif;
     font-weight: 800;
-    font-size: 1.15rem;
     color: var(--ink);
+    font-size: 1.05rem;
+    margin-bottom: 4px;
   }
 
   .rpc-time {
-    font-size: 1rem;
-    font-weight: 700;
     color: var(--leaf);
-    margin: 2px 0 4px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
   }
 
   .rpc-note {
+    color: var(--grey-d);
     font-size: 0.85rem;
-    color: var(--grey);
   }
 
   .rpc-terms {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background: #FFFFFF;
   }
 
   .rpc-terms h4 {
+    margin: 0 0 16px 0;
     color: var(--ink);
-    margin-bottom: 16px;
     font-size: 1.1rem;
   }
 
   .rpc-steps {
     list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 20px;
   }
 
   .rpc-steps li {
     display: flex;
-    gap: 14px;
+    gap: 12px;
+    align-items: flex-start;
   }
 
-  .step-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--ink);
+  .rpc-steps .step-num {
+    background: var(--moss);
     color: #FFFFFF;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     display: grid;
     place-items: center;
+    font-size: 0.8rem;
     font-weight: 700;
-    font-size: 0.85rem;
     flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .rpc-steps b {
-    color: var(--ink);
     display: block;
+    color: var(--ink);
     margin-bottom: 2px;
     font-size: 0.95rem;
   }
 
   .rpc-steps p {
-    font-size: 0.88rem;
-    color: var(--grey);
     margin: 0;
+    font-size: 0.88rem;
+    color: var(--grey-d);
     line-height: 1.4;
   }
 
@@ -256,10 +184,9 @@ import Layout from '../layouts/Layout.astro';
 
   .rpc-location-box {
     background: var(--paper-2);
-    border-left: 3px solid var(--leaf);
-    padding: 12px 14px;
-    border-radius: 0 var(--r-sm) var(--r-sm) 0;
-    font-size: 0.86rem;
+    border: 1px dashed var(--leaf);
+    border-radius: var(--r-sm);
+    padding: 14px 16px;
   }
 
   .rpc-location-box b {
@@ -271,56 +198,5 @@ import Layout from '../layouts/Layout.astro';
   .rpc-location-box p {
     margin: 0;
     color: var(--grey-d);
-  }
-
-  /* Rundown Table */
-  .rundown-table-card {
-    padding: 0;
-    overflow-x: auto;
-  }
-
-  .rundown-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.95rem;
-  }
-
-  .rundown-table th, .rundown-table td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .rundown-table thead th {
-    background: var(--paper-2);
-    color: var(--ink);
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
-  .time-tag {
-    display: inline-block;
-    background: var(--paper-2);
-    color: var(--ink);
-    border: 1px solid var(--line);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.92rem;
-  }
-
-  .time-tag--flag {
-    background: var(--leaf);
-    color: #FFFFFF;
-    border-color: var(--leaf);
-  }
-
-  .time-tag--doorprize {
-    background: var(--sun);
-    color: var(--ink-deep);
-    border-color: var(--gold);
-  }
-
-  .row-highlight {
-    background: rgba(31, 137, 57, 0.05);
   }
 </style>
