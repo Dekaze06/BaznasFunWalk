@@ -86,7 +86,7 @@ const snapJsUrl = isProduction
                   <b>Rp 100.000</b>
                   <small style="color:var(--leaf); font-weight:700">Early Bird Promo</small>
                 </div>
-                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">✨ Termasuk Donasi ZIS Rp 20.000</div>
+                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">✨ Termasuk Infaq Rp 20.000</div>
                 <ul class="opt-perks">
                   <li>✓ Jersey Resmi, Gelang & Goodie Bag</li>
                   <li>✓ Kupon Undian Doorprize Utama Umroh</li>
@@ -106,13 +106,13 @@ const snapJsUrl = isProduction
                 </div>
                 <div class="opt-price">
                   <b>Rp 200.000</b>
-                  <small style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 20.000</small>
+                  <small style="color:var(--leaf); font-weight:700">Termasuk Infaq Rp 20.000</small>
                 </div>
-                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">(Untuk 2 Orang) Termasuk Donasi ZIS Rp 20.000</div>
+                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">(Untuk 2 Orang) Termasuk Infaq Rp 20.000</div>
                 <ul class="opt-perks">
                   <li>✓ 2x Jersey Resmi & 2x Kupon Umroh</li>
                   <li>✓ 2x Gelang & 2x Goodie Bag</li>
-                  <li>✓ <b>Termasuk Donasi ZIS Rp 20.000</b></li>
+                  <li>✓ <b>Termasuk Infaq Rp 20.000</b></li>
                   <li>✓ 2x Refreshment Air Mineral</li>
                 </ul>
               </label>
@@ -265,8 +265,8 @@ const snapJsUrl = isProduction
                 <b id="summaryBiayaEvent">Rp 80.000</b>
               </div>
               <div class="summary-row" id="summaryDonasiRow" style="display:flex">
-                <span>Termasuk Donasi ZIS:</span>
-                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 20.000 (Donasi ZIS)</b>
+                <span>Termasuk Infaq:</span>
+                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 20.000 (Infaq)</b>
               </div>
               <div class="summary-row" id="summaryExtraDonasiRow" style="display:none">
                 <span>Infaq Sukarela Tambahan:</span>
@@ -282,12 +282,12 @@ const snapJsUrl = isProduction
             <div class="additional-donation-box" style="margin-top:20px; background:var(--paper-2); padding:18px 20px; border-radius:var(--r-md); border:1px solid var(--line);">
               <div class="add-don-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
                 <div class="add-don-title" style="font-weight:700; color:var(--ink); font-size:0.95rem">
-                  <span>Tambah Infaq / Donasi Sukarela (Opsional)</span>
+                  <span>Tambah Infaq Sukarela (Opsional)</span>
                 </div>
                 <span class="pill pill--sun" style="font-size:0.75rem; padding:2px 10px">Sedekah Berkah</span>
               </div>
               <p class="hint" style="margin-bottom:12px; font-size:0.85rem">
-                Berapapun donasi tambahan Anda, seluruhnya disalurkan untuk beasiswa dhuafa & lansia prasejahtera di Kabupaten Bandung.
+                Berapapun infaq tambahan Anda, seluruhnya disalurkan untuk beasiswa dhuafa & lansia prasejahtera di Kabupaten Bandung.
               </p>
               <div class="donation-chips-grid">
                 <button type="button" class="don-chip active" data-val="0">Rp 0</button>
@@ -299,7 +299,7 @@ const snapJsUrl = isProduction
               </div>
               <div id="customDonasiWrap" style="display:none; margin-top:14px">
                 <label for="customDonasiInput" style="display:block; font-size:0.85rem; color:var(--moss); font-weight:600; margin-bottom:6px">
-                  Silakan tentukan nominal infaq / donasi sukarela secara manual:
+                  Silakan tentukan nominal infaq sukarela secara manual:
                 </label>
                 <div class="custom-don-input-box">
                   <span class="curr-prefix">Rp</span>
@@ -441,7 +441,7 @@ const snapJsUrl = isProduction
             <span>🌟 Jazakumullah Khairan Katsiran!</span>
           </b>
           <p style="margin:2px 0 0 0; font-size:0.8rem; color:#14532D; line-height:1.45;">
-            Terima kasih sebesar-besarnya atas partisipasi & kepedulian Anda. Setiap langkah dan donasi yang dititipkan menjadi berkah nyata bagi mustahik di Kabupaten Bandung.
+            Terima kasih sebesar-besarnya atas partisipasi & kepedulian Anda. Setiap langkah dan infaq yang dititipkan menjadi berkah nyata bagi mustahik di Kabupaten Bandung.
           </p>
         </div>
       </div>
@@ -1392,7 +1392,7 @@ const snapJsUrl = isProduction
       baseRegFee = 180000;
       if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 200.000 untuk 2 orang)';
       if (elSumBiaya) elSumBiaya.textContent = 'Rp 180.000';
-      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Infaq)';
       if (elRowDonasi) elRowDonasi.style.display = 'flex';
     } else {
       basePaketPrice = 100000;
@@ -1400,7 +1400,7 @@ const snapJsUrl = isProduction
       baseRegFee = 80000;
       if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 100.000)';
       if (elSumBiaya) elSumBiaya.textContent = 'Rp 80.000';
-      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Infaq)';
       if (elRowDonasi) elRowDonasi.style.display = 'flex';
     }
 

@@ -169,7 +169,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <b id="mRegFee">-</b>
           </div>
           <div style="display:flex; justify-content:space-between; margin-bottom:6px">
-            <span>Donasi ZIS BAZNAS:</span>
+            <span>Infaq BAZNAS:</span>
             <b id="mDonasi" style="color:var(--leaf)">-</b>
           </div>
           <div class="financial-total">
@@ -622,7 +622,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   // CSV Export
   window.exportToCSV = function() {
     const list = getStore();
-    const headers = ['ID Peserta', 'Nama Peserta Utama', 'Nama Peserta 2', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey 1', 'Ukuran Jersey 2', 'Total Bayar', 'Nominal Donasi', 'Metode Bayar', 'Status Bayar', 'Klaim RPC'];
+    const headers = ['ID Peserta', 'Nama Peserta Utama', 'Nama Peserta 2', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey 1', 'Ukuran Jersey 2', 'Total Bayar', 'Nominal Infaq', 'Metode Bayar', 'Status Bayar', 'Klaim RPC'];
     const rows = list.map(p => [
       p.id,
       `"${p.nama}"`,
