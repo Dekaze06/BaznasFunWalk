@@ -35,7 +35,7 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
         <div class="map-quick-stats">
           <span class="m-stat-item"><b>Jarak:</b> 5.0 KM</span>
           <span class="m-stat-item"><b>Elevasi:</b> Landai / Aspal Datar</span>
-          <span class="m-stat-item"><b>Pos Medis & Air:</b> 8 Titik</span>
+          <span class="m-stat-item"><b>Pos Medis & Air:</b> 4 Pos Utama</span>
         </div>
       </div>
 
@@ -80,7 +80,7 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
             <div class="map-action-bar">
               <span class="live-legend">
                 <span class="legend-line-red"></span> Garis Lintasan 5K
-                <span class="legend-dot-red" style="margin-left:14px"></span> 8 Titik Pos Checkpoint
+                <span class="legend-dot-red" style="margin-left:14px"></span> 4 Titik Pos Checkpoint
               </span>
               <button type="button" id="btnFitBounds" class="btn btn-ghost-dark btn-sm">Fokus Rute Penuh</button>
             </div>
@@ -112,7 +112,7 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
 
         <div>
           <p class="kicker">Titik Penting Rute</p>
-          <h2>8 Pos & Fasilitas di Sepanjang Jalur</h2>
+          <h2>4 Pos & Fasilitas di Sepanjang Jalur</h2>
           <p class="lede">
             Klik pos di bawah untuk melihat lokasinya langsung di peta interaktif.
           </p>
@@ -575,14 +575,10 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
 
     // Checkpoints Coordinates in Soreang (Loop DOME Bale Rame)
     const checkpoints = [
-      { id: 1, name: "Start & Panggung Utama", lat: -7.0264, lng: 107.5258, type: "start", desc: "Flag-off 06.00 WIB di DOME Bale Rame Soreang." },
-      { id: 2, name: "KM 1: Jl. Raya Soreang (Sebelum Gapura)", lat: -7.0282, lng: 107.5418, type: "info", desc: "Jalur lurus beraspal koridor Samsat Soreang dengan pengawalan Dishub." },
-      { id: 3, name: "Water Station 1 (Km 1.5)", lat: -7.0255, lng: 107.5400, type: "water", desc: "Penyediaan air mineral higienis & pos hidrasi peserta." },
-      { id: 4, name: "KM 2: Jl. Raya Gading Tutuka / Jl. Baru", lat: -7.0145, lng: 107.5285, type: "turn", desc: "Sebelum Kawasan Geo Dipa / dekat simpang RM Dadakan Sunda." },
-      { id: 5, name: "Water Station 2 & Cheering Zone (Km 2.8)", lat: -7.0190, lng: 107.5268, type: "cheer", desc: "Distribusi air minum & penyemangat peserta di jalur arteri." },
-      { id: 6, name: "KM 3: Koridor Jl. Tol Soroja", lat: -7.0235, lng: 107.5259, type: "info", desc: "Lajur arteri pejalan kaki steril dari kendaraan menuju area Gedung Budaya." },
-      { id: 7, name: "Pos Medis & Spot Foto (Km 4.5)", lat: -7.0255, lng: 107.5255, type: "photo", desc: "Gerbang masuk kawasan DOME Bale Rame & ambulans siaga." },
-      { id: 8, name: "Finish: DOME Bale Rame Soreang", lat: -7.0264, lng: 107.5258, type: "finish", desc: "Garis finish resmi, sarapan UMKM, tausiyah & doorprize utama Umroh." }
+      { id: 1, name: "Pos 1: Start & Panggung Utama", lat: -7.0264, lng: 107.5258, type: "start", desc: "Flag-off 06.00 WIB di DOME Bale Rame Soreang. Area kumpul & senam pemanasan." },
+      { id: 2, name: "Pos 2 (KM 1): Jl. Raya Soreang", lat: -7.0282, lng: 107.5418, type: "water", desc: "Sebelum Gapura / Kawasan Samsat Soreang. Water Station 1 & tim medis siaga." },
+      { id: 3, name: "Pos 3 (KM 2): Jl. Raya Gading Tutuka", lat: -7.0145, lng: 107.5285, type: "cheer", desc: "Sebelum Kawasan Geo Dipa / Simpang RM Dadakan Sunda. Water Station 2 & Cheering Zone." },
+      { id: 4, name: "Pos 4 (KM 3 & Finish): DOME Bale Rame", lat: -7.0264, lng: 107.5258, type: "finish", desc: "Koridor Jl. Tol Soroja menuju Finish DOME Bale Rame. Refreshment & Doorprize Umroh." }
     ];
 
     // Smooth 5K Route Path Coordinates (DOME Bale Rame -> Jl. Raya Soreang -> Jl. Raya Gading Tutuka -> Jl. Tol Soroja -> DOME)
