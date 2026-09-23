@@ -44,5 +44,5 @@ export const ROUTE_CHECKPOINTS = [
   { id: 1, name: 'Pos 1: Start & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'start', desc: 'Flag-off pukul 06.00 WIB. Area kumpul peserta, senam pemanasan bersama, dan panggung pembukaan.' },
   { id: 2, name: 'Pos 2 (KM 1): Jl. Raya Soreang', loc: 'Sebelum Gapura / Kawasan Samsat Soreang', type: 'water', desc: 'Pos hidrasi Water Station 1, tim medis lapangan siaga, dan pengawalan petugas Dishub.' },
   { id: 3, name: 'Pos 3 (KM 2): Jl. Raya Gading Tutuka', loc: 'Sebelum Kawasan Geo Dipa / Simpang RM Dadakan Sunda', type: 'cheer', desc: 'Pos hidrasi Water Station 2 & cheering zone di koridor asri dan sejuk.' },
-  { id: 4, name: 'Pos 4 (KM 3 & Finish): DOME Bale Rame', loc: 'Koridor Jl. Tol Soroja menuju Finish DOME Bale Rame', type: 'finish', desc: 'Garis finish resmi, penukaran sarapan UMKM binaan BAZNAS, dan pengundian Doorprize Utama Umroh.' }
+  { id: 4, name: 'Pos 4 (KM 4 & Finish): DOME Bale Rame', loc: 'Koridor Jl. Tol Soroja menuju Finish DOME Bale Rame', type: 'finish', desc: 'Garis finish resmi (KM 4), penukaran sarapan UMKM binaan BAZNAS, dan pengundian Doorprize Utama Umroh.' }
 ];
