@@ -207,13 +207,28 @@ const SEED_PARTICIPANTS = [
   }
 ];
 
+let lastServerSync = 0;
+const SYNC_INTERVAL = 10000; // 10 detik
+
+// Ambil data peserta (sinkron dengan cache lokal & server)
 export function getStore() {
   if (typeof window === 'undefined') return SEED_PARTICIPANTS;
+
+  // Trigger background sync dengan server jika interval terpenuhi
+  const now = Date.now();
+  if (now - lastServerSync > SYNC_INTERVAL) {
+    lastServerSync = now;
+    fetchParticipantsFromServer().catch(() => {});
+  }
+
   const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_PARTICIPANTS));
+    // Tarik data resmi dari server di awal
+    fetchParticipantsFromServer().catch(() => {});
     return SEED_PARTICIPANTS;
   }
+
   try {
     return JSON.parse(stored);
   } catch (e) {
@@ -221,14 +236,70 @@ export function getStore() {
   }
 }
 
+// Fetch data terbaru dari backend server
+export async function fetchParticipantsFromServer() {
+  if (typeof window === 'undefined') return SEED_PARTICIPANTS;
+  try {
+    const res = await fetch('/api/participants');
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(json.data));
+        window.dispatchEvent(new CustomEvent('baznas:store_updated', { detail: json.data }));
+        return json.data;
+      }
+    }
+  } catch (e) {
+    // Mode offline / fallback ke local cache
+  }
+  return getStore();
+}
+
+// Cari satu peserta langsung dari server (atau fallback ke cache)
+export async function fetchParticipantById(query) {
+  if (!query) return null;
+  try {
+    const res = await fetch(`/api/participants/${encodeURIComponent(query)}`);
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        return json.data;
+      }
+    }
+  } catch (e) {
+    // fallback ke local
+  }
+
+  const localList = getStore();
+  const q = String(query).trim().toLowerCase();
+  return localList.find(p =>
+    (p.id && p.id.toLowerCase() === q) ||
+    (p.nik && p.nik.trim() === query.trim()) ||
+    (p.whatsapp && p.whatsapp.replace(/\D/g, '') === query.replace(/\D/g, ''))
+  ) || null;
+}
+
+// Simpan peserta baru ke cache lokal dan langsung kirim ke server backend
 export function saveParticipant(data) {
   if (typeof window === 'undefined') return data;
   const list = getStore();
-  list.unshift(data);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  
+  // Hapus jika sudah ada ID yang sama lalu unshift
+  const filtered = list.filter(p => p.id !== data.id);
+  filtered.unshift(data);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+
+  // Simpan secara asinkron ke server backend
+  fetch('/api/participants', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(err => console.warn('[Store] Gagal sync ke server backend:', err));
+
   return data;
 }
 
+// Update status peserta di server backend & cache lokal
 export function updateParticipantStatus(id, newStatus) {
   if (typeof window === 'undefined') return;
   const list = getStore();
@@ -240,12 +311,21 @@ export function updateParticipantStatus(id, newStatus) {
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
   }
+
+  // Sync ke server backend
+  fetch(`/api/participants/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: newStatus })
+  }).catch(err => console.warn('[Store] Gagal update status ke server backend:', err));
 }
 
+// Klaim racepack ke server backend
 export function markClaimed(id, adminName = 'Petugas Scanner') {
   if (typeof window === 'undefined') return { success: false };
   const list = getStore();
   const index = list.findIndex(p => p.id === id);
+
   if (index !== -1) {
     if (list[index].racepackClaimed) {
       return { success: false, message: 'Race pack sudah pernah diambil sebelumnya!', data: list[index] };
@@ -254,6 +334,14 @@ export function markClaimed(id, adminName = 'Petugas Scanner') {
     list[index].claimedAt = new Date().toISOString();
     list[index].claimedBy = adminName;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+
+    // Kirim konfirmasi klaim ke server backend
+    fetch('/api/participants/claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, adminName })
+    }).catch(err => console.warn('[Store] Gagal klaim racepack ke server:', err));
+
     return { success: true, message: 'Berhasil verifikasi pengambilan race pack!', data: list[index] };
   }
   return { success: false, message: 'Data peserta tidak ditemukan!' };
@@ -279,33 +367,42 @@ export function getStockSummary() {
 }
 
 export function getSettings() {
-  if (typeof window === 'undefined') {
-    return {
-      statusEvent: 'DIBUKA',
-      tierHarga: 'EARLY_BIRD',
-      hargaReguler: 50000,
-      hargaCharity: 100000,
-      targetPeserta: 1000,
-      rekeningBank: 'BSI (Bank Syariah Indonesia) No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG'
-    };
-  }
+  const defaults = {
+    statusEvent: 'DIBUKA',
+    tierHarga: 'EARLY_BIRD',
+    hargaReguler: 50000,
+    hargaCharity: 100000,
+    targetPeserta: 1000,
+    rekeningBank: 'BSI Virtual Account via Midtrans Payment Gateway (Otomatis 24 Jam)'
+  };
+
+  if (typeof window === 'undefined') return defaults;
+
   const stored = localStorage.getItem(SETTINGS_KEY);
   if (!stored) {
-    const defaults = {
-      statusEvent: 'DIBUKA',
-      tierHarga: 'EARLY_BIRD',
-      hargaReguler: 50000,
-      hargaCharity: 100000,
-      targetPeserta: 1000,
-      rekeningBank: 'BSI (Bank Syariah Indonesia) No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG'
-    };
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(defaults));
+    // Ambil dari server
+    fetch('/api/settings').then(r => r.json()).then(j => {
+      if (j.success && j.data) localStorage.setItem(SETTINGS_KEY, JSON.stringify(j.data));
+    }).catch(() => {});
     return defaults;
   }
-  return JSON.parse(stored);
+
+  try {
+    return JSON.parse(stored);
+  } catch (e) {
+    return defaults;
+  }
 }
 
 export function saveSettings(newSettings) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+
+  // Sync ke server
+  fetch('/api/settings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newSettings)
+  }).catch(err => console.warn('[Store] Gagal simpan settings ke server:', err));
 }

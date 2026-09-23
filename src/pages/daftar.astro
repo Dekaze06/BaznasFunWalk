@@ -1,13 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { JERSEY_SIZES } from '../lib/utils.js';
+
+const clientKey = import.meta.env.PUBLIC_MIDTRANS_CLIENT_KEY || process.env.PUBLIC_MIDTRANS_CLIENT_KEY || 'SB-Mid-client-sandbox-demo-key';
+const isProduction = (import.meta.env.MIDTRANS_IS_PRODUCTION || process.env.MIDTRANS_IS_PRODUCTION) === 'true';
+const snapJsUrl = isProduction 
+  ? 'https://app.midtrans.com/snap/snap.js' 
+  : 'https://app.sandbox.midtrans.com/snap/snap.js';
 ---
 
 <Layout title="Pendaftaran Peserta — BAZNAS Fun Walk 2026" activePage="daftar">
+  <!-- Midtrans Snap JS SDK -->
+  <script is:inline src={snapJsUrl} data-client-key={clientKey}></script>
+
   <section class="sec sec--tint" style="padding-top:40px">
     <div class="wrap" style="max-width:880px">
       <!-- Header -->
       <div class="form-header-box">
+
         <p class="kicker">Registrasi Resmi</p>
         <h1>Formulir Pendaftaran BAZNAS Fun Walk 2026</h1>
         <p class="lede">
@@ -93,22 +103,18 @@ import { JERSEY_SIZES } from '../lib/utils.js';
             </div>
           </div>
 
-          <!-- STEP 2: Data Diri -->
+          <!-- STEP 2: Data Diri Super Ringkas -->
           <div class="form-step-content" id="step2" style="display:none">
             <h3 class="step-title">Informasi Data Diri Peserta</h3>
-            <p class="hint" style="margin-bottom:24px">Pastikan nomor WhatsApp dan email aktif untuk pengiriman e-ticket & informasi RPC.</p>
+            <p class="hint" style="margin-bottom:24px">Isi data diri dengan benar untuk penerbitan e-ticket dan kuitansi pembayaran resmi.</p>
+
+            <div class="form-group" style="margin-bottom:18px">
+              <label for="nama">Nama Lengkap <span class="req">*</span></label>
+              <input type="text" id="nama" name="nama" placeholder="Contoh: Ahmad Fauzi Ridwan" required>
+              <span class="hint">Nama akan tercetak pada nomor BIB dan e-ticket.</span>
+            </div>
 
             <div class="grid-2">
-              <div class="form-group">
-                <label for="nama">Nama Lengkap Sesuai KTP <span class="req">*</span></label>
-                <input type="text" id="nama" name="nama" placeholder="Contoh: Ahmad Fauzi Ridwan" required>
-              </div>
-
-              <div class="form-group">
-                <label for="nik">Nomor Induk Kependudukan (NIK 16 Digit) <span class="req">*</span></label>
-                <input type="text" id="nik" name="nik" placeholder="3204xxxxxxxxxxxx" maxlength="16" required>
-              </div>
-
               <div class="form-group">
                 <label for="whatsapp">Nomor WhatsApp Aktif <span class="req">*</span></label>
                 <input type="tel" id="whatsapp" name="whatsapp" placeholder="08xxxxxxxxxx" required>
@@ -118,43 +124,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
               <div class="form-group">
                 <label for="email">Alamat Email <span class="req">*</span></label>
                 <input type="email" id="email" name="email" placeholder="nama@email.com" required>
-              </div>
-
-              <div class="form-group">
-                <label for="gender">Jenis Kelamin <span class="req">*</span></label>
-                <select id="gender" name="gender" required>
-                  <option value="">Pilih Jenis Kelamin</option>
-                  <option value="Laki-laki">Laki-laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="golDarah">Golongan Darah (Untuk Medis)</label>
-                <select id="golDarah" name="golDarah">
-                  <option value="-">Tidak Tahu / Belum Cek</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="AB">AB</option>
-                  <option value="O">O</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="alamat">Alamat Domisili Lengkap <span class="req">*</span></label>
-              <textarea id="alamat" name="alamat" rows="2" placeholder="Nama Jalan, No. Rumah, RT/RW, Desa/Kelurahan, Kecamatan, Kab. Bandung" required></textarea>
-            </div>
-
-            <div class="grid-2" style="margin-top:12px">
-              <div class="form-group">
-                <label for="kontakDaruratNama">Nama Kontak Darurat <span class="req">*</span></label>
-                <input type="text" id="kontakDaruratNama" name="kontakDaruratNama" placeholder="Keluarga / Kerabat terdekat" required>
-              </div>
-
-              <div class="form-group">
-                <label for="kontakDaruratHp">Nomor HP Kontak Darurat <span class="req">*</span></label>
-                <input type="tel" id="kontakDaruratHp" name="kontakDaruratHp" placeholder="08xxxxxxxxxx" required>
+                <span class="hint">Kuitansi resmi Midtrans otomatis dikirim ke email ini.</span>
               </div>
             </div>
 
@@ -232,24 +202,27 @@ import { JERSEY_SIZES } from '../lib/utils.js';
               </div>
             </div>
 
-            <h4 style="margin:28px 0 12px; color:var(--ink)">Pilih Metode Pembayaran</h4>
+            <h4 style="margin:28px 0 12px; color:var(--ink)">Pilih Metode Pembayaran (Midtrans Payment Gateway)</h4>
             <div class="payment-methods-grid">
               <label class="pay-method-card active">
-                <input type="radio" name="metodeBayar" value="QRIS" checked class="sr-only">
-                <div class="pay-title">QRIS Instan</div>
-                <div class="pay-desc">BCA, Mandiri, BSI, BRI, GoPay, OVO, ShopeePay, DANA</div>
+                <input type="radio" name="metodeBayar" value="Midtrans Multi-Payment" checked class="sr-only">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div class="pay-title">Midtrans Payment Gateway (Otomatis 24/7)</div>
+                  <span class="pill pill--dark" style="background:var(--leaf);color:#fff;font-size:0.75rem;padding:2px 8px">Rekomendasi</span>
+                </div>
+                <div class="pay-desc">Semua metode otomatis: QRIS, BSI Virtual Account, Mandiri, BCA, BRI, GoPay, ShopeePay</div>
               </label>
 
               <label class="pay-method-card">
                 <input type="radio" name="metodeBayar" value="BSI Virtual Account" class="sr-only">
-                <div class="pay-title">BSI Virtual Account</div>
-                <div class="pay-desc">Bank Syariah Indonesia (Verifikasi Otomatis)</div>
+                <div class="pay-title">BSI Virtual Account (via Midtrans)</div>
+                <div class="pay-desc">Bank Syariah Indonesia & ATM Bersama dengan nomor VA unik instan</div>
               </label>
 
               <label class="pay-method-card">
-                <input type="radio" name="metodeBayar" value="Transfer Manual BSI" class="sr-only">
-                <div class="pay-title">Transfer Bank Rekening BAZNAS</div>
-                <div class="pay-desc">BSI No. 711-2233-445 a.n. BAZNAS KABUPATEN BANDUNG</div>
+                <input type="radio" name="metodeBayar" value="QRIS Instan" class="sr-only">
+                <div class="pay-title">QRIS Instan (via Midtrans)</div>
+                <div class="pay-desc">BSI Mobile, BCA, Mandiri, BRI, GoPay, OVO, ShopeePay, DANA</div>
               </label>
             </div>
 
@@ -288,7 +261,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         <div class="tp-header">
           <div>
             <div class="tp-title">E-TICKET RESMI BAZNAS FUN WALK 2026</div>
-            <div class="tp-sub">11 Oktober 2026 · Soreang, Kab. Bandung</div>
+            <div class="tp-sub">22 November 2026 · Soreang, Kab. Bandung</div>
           </div>
           <span class="badge badge--success" id="modalBadge">LUNAS / VERIFIED</span>
         </div>
@@ -903,19 +876,15 @@ import { JERSEY_SIZES } from '../lib/utils.js';
 
   window.validateStep2 = function() {
     const nama = document.getElementById('nama')?.value?.trim();
-    const nik = document.getElementById('nik')?.value?.trim();
     const wa = document.getElementById('whatsapp')?.value?.trim();
     const email = document.getElementById('email')?.value?.trim();
-    const alamat = document.getElementById('alamat')?.value?.trim();
-    const daruratNama = document.getElementById('kontakDaruratNama')?.value?.trim();
-    const daruratHp = document.getElementById('kontakDaruratHp')?.value?.trim();
 
-    if (!nama || !nik || !wa || !email || !alamat || !daruratNama || !daruratHp) {
-      alert('Harap lengkapi semua kolom bertanda bintang (*) pada data diri.');
+    if (!nama || !wa || !email) {
+      alert('Harap lengkapi Nama, WhatsApp, dan Email Anda.');
       return;
     }
-    if (nik.length !== 16 || isNaN(nik)) {
-      alert('Nomor NIK harus berjumlah 16 digit angka.');
+    if (wa.length < 9) {
+      alert('Nomor WhatsApp minimal 10 digit angka.');
       return;
     }
     nextStep(3);
@@ -953,10 +922,41 @@ import { JERSEY_SIZES } from '../lib/utils.js';
     }
   }
 
+  // Helper to show modal
+  function showTicketModal(participantData) {
+    document.getElementById('modalRegId').textContent = participantData.id;
+    document.getElementById('modalNama').textContent = participantData.nama;
+    document.getElementById('modalPaket').textContent = participantData.paketNama;
+    document.getElementById('modalSize').textContent = `Ukuran ${participantData.ukuranJersey}`;
+    document.getElementById('modalMetode').textContent = participantData.metodeBayar;
+
+    const badge = document.getElementById('modalBadge');
+    if (badge) {
+      if (participantData.status === 'PAID') {
+        badge.className = 'badge badge--success';
+        badge.textContent = 'LUNAS / VERIFIED';
+      } else {
+        badge.className = 'badge badge--warning';
+        badge.textContent = 'MENUNGGU PEMBAYARAN';
+      }
+    }
+
+    document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${participantData.id}`;
+    document.getElementById('successModal').style.display = 'flex';
+  }
+
+  function resetSubmitBtn() {
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>Konfirmasi & Bayar Sekarang </span>';
+    }
+  }
+
   // Form Submit
   const form = document.getElementById('regForm');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const agree = document.getElementById('agreeWaiver')?.checked;
@@ -968,7 +968,7 @@ import { JERSEY_SIZES } from '../lib/utils.js';
       const submitBtn = document.getElementById('submitBtn');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Memproses Pendaftaran...</span>';
+        submitBtn.innerHTML = '<span>Menyiapkan Midtrans Gateway...</span>';
       }
 
       // Generate Registration ID
@@ -984,12 +984,12 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         nama: document.getElementById('nama')?.value?.trim(),
         email: document.getElementById('email')?.value?.trim(),
         whatsapp: document.getElementById('whatsapp')?.value?.trim(),
-        nik: document.getElementById('nik')?.value?.trim(),
-        gender: document.getElementById('gender')?.value,
-        alamat: document.getElementById('alamat')?.value?.trim(),
-        golDarah: document.getElementById('golDarah')?.value,
-        kontakDaruratNama: document.getElementById('kontakDaruratNama')?.value?.trim(),
-        kontakDaruratHp: document.getElementById('kontakDaruratHp')?.value?.trim(),
+        gender: '-',
+        nik: '-',
+        alamat: '-',
+        golDarah: '-',
+        kontakDaruratNama: '-',
+        kontakDaruratHp: '-',
         paket: selectedPaket,
         paketNama: selectedPaket === 'charity' ? 'Charity Pack 5K' : 'Paket Reguler 5K Early Bird',
         ukuranJersey: selectedSize,
@@ -997,27 +997,98 @@ import { JERSEY_SIZES } from '../lib/utils.js';
         nominalDonasi: donasi,
         totalBayar: total,
         metodeBayar: selectedPayment,
-        status: 'PAID', // Direct verification for smooth flow
+        status: 'PENDING',
         waktuDaftar: new Date().toISOString(),
-        waktuBayar: new Date().toISOString(),
+        waktuBayar: null,
         racepackClaimed: false,
         claimedAt: null,
         claimedBy: null
       };
 
-      // Save to localStorage
-      saveParticipant(participantData);
+      try {
+        // Panggil endpoint backend untuk mendapatkan Snap Token
+        const response = await fetch('/api/midtrans/token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...participantData,
+            preferredPayment: selectedPayment.includes('BSI') ? 'bsi_va' : 'all'
+          })
+        });
 
-      // Populate Success Modal
-      document.getElementById('modalRegId').textContent = regId;
-      document.getElementById('modalNama').textContent = participantData.nama;
-      document.getElementById('modalPaket').textContent = participantData.paketNama;
-      document.getElementById('modalSize').textContent = `Ukuran ${participantData.ukuranJersey}`;
-      document.getElementById('modalMetode').textContent = participantData.metodeBayar;
-      document.getElementById('modalViewTicketBtn').href = `/cek-tiket?id=${regId}`;
+        const result = await response.json();
 
-      // Show Modal
-      document.getElementById('successModal').style.display = 'flex';
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Gagal menghubungi server pembayaran Midtrans.');
+        }
+
+        // Cek apakah snap SDK terpasang di window dan bukan mock mode
+        if (window.snap && typeof window.snap.pay === 'function' && !result.isMock) {
+          window.snap.pay(result.token, {
+            onSuccess: function(payResult) {
+              participantData.status = 'PAID';
+              participantData.waktuBayar = new Date().toISOString();
+              participantData.metodeBayar = payResult.payment_type 
+                ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
+                : selectedPayment;
+              saveParticipant(participantData);
+              showTicketModal(participantData);
+            },
+            onPending: function(payResult) {
+              participantData.status = 'PENDING';
+              participantData.metodeBayar = payResult.payment_type 
+                ? `Midtrans (${payResult.payment_type.toUpperCase()})` 
+                : selectedPayment;
+              saveParticipant(participantData);
+              showTicketModal(participantData);
+              alert('Pesanan tercatat! Silakan selesaikan pembayaran sesuai instruksi VA/QRIS Anda.');
+            },
+            onError: function(err) {
+              console.error('Midtrans payment error:', err);
+              alert('Pembayaran gagal atau dibatalkan. Silakan ulangi kembali.');
+              resetSubmitBtn();
+            },
+            onClose: function() {
+              participantData.status = 'PENDING';
+              saveParticipant(participantData);
+              alert('Jendela pembayaran ditutup. Data pendaftaran Anda tersimpan sebagai PENDING.');
+              resetSubmitBtn();
+            }
+          });
+        } else {
+          // Mode Simulasi / Pengujian Alur Lokal
+          const proceedSimulation = confirm(
+            `[SIMULASI MIDTRANS PAYMENT GATEWAY]\n\n` +
+            `Token Snap: ${result.token}\n` +
+            `ID Registrasi: ${regId}\n` +
+            `Nama: ${participantData.nama}\n` +
+            `Total Tagihan: Rp ${total.toLocaleString('id-ID')}\n` +
+            `Metode: ${selectedPayment}\n\n` +
+            `Klik [OK] untuk mensimulasikan PEMBAYARAN BERHASIL (LUNAS),\n` +
+            `atau klik [Cancel] untuk mensimulasikan MENUNGGU PEMBAYARAN (PENDING).`
+          );
+
+          if (proceedSimulation) {
+            participantData.status = 'PAID';
+            participantData.waktuBayar = new Date().toISOString();
+            participantData.metodeBayar = `${selectedPayment} (Midtrans Simulasi)`;
+            saveParticipant(participantData);
+            showTicketModal(participantData);
+          } else {
+            participantData.status = 'PENDING';
+            participantData.metodeBayar = `${selectedPayment} (Midtrans Pending)`;
+            saveParticipant(participantData);
+            showTicketModal(participantData);
+          }
+          resetSubmitBtn();
+        }
+      } catch (err) {
+        console.error('Error saat inisiasi Midtrans:', err);
+        alert(`Terjadi kendala: ${err.message || 'Gagal memproses pembayaran'}`);
+        resetSubmitBtn();
+      }
     });
   }
 </script>

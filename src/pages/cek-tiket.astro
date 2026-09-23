@@ -58,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
               <img src="/assets/logo-baznas.png" alt="BAZNAS Kab. Bandung" class="th-logo" width="40" height="40">
               <div>
                 <div class="th-title">BAZNAS FUN WALK 2026</div>
-                <div class="th-sub">Healthy and Charity · 11 Oktober 2026 · Soreang</div>
+                <div class="th-sub">Healthy and Charity · 22 November 2026 · Soreang</div>
               </div>
             </div>
             <div class="th-badge-box">
@@ -124,10 +124,15 @@ import Layout from '../layouts/Layout.astro';
           <!-- Bottom Notice -->
           <div class="ticket-footer">
             <div class="tf-notice">
-              <b>Pengambilan Race Pack (RPC):</b> 8–10 Oktober 2026 di Lobby Gedung Budaya Sabilulungan, Soreang. Bawa E-Ticket ini dan KTP asli/salinan.
+              <b>Pengambilan Race Pack (RPC):</b> 19–21 November 2026 di Lobby Gedung Budaya Sabilulungan, Soreang. Tunjukkan E-Ticket digital atau cetak ini kepada panitia meja.
             </div>
-            <div class="tf-actions">
+            <div class="tf-actions" style="display:flex; gap:10px; flex-wrap:wrap">
+              <button type="button" class="btn btn-leaf btn-sm" id="downloadTicketBtn" onclick="downloadTicketImage()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Unduh E-Ticket</span>
+              </button>
               <button type="button" class="btn btn-sun btn-sm" onclick="window.print()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
                 <span>Cetak E-Ticket</span>
               </button>
             </div>
@@ -244,9 +249,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .th-logo {
-    background: #FFFFFF;
-    padding: 3px;
-    border-radius: 6px;
+    height: 38px;
+    width: auto;
+    object-fit: contain;
   }
 
   .th-title {
@@ -400,7 +405,7 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  import { getStore } from '../lib/store.js';
+  import { getStore, fetchParticipantById } from '../lib/store.js';
 
   // Check URL query parameter
   const urlParams = new URLSearchParams(window.location.search);
@@ -426,15 +431,9 @@ import Layout from '../layouts/Layout.astro';
     });
   }
 
-  function performSearch(kw) {
-    const participants = getStore();
-    const cleanKw = kw.toLowerCase().trim();
-
-    const found = participants.find(p => 
-      p.id.toLowerCase() === cleanKw ||
-      p.whatsapp.toLowerCase().replace(/[^0-9]/g, '') === cleanKw.replace(/[^0-9]/g, '') ||
-      p.email.toLowerCase() === cleanKw
-    );
+  async function performSearch(kw) {
+    // Cari langsung ke server backend dengan fallback ke cache lokal
+    const found = await fetchParticipantById(kw);
 
     const notFoundEl = document.getElementById('notFoundBox');
     const resultEl = document.getElementById('ticketResultBox');
@@ -480,4 +479,171 @@ import Layout from '../layouts/Layout.astro';
 
     resultEl.scrollIntoView({ behavior: 'smooth' });
   }
+
+  // Fungsi Unduh E-Ticket dalam bentuk Gambar (Canvas PNG)
+  window.downloadTicketImage = function() {
+    const regId = document.getElementById('tRegId')?.textContent || 'TIKET';
+    const nama = document.getElementById('tNama')?.textContent || 'Peserta';
+    const paket = document.getElementById('tPaket')?.textContent || '-';
+    const jersey = document.getElementById('tJersey')?.textContent || '-';
+    const wa = document.getElementById('tWhatsapp')?.textContent || '-';
+    const status = document.getElementById('ticketStatusBadge')?.textContent || 'LUNAS';
+
+    // Buat canvas resolusi tinggi (HD)
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const width = 1000;
+    const height = 560;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Background Canvas
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, width, height);
+
+    // Header Background (Dark Green / Forest)
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(0, 0, width, 110);
+
+    // Header Accent Line (Gold)
+    ctx.fillStyle = '#C59A27';
+    ctx.fillRect(0, 105, width, 5);
+
+    // Header Text
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px system-ui, -apple-system, sans-serif';
+    ctx.fillText('BAZNAS FUN WALK 2026', 40, 52);
+
+    ctx.fillStyle = '#A3E635';
+    ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Healthy & Charity  •  22 November 2026  •  Gedung Sabilulungan, Soreang', 40, 84);
+
+    // Status Badge Top Right
+    ctx.fillStyle = '#166534';
+    ctx.beginPath();
+    ctx.roundRect(width - 240, 36, 200, 38, [8]);
+    ctx.fill();
+    ctx.fillStyle = '#DCFCE7';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('✓ ' + status, width - 140, 61);
+    ctx.textAlign = 'left';
+
+    // Left Box: QR & ID Container
+    ctx.fillStyle = '#F8FAFC';
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(40, 140, 240, 280, [12]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw Simulated Clean Barcode / QR Box
+    ctx.fillStyle = '#062E16';
+    // Top-left finder
+    ctx.fillRect(75, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 180, 15, 15);
+
+    // Top-right finder
+    ctx.fillRect(195, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(203, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(210, 180, 15, 15);
+
+    // Bottom-left finder
+    ctx.fillRect(75, 275, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 283, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 290, 15, 15);
+
+    // Center data points
+    ctx.fillRect(145, 175, 25, 25);
+    ctx.fillRect(145, 220, 25, 30);
+    ctx.fillRect(195, 235, 20, 15);
+    ctx.fillRect(180, 275, 35, 20);
+    ctx.fillRect(145, 275, 20, 45);
+    ctx.fillRect(220, 295, 20, 25);
+
+    // Reg ID Text Badge
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(regId, 160, 365);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Tunjukkan barcode ini di meja RPC', 160, 395);
+    ctx.textAlign = 'left';
+
+    // Right Column: Participant Details
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NAMA LENGKAP PESERTA:', 320, 165);
+
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 26px system-ui, -apple-system, sans-serif';
+    ctx.fillText(nama, 320, 200);
+
+    // Detail Grid
+    // Col 1: Kategori Paket & Jersey
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('KATEGORI PAKET:', 320, 245);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+    ctx.fillText(paket, 320, 272);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('UKURAN JERSEY:', 320, 325);
+    ctx.fillStyle = '#065F46';
+    ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+    ctx.fillText(jersey, 320, 352);
+
+    // Col 2: WhatsApp & Status RPC
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NOMOR WHATSAPP:', 620, 245);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px system-ui, -apple-system, sans-serif';
+    ctx.fillText(wa, 620, 272);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('PENGAMBILAN RACE PACK:', 620, 325);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+    ctx.fillText('19–21 Nov 2026 @ Budaya Sabilulungan', 620, 352);
+
+    // Footer Info Strip
+    ctx.fillStyle = '#F1F5F9';
+    ctx.fillRect(0, 470, width, 90);
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.beginPath();
+    ctx.moveTo(0, 470);
+    ctx.lineTo(width, 470);
+    ctx.stroke();
+
+    ctx.fillStyle = '#334155';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 508);
+    ctx.fillText('Informasi & Bantuan: WhatsApp Center 0812-2345-6789 | baznasjawabarat.org', 40, 532);
+
+    // Trigger Download PNG
+    const safeName = nama.replace(/[^a-zA-Z0-9]/g, '_');
+    const fileName = `E-Ticket_${regId}_${safeName}.png`;
+    const imageUri = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = imageUri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 </script>

@@ -9,17 +9,14 @@ const { activePage = 'home' } = Astro.props;
 <header class="site-header">
   <div class="top-announcement">
     <div class="wrap top-banner-content">
-      <span><b>Pendaftaran Dibuka:</b> BAZNAS FUN WALK 2026 — 11 Oktober 2026 di Soreang, Kab. Bandung</span>
-      <a href="/admin" class="admin-quick-link" title="Masuk ke Panel Pengelola">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Panel Admin
-      </a>
+      <span><b>Pendaftaran Dibuka:</b> BAZNAS FUN WALK 2026 — 22 November 2026 di Soreang, Kab. Bandung</span>
     </div>
   </div>
 
   <div class="wrap nav-wrap">
     <a href="/" class="brand-link" aria-label="BAZNAS Fun Walk 2026 Beranda">
-      <img src="/assets/logo-baznas.webp" alt="BAZNAS Kabupaten Bandung" class="brand-logo" width="160" height="42">
+      <img src="/assets/logo-header.webp" alt="BAZNAS Kabupaten Bandung" class="brand-logo" width="115" height="46">
+      <div class="brand-divider" aria-hidden="true"></div>
       <div class="brand-text">
         <span class="brand-title">FUN WALK 2026</span>
         <span class="brand-sub">Healthy and Charity</span>
@@ -118,12 +115,20 @@ const { activePage = 'home' } = Astro.props;
   }
 
   .brand-logo {
-    height: 42px;
+    height: 46px;
     width: auto;
     object-fit: contain;
-    background: #FFFFFF;
-    padding: 4px 8px;
-    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+
+  .brand-link:hover .brand-logo {
+    transform: scale(1.03);
+  }
+
+  .brand-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.18);
   }
 
   .brand-text {

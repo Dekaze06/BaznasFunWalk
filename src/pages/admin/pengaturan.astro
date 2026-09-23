@@ -21,7 +21,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <label for="tierHarga">Skema Harga Aktif:</label>
         <select id="tierHarga">
           <option value="EARLY_BIRD">Early Bird — Rp 50.000 (s.d. 30 September)</option>
-          <option value="NORMAL">Harga Normal — Rp 100.000 (Mulai 1 Oktober)</option>
+          <option value="NORMAL">Harga Normal — Rp 100.000 (Mulai 1 November)</option>
         </select>
       </div>
 
@@ -39,6 +39,38 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <button type="submit" class="btn btn-leaf btn-lg">✓ Simpan Perubahan Pengaturan</button>
       </div>
     </form>
+  </div>
+
+  <div class="card-clean" style="max-width:800px; margin-top:24px">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+      <h3 style="margin:0">Konfigurasi Midtrans Payment Gateway</h3>
+      <span class="pill pill--dark" style="background:var(--leaf); color:#fff">Aktif</span>
+    </div>
+    <p class="hint" style="margin-bottom:20px">
+      Status gateway pembayaran terintegrasi untuk verifikasi instan via Snap API & Webhook Notification.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:12px; background:var(--paper-2); padding:16px; border-radius:var(--r-sm); border:1px solid var(--line); font-size:0.9rem">
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Mode Gateway:</span>
+        <b style="color:var(--sun)">Sandbox / Uji Coba</b>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">File Konfigurasi Kredensial:</span>
+        <code>.env</code>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Endpoint Webhook (Notifikasi URL):</span>
+        <code style="background:#fff; padding:2px 6px; border:1px solid var(--line); border-radius:4px">/api/midtrans/notification</code>
+      </div>
+      <div style="display:flex; justify-content:space-between">
+        <span style="color:var(--grey)">Endpoint Generate Token Snap:</span>
+        <code style="background:#fff; padding:2px 6px; border:1px solid var(--line); border-radius:4px">/api/midtrans/token</code>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:14px; font-size:0.82rem">
+      <b>Panduan Dashboard Midtrans:</b> Pada menu <i>Settings &gt; Configuration</i> di Dashboard Midtrans, isi field <b>Payment Notification URL</b> dengan alamat domain Anda diikuti <code>/api/midtrans/notification</code> agar status pembayaran terupdate secara otomatis.
+    </p>
   </div>
 </AdminLayout>
 

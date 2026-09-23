@@ -7,31 +7,40 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   <!-- Stats Row -->
   <div class="dashboard-stats-grid">
     <div class="stat-card">
-      <div class="stat-icon-circle icon--green"></div>
+      <div class="stat-icon-circle icon--green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
       <div class="stat-content">
         <span class="stat-lbl">Total Pendaftar</span>
         <div class="stat-val" id="totalPesertaCount">8 Peserta</div>
         <div class="stat-progress-bar">
           <div class="bar-fill" id="totalProgressBar" style="width:0.8%"></div>
         </div>
-        <small class="stat-hint">Target: <b>1.000 Peserta</b></small>
+        <div class="stat-foot-info">
+          <span>Target: <b>1.000 Peserta</b></span>
+          <span id="targetPercentText" style="font-weight:700; color:var(--leaf)">0.8%</span>
+        </div>
       </div>
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon-circle icon--blue"></div>
+      <div class="stat-icon-circle icon--blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
       <div class="stat-content">
         <span class="stat-lbl">Pembayaran Lunas</span>
         <div class="stat-val" id="paidPesertaCount">6 Peserta</div>
         <div class="stat-tags">
-          <span class="badge badge--success">Verified</span>
+          <span class="badge badge--success">✓ Verified</span>
           <span class="badge badge--warning" id="pendingTag">2 Pending</span>
         </div>
       </div>
     </div>
 
     <div class="stat-card">
-      <div class="stat-icon-circle icon--gold"></div>
+      <div class="stat-icon-circle icon--gold">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
       <div class="stat-content">
         <span class="stat-lbl">Total Dana Masuk</span>
         <div class="stat-val" id="totalRevenue">Rp 500.000</div>
@@ -42,11 +51,13 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
     </div>
 
     <div class="stat-card stat-card--charity">
-      <div class="stat-icon-circle icon--lime"></div>
+      <div class="stat-icon-circle icon--lime">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
       <div class="stat-content">
         <span class="stat-lbl">Donasi ZIS Terkumpul</span>
         <div class="stat-val" id="totalZisDonation">Rp 200.000</div>
-        <small class="stat-hint" style="color:var(--lime)">Dana ZIS murni (Charity Pack)</small>
+        <small class="stat-hint" style="color:#86EFAC">Dana ZIS murni (Charity Pack)</small>
       </div>
     </div>
   </div>
@@ -58,7 +69,7 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
       <div class="card-header-flex">
         <div>
           <h3>Pendaftaran Terbaru</h3>
-          <p class="hint" style="margin:0">Daftar transaksi dan registrasi peserta terkini</p>
+          <p class="hint" style="margin:0">Transaksi dan registrasi peserta terbaru</p>
         </div>
         <a href="/admin/peserta" class="btn btn-leaf btn-sm">Lihat Semua Data →</a>
       </div>
@@ -87,7 +98,7 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
       <div class="card-header-flex">
         <div>
           <h3>Distribusi Ukuran Jersey</h3>
-          <p class="hint" style="margin:0">Alokasi produksi 1.000 pcs</p>
+          <p class="hint" style="margin:0">Alokasi produksi vendor 1.000 pcs</p>
         </div>
         <a href="/admin/kuota" class="btn btn-ghost-dark btn-sm">Kelola Kuota</a>
       </div>
@@ -103,16 +114,20 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
     <h3>Aksi Cepat Panitia</h3>
     <div class="ops-btn-grid" style="margin-top:16px">
       <a href="/admin/scanner" class="btn btn-leaf">
-        <span>Buka Scanner QR Race Pack (RPC)</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        <span>Buka Scanner QR RPC</span>
       </a>
       <a href="/admin/peserta" class="btn btn-sun">
-        <span>Verifikasi Bukti Transfer Pending</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>Verifikasi Pembayaran</span>
       </a>
       <a href="/admin/impor" class="btn btn-ghost-dark">
-        <span>Impor Peserta Kolektif (Excel)</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Impor Data Kolektif (CSV)</span>
       </a>
       <a href="/admin/keuangan" class="btn btn-ghost-dark">
-        <span>Laporan Rekap Keuangan & ZIS</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Laporan Rekap & ZIS</span>
       </a>
     </div>
   </div>
@@ -128,37 +143,64 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
 
   .stat-card {
     background: #FFFFFF;
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
     padding: 22px;
     display: flex;
     gap: 16px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
   }
 
   .stat-card--charity {
-    background: var(--ink);
+    background: linear-gradient(135deg, #052312 0%, #08381C 100%);
     color: #FFFFFF;
-    border-color: var(--leaf);
+    border: 1px solid #166534;
+    box-shadow: 0 4px 20px rgba(5, 35, 18, 0.25);
   }
 
-  .stat-card--charity .stat-lbl { color: #A3C9A2; }
+  .stat-card--charity .stat-lbl { color: #86EFAC; }
   .stat-card--charity .stat-val { color: #FFFFFF; }
 
   .stat-icon-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: grid;
     place-items: center;
-    font-size: 1.4rem;
     flex-shrink: 0;
+    transition: transform 0.2s;
   }
 
-  .icon--green { background: #E6F6EC; }
-  .icon--blue { background: #E8F4FD; }
-  .icon--gold { background: #FFF9E6; }
-  .icon--lime { background: rgba(165, 208, 68, 0.2); }
+  .stat-card:hover .stat-icon-circle {
+    transform: scale(1.08);
+  }
+
+  .icon--green { 
+    background: #ECFDF5; 
+    color: #059669;
+    border: 1px solid #A7F3D0;
+  }
+  .icon--blue { 
+    background: #EFF6FF; 
+    color: #2563EB;
+    border: 1px solid #BFDBFE;
+  }
+  .icon--gold { 
+    background: #FEFCE8; 
+    color: #CA8A04;
+    border: 1px solid #FEF08A;
+  }
+  .icon--lime { 
+    background: rgba(134, 239, 172, 0.15); 
+    color: #86EFAC;
+    border: 1px solid rgba(134, 239, 172, 0.3);
+  }
 
   .stat-content {
     flex: 1;
@@ -166,51 +208,60 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   }
 
   .stat-lbl {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--grey);
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #64748B;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     display: block;
     margin-bottom: 4px;
   }
 
   .stat-val {
     font-family: 'Baloo 2', sans-serif;
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: var(--ink);
+    color: #0F172A;
     line-height: 1.1;
   }
 
   .stat-progress-bar {
     height: 6px;
-    background: var(--paper-2);
+    background: #F1F5F9;
     border-radius: 99px;
     overflow: hidden;
-    margin: 8px 0 4px;
+    margin: 10px 0 6px;
   }
 
   .bar-fill {
     height: 100%;
-    background: var(--leaf);
+    background: linear-gradient(90deg, #10B981, #059669);
     border-radius: 99px;
   }
 
-  .stat-hint {
+  .stat-foot-info {
+    display: flex;
+    justify-content: space-between;
     font-size: 0.75rem;
-    color: var(--grey);
+    color: #64748B;
+  }
+
+  .stat-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
   }
 
   .stat-sub-row {
     font-size: 0.82rem;
-    color: var(--grey);
-    margin-top: 4px;
+    color: #64748B;
+    margin-top: 6px;
   }
 
   .admin-grid-2 {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1.55fr 1fr;
     gap: 24px;
   }
 
@@ -218,13 +269,15 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 14px;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 16px;
   }
 
   .card-header-flex h3 {
     font-size: 1.25rem;
     margin: 0;
+    font-weight: 800;
+    color: #0F172A;
   }
 
   /* Admin Table */
@@ -240,42 +293,51 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   }
 
   .admin-table th, .admin-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+    border-bottom: 1px solid #F1F5F9;
   }
 
   .admin-table th {
-    background: var(--paper-2);
-    color: var(--ink);
+    background: #F8FAFC;
+    color: #475569;
     font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .admin-table tr:hover td {
+    background: #F8FAFC;
   }
 
   /* Jersey Stock List */
   .jersey-stock-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 16px;
+    gap: 14px;
+    margin-top: 18px;
   }
 
   .stock-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    padding: 6px 0;
   }
 
   .stock-size-pill {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: var(--ink);
-    color: var(--lime);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #062313;
+    color: #86EFAC;
     font-family: 'Baloo 2', sans-serif;
     font-weight: 800;
     display: grid;
     place-items: center;
     font-size: 1rem;
     flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   }
 
   .stock-bar-wrapper {
@@ -285,21 +347,23 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   .stock-info-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.82rem;
-    margin-bottom: 4px;
+    font-size: 0.84rem;
+    margin-bottom: 6px;
+    color: #1E293B;
   }
 
   .stock-track {
     height: 8px;
-    background: var(--paper-2);
+    background: #F1F5F9;
     border-radius: 99px;
     overflow: hidden;
   }
 
   .stock-fill {
     height: 100%;
-    background: var(--leaf);
+    background: linear-gradient(90deg, #10B981, #059669);
     border-radius: 99px;
+    transition: width 0.3s ease;
   }
 
   .ops-btn-grid {
@@ -308,16 +372,25 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
     flex-wrap: wrap;
   }
 
-  @media (max-width: 1100px) {
+  .ops-btn-grid .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1200px) {
     .dashboard-stats-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
     .admin-grid-2 {
       grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     .dashboard-stats-grid {
       grid-template-columns: 1fr;
     }

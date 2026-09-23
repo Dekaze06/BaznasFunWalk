@@ -17,60 +17,129 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
 
   <!-- Peta Visual & Info -->
   <section class="sec">
-    <div class="wrap grid-2" style="align-items:start">
-      <div>
-        <div class="map-wrapper card-clean" style="padding:10px">
-          <img 
-            src="/assets/route-map-detail.webp" 
-            alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
-            class="route-map-img"
-            loading="eager"
-            width="880"
-            height="1125"
-          />
-          <div class="map-action-bar">
-            <span>Peta Rute 5K Kawasan Soreang</span>
-            <a href="/assets/route-5k-slide.webp" target="_blank" class="btn btn-ghost-dark btn-sm">Lihat Slide Penuh ↗</a>
-          </div>
+    <div class="wrap">
+      
+      <!-- Map & Graphic View Mode Switcher -->
+      <div class="map-view-header">
+        <div class="map-mode-pills">
+          <button type="button" class="mode-pill active" id="btnInteractiveView">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            <span>Peta Interaktif Live 5K</span>
+          </button>
+          <button type="button" class="mode-pill" id="btnGraphicView">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Peta Cetak Resmi</span>
+          </button>
         </div>
 
-        <div class="card-clean security-note" style="margin-top:24px">
-          <h4>Keamanan & Sterilisasi Jalur</h4>
-          <p>
-            Rute sepanjang 5 Kilometer ini didukung oleh pengawalan lantas Polres Kabupaten Bandung dan Dishub. Terdapat tim marshal sepeda, ambulans bergerak, serta water station di setiap 2 kilometer.
-          </p>
+        <div class="map-quick-stats">
+          <span class="m-stat-item"><b>Jarak:</b> 5.0 KM</span>
+          <span class="m-stat-item"><b>Elevasi:</b> Landai / Aspal Datar</span>
+          <span class="m-stat-item"><b>Pos Medis & Air:</b> 8 Titik</span>
         </div>
       </div>
 
-      <div>
-        <p class="kicker">Titik Penting Rute</p>
-        <h2>8 Pos & Fasilitas di Sepanjang Jalur</h2>
-        <p class="lede">
-          Setiap peserta akan melintasi titik-titik penting berikut untuk kenyamanan dan hidrasi.
-        </p>
+      <div class="grid-2 map-main-grid" style="align-items:start">
+        <div>
+          <!-- Container Peta Interaktif Leaflet -->
+          <div class="map-wrapper card-clean" id="interactiveMapCard">
+            <!-- Custom Toolbar Controls (No Emojis, Pure SVG) -->
+            <div class="map-custom-bar">
+              <div class="map-search-group">
+                <input 
+                  type="text" 
+                  id="mapSearchInput" 
+                  placeholder="Cari lokasi di Soreang..." 
+                  class="map-search-input"
+                  aria-label="Cari lokasi di Soreang"
+                />
+                <button type="button" id="mapSearchBtn" class="map-tool-btn" title="Cari Lokasi">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+              </div>
 
-        <div class="checkpoints-list">
-          {ROUTE_CHECKPOINTS.map((cp) => (
-            <div class="cp-card">
-              <div class="cp-num-badge">{cp.id}</div>
-              <div class="cp-content">
-                <div class="cp-title-row">
-                  <h4>{cp.name}</h4>
-                  <span class={`cp-tag tag--${cp.type}`}>
-                    {cp.type === 'start' && 'Start'}
-                    {cp.type === 'water' && 'Water Station'}
-                    {cp.type === 'cheer' && 'Cheering & Medis'}
-                    {cp.type === 'turn' && 'Putaran'}
-                    {cp.type === 'photo' && 'Titik Foto'}
-                    {cp.type === 'finish' && 'Garis Finish'}
-                    {cp.type === 'info' && 'Pos Info'}
-                  </span>
-                </div>
-                <div class="cp-loc">{cp.loc}</div>
-                <p class="cp-desc">{cp.desc}</p>
+              <div class="map-action-buttons">
+                <button type="button" id="btnReplayAnimation" class="map-tool-btn map-tool-btn--accent" title="Putar Ulang Animasi Jalur 5K">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <span>Animasi Rute</span>
+                </button>
+                <button type="button" id="btnLocateMe" class="map-tool-btn" title="Deteksi Posisi Saya">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+                  <span>Lokasi Saya</span>
+                </button>
+                <button type="button" id="btnToggleSatellite" class="map-tool-btn" title="Ganti Tampilan Satelit / Peta">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  <span id="layerNameTxt">Satelit</span>
+                </button>
               </div>
             </div>
-          ))}
+
+            <!-- Leaflet Container -->
+            <div id="leafletMap" class="leaflet-map-canvas" style="height: 520px; width: 100%; border-radius: 8px;"></div>
+            
+            <div class="map-action-bar">
+              <span class="live-legend">
+                <span class="legend-line-red"></span> Garis Lintasan 5K
+                <span class="legend-dot-red" style="margin-left:14px"></span> 8 Titik Pos Checkpoint
+              </span>
+              <button type="button" id="btnFitBounds" class="btn btn-ghost-dark btn-sm">Fokus Rute Penuh</button>
+            </div>
+          </div>
+
+          <!-- Container Peta Gambar Statis (Dapat Ditampilkan via Tab) -->
+          <div class="map-wrapper card-clean" id="graphicMapCard" style="display:none; padding:10px">
+            <img 
+              src="/assets/route-map-detail.webp" 
+              alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
+              class="route-map-img"
+              loading="lazy"
+              width="880"
+              height="1125"
+            />
+            <div class="map-action-bar">
+              <span>Peta Grafis Resmi Rute 5K Kawasan Soreang</span>
+              <a href="/assets/route-5k-slide.webp" target="_blank" class="btn btn-ghost-dark btn-sm">Lihat Slide Penuh ↗</a>
+            </div>
+          </div>
+
+          <div class="card-clean security-note" style="margin-top:24px">
+            <h4>Keamanan & Sterilisasi Jalur</h4>
+            <p>
+              Rute sepanjang 5 Kilometer ini didukung oleh pengawalan lantas Polres Kabupaten Bandung dan Dishub. Terdapat tim marshal sepeda, ambulans bergerak, serta water station di setiap 2 kilometer.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p class="kicker">Titik Penting Rute</p>
+          <h2>8 Pos & Fasilitas di Sepanjang Jalur</h2>
+          <p class="lede">
+            Klik pos di bawah untuk melihat lokasinya langsung di peta interaktif.
+          </p>
+
+          <div class="checkpoints-list">
+            {ROUTE_CHECKPOINTS.map((cp) => (
+              <div class="cp-card" data-cp-id={cp.id} role="button" tabindex="0">
+                <div class="cp-num-badge">{cp.id}</div>
+                <div class="cp-content">
+                  <div class="cp-title-row">
+                    <h4>{cp.name}</h4>
+                    <span class={`cp-tag tag--${cp.type}`}>
+                      {cp.type === 'start' && 'Start'}
+                      {cp.type === 'water' && 'Water Station'}
+                      {cp.type === 'cheer' && 'Cheering & Medis'}
+                      {cp.type === 'turn' && 'Putaran'}
+                      {cp.type === 'photo' && 'Titik Foto'}
+                      {cp.type === 'finish' && 'Garis Finish'}
+                      {cp.type === 'info' && 'Pos Info'}
+                    </span>
+                  </div>
+                  <div class="cp-loc">{cp.loc}</div>
+                  <p class="cp-desc">{cp.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -89,19 +158,25 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
 
       <div class="grid-3">
         <div class="card-clean">
-          <div class="transit-icon"></div>
+          <div class="transit-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          </div>
           <h4>Kendaraan Pribadi & Tol Soroja</h4>
           <p class="hint">Keluar Gerbang Tol Soreang (Soroja), belok kanan menuju Jl. Al Fathu. Gedung Budaya Sabilulungan berada tepat di sisi kiri jalan (jarak ±1.5 km).</p>
         </div>
 
         <div class="card-clean">
-          <div class="transit-icon"></div>
+          <div class="transit-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)"><rect x="3" y="3" width="18" height="18" rx="4"></rect><path d="M9 17V7h4a3 3 0 0 1 0 6H9"></path></svg>
+          </div>
           <h4>Kantong Parkir Resmi</h4>
           <p class="hint">Tersedia area parkir luas di Plaza Gedung Budaya Sabilulungan, Lapangan Upacara Pemkab Bandung, dan area parkir Stadion Si Jalak Harupat (shuttle bus disiapkan jika penuh).</p>
         </div>
 
         <div class="card-clean">
-          <div class="transit-icon"></div>
+          <div class="transit-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><circle cx="7" cy="15" r="1"></circle><circle cx="17" cy="15" r="1"></circle></svg>
+          </div>
           <h4>Transportasi Publik</h4>
           <p class="hint">Dapat menggunakan Trans Metro Pasundan (TMP) Koridor 1 (Leuwipanjang – Soreang) turun langsung di Halte Gedung Budaya Sabilulungan.</p>
         </div>
@@ -186,14 +261,15 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--lime);
+    background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+    color: #FFFFFF;
     font-family: 'Baloo 2', sans-serif;
     font-weight: 800;
     font-size: 1.1rem;
     display: grid;
     place-items: center;
     flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
   }
 
   .cp-content {
@@ -242,7 +318,487 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
   }
 
   .transit-icon {
-    font-size: 2.2rem;
     margin-bottom: 12px;
   }
+
+  /* Interactive Map Styles */
+  .map-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .map-mode-pills {
+    display: flex;
+    gap: 10px;
+    background: var(--paper-2);
+    padding: 4px;
+    border-radius: 99px;
+    border: 1px solid var(--line);
+  }
+
+  .mode-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 99px;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--grey);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .mode-pill.active {
+    background: var(--ink);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(11, 58, 31, 0.2);
+  }
+
+  .map-quick-stats {
+    display: flex;
+    gap: 18px;
+    font-size: 0.88rem;
+    color: var(--grey-d);
+    flex-wrap: wrap;
+  }
+
+  .m-stat-item b {
+    color: var(--leaf);
+  }
+
+  .map-custom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--line);
+    border-radius: var(--r-md) var(--r-md) 0 0;
+  }
+
+  .map-search-group {
+    display: flex;
+    align-items: center;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    flex: 1;
+    min-width: 220px;
+    max-width: 320px;
+  }
+
+  .map-search-input {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--ink);
+    width: 100%;
+    outline: none;
+  }
+
+  .map-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .map-tool-btn:hover {
+    background: #E8F2E8;
+    border-color: var(--leaf);
+  }
+
+  .map-tool-btn--accent {
+    background: #DC2626;
+    color: #FFFFFF;
+    border-color: #DC2626;
+  }
+
+  .map-tool-btn--accent:hover {
+    background: #B91C1C;
+    color: #FFFFFF;
+  }
+
+  .map-action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .live-legend {
+    display: flex;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--grey);
+  }
+
+  .legend-line-red {
+    display: inline-block;
+    width: 22px;
+    height: 4px;
+    background: #DC2626;
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+
+  .legend-dot-red {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: #DC2626;
+    border-radius: 50%;
+    border: 1.5px solid #FFFFFF;
+    box-shadow: 0 0 5px rgba(220, 38, 38, 0.5);
+    margin-right: 6px;
+  }
+
+  /* Leaflet Pin Styles - 1 Warna Merah Ruby Elegan */
+  :global(.custom-route-pin) {
+    background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%);
+    color: #FFFFFF;
+    width: 34px;
+    height: 34px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px solid #FFFFFF;
+    box-shadow: 0 6px 14px rgba(185, 28, 28, 0.45), 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  :global(.custom-route-pin:hover) {
+    transform: rotate(-45deg) scale(1.18);
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.6);
+  }
+
+  :global(.custom-route-pin span) {
+    transform: rotate(45deg);
+    font-size: 0.88rem;
+    font-weight: 800;
+    font-family: 'Baloo 2', sans-serif;
+    color: #FFFFFF;
+    line-height: 1;
+    display: block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  :global(.runner-pulse-marker) {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #DC2626;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.4), 0 0 16px rgba(220, 38, 38, 0.85);
+    animation: runnerGlow 1.2s infinite ease-in-out;
+  }
+
+  @keyframes runnerGlow {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.4); }
+    50% { transform: scale(1.35); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.15), 0 0 20px rgba(220, 38, 38, 0.9); }
+  }
+
+  @media (max-width: 900px) {
+    .map-main-grid {
+      grid-template-columns: 1fr;
+    }
+    .map-custom-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .map-search-group {
+      max-width: 100%;
+    }
+    .map-action-buttons {
+      justify-content: flex-start;
+    }
+  }
 </style>
+
+<!-- Load Leaflet Stylesheet & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Toggle Tab Interactive View vs Graphic Print View
+    const btnInteractive = document.getElementById('btnInteractiveView');
+    const btnGraphic = document.getElementById('btnGraphicView');
+    const interactiveCard = document.getElementById('interactiveMapCard');
+    const graphicCard = document.getElementById('graphicMapCard');
+
+    if (btnInteractive && btnGraphic && interactiveCard && graphicCard) {
+      btnInteractive.addEventListener('click', () => {
+        btnInteractive.classList.add('active');
+        btnGraphic.classList.remove('active');
+        interactiveCard.style.display = 'block';
+        graphicCard.style.display = 'none';
+        if (window.routeLeafletMap) {
+          setTimeout(() => window.routeLeafletMap.invalidateSize(), 150);
+        }
+      });
+
+      btnGraphic.addEventListener('click', () => {
+        btnGraphic.classList.add('active');
+        btnInteractive.classList.remove('active');
+        interactiveCard.style.display = 'none';
+        graphicCard.style.display = 'block';
+      });
+    }
+
+    // 2. Initialize Leaflet Map
+    if (typeof L === 'undefined') return;
+
+    // Checkpoints Coordinates in Soreang
+    const checkpoints = [
+      { id: 1, name: "Garis Start & Panggung Utama", lat: -7.0258, lng: 107.5258, type: "start", desc: "Flag-off 06.00 WIB. Tenda medis utama & panggung tausiyah." },
+      { id: 2, name: "Pertigaan Kantor Samsat & RSUD", lat: -7.0310, lng: 107.5320, type: "info", desc: "Petugas Dishub mengawal arus putaran arah menuju timur." },
+      { id: 3, name: "Water Station 1 (Km 2.0)", lat: -7.0325, lng: 107.5370, type: "water", desc: "Penyediaan air mineral higienis, isotonic & tim marshal." },
+      { id: 4, name: "Cheering Zone & Pos Medis 1", lat: -7.0280, lng: 107.5412, type: "cheer", desc: "Perkusi tradisional rampak kendang & relawan medis BAZNAS." },
+      { id: 5, name: "Water Station 2 (Km 3.8)", lat: -7.0230, lng: 107.5382, type: "water", desc: "Distribusi buah semangka segar & refreshment spons pendingin." },
+      { id: 6, name: "Putaran Balik Bundaran Warung Lobak", lat: -7.0195, lng: 107.5340, type: "turn", desc: "Pengawalan kepolisian, lajur pejalan kaki khusus steril." },
+      { id: 7, name: "Pos Medis 2 & Titik Foto", lat: -7.0225, lng: 107.5285, type: "photo", desc: "Booth foto resmi dengan fotografer panitia & ambulans siaga." },
+      { id: 8, name: "Garis Finish & Area Doorprize", lat: -7.0258, lng: 107.5258, type: "finish", desc: "Pengambilan medali/refreshment & pengundian doorprize Umroh." }
+    ];
+
+    // Smooth 5K Route Path Coordinates (Circling Soreang Center)
+    const routeCoordinates = [
+      [-7.0258, 107.5258],
+      [-7.0268, 107.5270],
+      [-7.0280, 107.5285],
+      [-7.0295, 107.5303],
+      [-7.0310, 107.5320],
+      [-7.0322, 107.5340],
+      [-7.0329, 107.5358],
+      [-7.0325, 107.5370],
+      [-7.0312, 107.5387],
+      [-7.0296, 107.5402],
+      [-7.0280, 107.5412],
+      [-7.0263, 107.5406],
+      [-7.0246, 107.5395],
+      [-7.0230, 107.5382],
+      [-7.0212, 107.5366],
+      [-7.0195, 107.5340],
+      [-7.0207, 107.5315],
+      [-7.0225, 107.5285],
+      [-7.0242, 107.5268],
+      [-7.0258, 107.5258]
+    ];
+
+    const map = L.map('leafletMap', {
+      center: [-7.0260, 107.5335],
+      zoom: 14,
+      scrollWheelZoom: false
+    });
+    window.routeLeafletMap = map;
+
+    // Base Tile Layers
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    let isSatellite = false;
+    const btnToggleSatellite = document.getElementById('btnToggleSatellite');
+    const layerNameTxt = document.getElementById('layerNameTxt');
+
+    if (btnToggleSatellite) {
+      btnToggleSatellite.addEventListener('click', () => {
+        isSatellite = !isSatellite;
+        if (isSatellite) {
+          map.removeLayer(osmLayer);
+          satelliteLayer.addTo(map);
+          if (layerNameTxt) layerNameTxt.textContent = 'Peta Jalan';
+        } else {
+          map.removeLayer(satelliteLayer);
+          osmLayer.addTo(map);
+          if (layerNameTxt) layerNameTxt.textContent = 'Satelit';
+        }
+      });
+    }
+
+    // Static Base Track (Background route shadow)
+    const baseTrack = L.polyline(routeCoordinates, {
+      color: '#FEE2E2',
+      weight: 8,
+      opacity: 0.8,
+      lineCap: 'round',
+      lineJoin: 'round'
+    }).addTo(map);
+
+    // Animated Highlight Polyline (Garis Merah Energik)
+    const activeRouteLine = L.polyline([], {
+      color: '#DC2626',
+      weight: 5,
+      opacity: 1,
+      lineCap: 'round',
+      lineJoin: 'round'
+    }).addTo(map);
+
+    // Moving Runner Indicator at Head of Animated Line (Merah)
+    const runnerIcon = L.divIcon({
+      className: 'runner-pulse-marker',
+      iconSize: [18, 18],
+      iconAnchor: [9, 9]
+    });
+    const runnerMarker = L.marker(routeCoordinates[0], { icon: runnerIcon }).addTo(map);
+
+    // Put Checkpoint Markers on Map (1 Warna Seragam Merah Elegan)
+    const markerMap = {};
+    checkpoints.forEach((cp) => {
+      const pinIcon = L.divIcon({
+        className: 'custom-route-pin',
+        html: `<span>${cp.id}</span>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 34],
+        popupAnchor: [0, -34]
+      });
+
+      const marker = L.marker([cp.lat, cp.lng], { icon: pinIcon }).addTo(map);
+      marker.bindPopup(`
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; padding:4px">
+          <div style="font-size:0.75rem; font-weight:800; color:#DC2626; text-transform:uppercase; margin-bottom:2px">Pos ${cp.id} &bull; ${cp.type}</div>
+          <b style="font-size:0.95rem; color:#0B3A1F; display:block; margin-bottom:4px">${cp.name}</b>
+          <p style="font-size:0.85rem; color:#5A6A5D; margin:0; line-height:1.4">${cp.desc}</p>
+        </div>
+      `);
+
+      markerMap[cp.id] = marker;
+    });
+
+    // 3. Progressive Route Drawing Animation (Start -> Finish)
+    let animationTimer = null;
+    function playRouteAnimation() {
+      if (animationTimer) clearInterval(animationTimer);
+
+      activeRouteLine.setLatLngs([]);
+      runnerMarker.setLatLng(routeCoordinates[0]);
+
+      let step = 0;
+      const currentPoints = [routeCoordinates[0]];
+      activeRouteLine.setLatLngs(currentPoints);
+
+      animationTimer = setInterval(() => {
+        step++;
+        if (step >= routeCoordinates.length) {
+          clearInterval(animationTimer);
+          return;
+        }
+        currentPoints.push(routeCoordinates[step]);
+        activeRouteLine.setLatLngs(currentPoints);
+        runnerMarker.setLatLng(routeCoordinates[step]);
+      }, 95);
+    }
+
+    // Auto play animation once on initial load
+    playRouteAnimation();
+
+    // Replay button
+    const btnReplay = document.getElementById('btnReplayAnimation');
+    if (btnReplay) {
+      btnReplay.addEventListener('click', playRouteAnimation);
+    }
+
+    // Fit Bounds button
+    const btnFit = document.getElementById('btnFitBounds');
+    if (btnFit) {
+      btnFit.addEventListener('click', () => {
+        map.fitBounds(baseTrack.getBounds(), { padding: [40, 40] });
+      });
+    }
+
+    // Locate Me
+    const btnLocate = document.getElementById('btnLocateMe');
+    if (btnLocate) {
+      btnLocate.addEventListener('click', () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              const latlng = [pos.coords.latitude, pos.coords.longitude];
+              map.flyTo(latlng, 15);
+              L.circleMarker(latlng, {
+                radius: 8,
+                color: '#0284C7',
+                fillColor: '#38BDF8',
+                fillOpacity: 0.8
+              }).addTo(map).bindPopup('Posisi Anda Sekarang').openPopup();
+            },
+            () => {
+              alert('Gagal mendeteksi lokasi. Pastikan GPS / izin lokasi peramban aktif.');
+            }
+          );
+        }
+      });
+    }
+
+    // Search Location (Nominatim Geocoding)
+    const searchInput = document.getElementById('mapSearchInput');
+    const searchBtn = document.getElementById('mapSearchBtn');
+
+    async function handleSearch() {
+      if (!searchInput || !searchInput.value.trim()) return;
+      const q = searchInput.value.trim() + ', Soreang, Bandung';
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`);
+        const results = await res.json();
+        if (results && results.length > 0) {
+          const first = results[0];
+          const latlng = [parseFloat(first.lat), parseFloat(first.lon)];
+          map.flyTo(latlng, 15);
+          L.marker(latlng).addTo(map).bindPopup(`<b>${first.display_name}</b>`).openPopup();
+        } else {
+          alert('Lokasi tidak ditemukan di sekitar Soreang.');
+        }
+      } catch (e) {
+        console.error('Search error:', e);
+      }
+    }
+
+    if (searchBtn) searchBtn.addEventListener('click', handleSearch);
+    if (searchInput) {
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch();
+      });
+    }
+
+    // Connect Right-Side Checkpoint Cards with Map Markers
+    const cpCards = document.querySelectorAll('.cp-card');
+    cpCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-cp-id');
+        const marker = markerMap[id];
+        if (marker) {
+          map.flyTo(marker.getLatLng(), 16, { duration: 1 });
+          marker.openPopup();
+        }
+      });
+    });
+  });
+</script>

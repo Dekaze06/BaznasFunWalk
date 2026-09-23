@@ -3,53 +3,79 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 ---
 
 <AdminLayout title="Manajemen Peserta — Admin BAZNAS Fun Walk 2026" activeSection="peserta">
-  <!-- Top Toolbar -->
-  <div class="card-clean" style="margin-bottom:24px; padding:20px">
-    <div class="filter-toolbar">
-      <div class="search-input-box">
-        <span class="search-icon"></span>
-        <input type="text" id="filterKeyword" placeholder="Cari Nama, ID (BFW26-...), No. WhatsApp, atau NIK...">
-      </div>
-
-      <div class="filter-selects">
-        <select id="filterPaket">
-          <option value="ALL">Semua Paket</option>
-          <option value="reguler">Paket Reguler 5K</option>
-          <option value="charity">Charity Pack (Donasi ZIS)</option>
-        </select>
-
-        <select id="filterStatus">
-          <option value="ALL">Semua Status Bayar</option>
-          <option value="PAID">Lunas (PAID)</option>
-          <option value="PENDING">Menunggu Verifikasi</option>
-        </select>
-
-        <select id="filterSize">
-          <option value="ALL">Semua Ukuran</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-          <option value="XXXL">XXXL</option>
-        </select>
-
-        <button type="button" class="btn btn-leaf btn-sm" onclick="exportToCSV()">
-          <span>Export CSV</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Data Table Card -->
+  <!-- Data Table Card with Integrated Search & Filter in Header -->
   <div class="card-clean" style="padding:0; overflow:hidden">
     <div class="table-header-info">
-      <div>
-        <b>Total Ditampilkan: <span id="filteredCount" style="color:var(--leaf)">0</span> Peserta</b>
+      <div class="table-header-left">
+        <b>Total Ditampilkan: <span id="filteredCount" style="color:var(--leaf); font-size:1.05rem">0</span> Peserta</b>
+        <div class="bulk-actions" id="bulkActions" style="display:none; margin-left:12px">
+          <span>Terpilih: <b id="selectedCount">0</b></span>
+          <button type="button" class="btn btn-leaf btn-sm" onclick="bulkApprove()">Approve Terpilih</button>
+        </div>
       </div>
-      <div class="bulk-actions" id="bulkActions" style="display:none">
-        <span>Terpilih: <b id="selectedCount">0</b></span>
-        <button type="button" class="btn btn-leaf btn-sm" onclick="bulkApprove()">Approve Terpilih</button>
+
+      <!-- Right Side: Unified Compact Search & Filters -->
+      <div class="table-header-right">
+        <!-- Compact Search Box -->
+        <div class="compact-search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="filterKeyword" placeholder="Cari nama, ID, WA...">
+        </div>
+
+        <!-- Filter Trigger Button & Dropdown -->
+        <div class="filter-dropdown-wrapper">
+          <button type="button" class="filter-toggle-btn" id="filterToggleBtn" title="Filter Kategori & Status" onclick="toggleFilterPopover()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span>Filter</span>
+            <span class="active-filter-indicator" id="filterIndicator" style="display:none"></span>
+          </button>
+
+          <!-- Floating Filter Popover -->
+          <div class="filter-popover" id="filterPopover" style="display:none">
+            <div class="popover-header">
+              <b>Filter Kategori Peserta</b>
+              <button type="button" class="popover-reset-btn" onclick="resetFilters()">Reset</button>
+            </div>
+            <div class="popover-body">
+              <div class="popover-group">
+                <label for="filterPaket">Kategori Paket:</label>
+                <select id="filterPaket">
+                  <option value="ALL">Semua Paket</option>
+                  <option value="reguler">Paket Reguler 5K</option>
+                  <option value="charity">Charity Pack (Donasi ZIS)</option>
+                </select>
+              </div>
+
+              <div class="popover-group">
+                <label for="filterStatus">Status Pembayaran:</label>
+                <select id="filterStatus">
+                  <option value="ALL">Semua Status</option>
+                  <option value="PAID">✓ Lunas (PAID)</option>
+                  <option value="PENDING">⌛ Menunggu Verifikasi</option>
+                </select>
+              </div>
+
+              <div class="popover-group">
+                <label for="filterSize">Ukuran Jersey:</label>
+                <select id="filterSize">
+                  <option value="ALL">Semua Ukuran</option>
+                  <option value="S">Ukuran S</option>
+                  <option value="M">Ukuran M</option>
+                  <option value="L">Ukuran L</option>
+                  <option value="XL">Ukuran XL</option>
+                  <option value="XXL">Ukuran XXL</option>
+                  <option value="XXXL">Ukuran XXXL</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export CSV Button -->
+        <button type="button" class="btn btn-leaf btn-sm export-btn" onclick="exportToCSV()" title="Export ke CSV">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>CSV</span>
+        </button>
       </div>
     </div>
 
@@ -163,52 +189,173 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 </AdminLayout>
 
 <style>
-  .filter-toolbar {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .search-input-box {
-    position: relative;
-    flex: 1;
-    min-width: 260px;
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--grey);
-  }
-
-  .search-input-box input {
-    padding-left: 40px;
-    height: 42px;
-  }
-
-  .filter-selects {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .filter-selects select {
-    height: 42px;
-    padding: 0 12px;
-    width: auto;
-  }
-
+  /* Header Integrated Controls */
   .table-header-info {
-    padding: 14px 20px;
-    background: var(--paper-2);
-    border-bottom: 1px solid var(--line);
+    padding: 16px 24px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .table-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .table-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  /* Compact Search Box */
+  .compact-search-box {
+    position: relative;
+    width: 240px;
+  }
+
+  .compact-search-box svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    pointer-events: none;
+  }
+
+  .compact-search-box input {
+    width: 100%;
+    height: 38px;
+    padding-left: 36px;
+    padding-right: 12px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    font-size: 0.85rem;
+    background: #F8FAFC;
+    transition: all 0.2s;
+  }
+
+  .compact-search-box input:focus {
+    outline: none;
+    background: #FFFFFF;
+    border-color: var(--leaf);
+    box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.15);
+    width: 280px;
+  }
+
+  /* Filter Trigger Button */
+  .filter-dropdown-wrapper {
+    position: relative;
+  }
+
+  .filter-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #334155;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-toggle-btn:hover {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+  }
+
+  .active-filter-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E11D48;
+    box-shadow: 0 0 6px #E11D48;
+  }
+
+  /* Floating Filter Popover */
+  .filter-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    z-index: 200;
+    padding: 16px;
+    animation: fadeIn 0.15s ease;
+  }
+
+  .popover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #F1F5F9;
+  }
+
+  .popover-header b {
+    font-size: 0.85rem;
+    color: #0F172A;
+  }
+
+  .popover-reset-btn {
+    background: none;
+    border: 0;
+    color: #E11D48;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .popover-group {
+    margin-bottom: 12px;
+  }
+
+  .popover-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .popover-group label {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #64748B;
+    margin-bottom: 4px;
+  }
+
+  .popover-group select {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    font-size: 0.84rem;
+    background: #F8FAFC;
+    color: #1E293B;
+  }
+
+  .export-btn {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    font-size: 0.85rem;
   }
 
   .admin-data-table {
@@ -218,18 +365,21 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   .admin-data-table th, .admin-data-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--line);
+    padding: 14px 20px;
+    border-bottom: 1px solid #F1F5F9;
   }
 
   .admin-data-table th {
     background: #FFFFFF;
-    color: var(--ink);
+    color: #475569;
     font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
-  .admin-data-table tr:hover {
-    background: #F9FCF9;
+  .admin-data-table tr:hover td {
+    background: #F8FAFC;
   }
 
   /* Modal */
@@ -473,6 +623,46 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     link.click();
     document.body.removeChild(link);
   };
+
+  // Filter Popover Toggle & Controls
+  window.toggleFilterPopover = function() {
+    const pop = document.getElementById('filterPopover');
+    if (!pop) return;
+    const isShown = pop.style.display === 'block';
+    pop.style.display = isShown ? 'none' : 'block';
+  };
+
+  window.resetFilters = function() {
+    if (document.getElementById('filterPaket')) document.getElementById('filterPaket').value = 'ALL';
+    if (document.getElementById('filterStatus')) document.getElementById('filterStatus').value = 'ALL';
+    if (document.getElementById('filterSize')) document.getElementById('filterSize').value = 'ALL';
+    updateFilterIndicator();
+    renderTable();
+  };
+
+  function updateFilterIndicator() {
+    const paket = document.getElementById('filterPaket')?.value || 'ALL';
+    const status = document.getElementById('filterStatus')?.value || 'ALL';
+    const size = document.getElementById('filterSize')?.value || 'ALL';
+    const indicator = document.getElementById('filterIndicator');
+    if (indicator) {
+      const hasActive = paket !== 'ALL' || status !== 'ALL' || size !== 'ALL';
+      indicator.style.display = hasActive ? 'inline-block' : 'none';
+    }
+  }
+
+  // Tutup filter popover saat klik di luar
+  document.addEventListener('click', (e) => {
+    const wrapper = document.querySelector('.filter-dropdown-wrapper');
+    const pop = document.getElementById('filterPopover');
+    if (wrapper && pop && !wrapper.contains(e.target)) {
+      pop.style.display = 'none';
+    }
+  });
+
+  ['filterPaket', 'filterStatus', 'filterSize'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', updateFilterIndicator);
+  });
 
   renderTable();
 </script>

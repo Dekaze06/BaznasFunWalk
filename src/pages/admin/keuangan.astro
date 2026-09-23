@@ -18,9 +18,9 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     </div>
 
     <div class="card-clean fin-card fin-card--zis">
-      <span class="lbl" style="color:var(--lime)">DANA ZIS / DONASI CHARITY</span>
-      <div class="fin-val" style="color:#FFFFFF" id="finZisTotal">Rp 200.000</div>
-      <small class="hint" style="color:#A4C7A3">Akuntansi ZIS terpisah untuk program dhuafa</small>
+      <span class="lbl">DANA ZIS / DONASI CHARITY</span>
+      <div class="fin-val" id="finZisTotal">Rp 200.000</div>
+      <small class="hint">Akuntansi ZIS terpisah untuk program dhuafa</small>
     </div>
   </div>
 
@@ -67,20 +67,53 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
   .fin-card {
     padding: 24px;
+    border-radius: 16px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .fin-card--zis {
-    background: var(--ink);
-    border-color: var(--leaf);
-    color: #FFFFFF;
+  .fin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+  }
+
+  .fin-card .lbl {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #64748B;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 6px;
   }
 
   .fin-val {
     font-family: 'Baloo 2', sans-serif;
     font-size: 2.2rem;
     font-weight: 800;
-    color: var(--ink);
-    margin: 6px 0 2px;
+    color: #0F172A;
+    margin: 4px 0 2px;
+    line-height: 1.15;
+  }
+
+  .fin-card--zis {
+    background: linear-gradient(135deg, #052312 0%, #08381C 100%) !important;
+    border: 1px solid #166534 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 24px rgba(5, 35, 18, 0.25) !important;
+  }
+
+  .fin-card--zis .lbl {
+    color: #86EFAC !important;
+  }
+
+  .fin-card--zis .fin-val {
+    color: #FFFFFF !important;
+  }
+
+  .fin-card--zis .hint {
+    color: #CBD5E1 !important;
   }
 
   .card-header-flex {

@@ -20,10 +20,6 @@ import Layout from '../layouts/Layout.astro';
       <div class="hero-card">
         <div class="hero-grid">
           <div class="hero-info">
-            <div class="hero-badge-row">
-              <span class="pill pill--sun">Early Bird Tersedia</span>
-              <span class="pill pill--dark">5K Fun Walk Soreang</span>
-            </div>
             <h1 class="hero-title">BAZNAS FUN WALK 2026</h1>
             <p class="hero-tagline">Healthy and Charity — Langkah Sehat, Berbagi Berkah</p>
 
@@ -34,7 +30,7 @@ import Layout from '../layouts/Layout.astro';
                 </span>
                 <div>
                   <span class="meta-lbl">Hari & Tanggal</span>
-                  <b>Minggu, 11 Oktober 2026</b>
+                  <b>Minggu, 22 November 2026</b>
                 </div>
               </li>
               <li>
@@ -113,212 +109,317 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- Tentang Event -->
-  <section class="sec" id="tentang">
-    <div class="wrap grid-2">
-      <div>
-        <p class="kicker">Tentang Acara</p>
-        <h2>Langkah Ringan Penuh Berkah di Soreang</h2>
-        <p class="lede">
-          BAZNAS Fun Walk 2026 diselenggarakan oleh Badan Amil Zakat Nasional (BAZNAS) Kabupaten Bandung untuk mengajak seluruh elemen masyarakat bergerak bersama, mempererat silaturahmi, dan beramal nyata.
-        </p>
-        <p>
-          Melalui konsep <b>Healthy and Charity</b>, setiap ayunan langkah kita di rute sejuk Soreang menjadi dukungan langsung bagi program kemaslahatan umat, bantuan kaum dhuafa, dan pendidikan di Kabupaten Bandung.
-        </p>
-        <div class="benefit-points">
-          <div class="point-row">
-            <span class="point-icon"></span>
-            <div>
-              <b>Jersey Eksklusif & Perlengkapan Resmi</b>
-              <p>Bahan drifit premium berstandar lari, tote bag ramah lingkungan, dan wristband resmi.</p>
-            </div>
-          </div>
-          <div class="point-row">
-            <span class="point-icon"></span>
-            <div>
-              <b>Kupon Doorprize Utama & Hiburan Rakyat</b>
-              <p>Hadiah utama paket Umroh, sepeda motor, sepeda listrik, alat elektronik, dan hiburan tausiyah.</p>
-            </div>
-          </div>
-          <div class="point-row">
-            <span class="point-icon"></span>
-            <div>
-              <b>Kebaikan Zakat, Infak & Sedekah</b>
-              <p>Bagi pemilih Charity Pack, donasi Rp 50.000 tercatat sah dan disalurkan amanah melalui BAZNAS Kab. Bandung.</p>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:28px">
-          <a href="/daftar" class="btn btn-leaf">Daftar Ikut Fun Walk</a>
-          <a href="/rute" class="btn btn-ghost-dark" style="margin-left:12px">Eksplor Rute 5K</a>
-        </div>
-      </div>
-
-      <div class="benefit-visual">
-        <div class="img-frame">
-          <img 
-            src="/assets/racepack-benefit.webp" 
-            alt="Official Race Pack BAZNAS Fun Walk 2026" 
-            class="benefit-img"
-            loading="lazy"
-            width="2200"
-            height="1555"
-          />
-          <div class="img-caption">Official Race Pack: Jersey Drifit, Tote Bag & Official Wristband</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pilihan Paket Section -->
-  <section class="sec sec--tint" id="paket-teaser">
+  <!-- Aceternity-style Interactive Timeline Section -->
+  <section class="sec timeline-section" id="timeline-flow">
     <div class="wrap">
-      <div style="text-align:center; max-width:700px; margin:0 auto 48px">
-        <p class="kicker">Pilihan Registrasi</p>
-        <h2>Daftar Sesuai Niat & Keinginan Anda</h2>
-        <p class="lede" style="margin:0 auto">
-          Tersedia dua kategori kepesertaan dengan seluruh benefit lengkap dan fasilitas yang sama di hari acara.
+      <div class="timeline-intro">
+        <span class="timeline-kicker">Rangkaian Acara BAZNAS Fun Walk 2026</span>
+        <h2 class="timeline-main-title">Perjalanan Langkah Sehat & Berkah</h2>
+        <p class="timeline-main-desc">
+          Telusuri setiap fase kegiatan dari filosofi kebaikan, paket partisipasi, rute eksklusif 5K, hingga agenda puncak pelaksanaan 22 November 2026.
         </p>
       </div>
 
-      <div class="paket-cards-grid">
-        <!-- Paket Reguler -->
-        <div class="card-clean paket-card">
-          <div class="card-pill">Paling Populer</div>
-          <h3>Paket Reguler 5K</h3>
-          <p class="card-sub">Pilihan jalan sehat untuk individu dan keluarga.</p>
+      <!-- Container Timeline -->
+      <div class="ac-timeline-container" id="acTimelineContainer">
+        <!-- Vertical Animated Beam Track -->
+        <div class="ac-timeline-track" id="acTimelineTrack">
+          <div class="ac-timeline-beam" id="acTimelineBeam"></div>
+        </div>
+
+        <div class="ac-timeline-list" id="acTimelineList">
           
-          <div class="card-price">
-            <span class="price-val">Rp 50.000</span>
-            <span class="price-period">/ orang (Early Bird)</span>
+          <!-- STEP 1: Tentang Acara -->
+          <div class="ac-timeline-item" data-step="1">
+            <div class="ac-timeline-left">
+              <div class="ac-bullet-wrapper">
+                <div class="ac-bullet-outer">
+                  <div class="ac-bullet-inner"></div>
+                </div>
+              </div>
+              <div class="ac-sticky-title">
+                <span class="ac-step-badge">Fase 01</span>
+                <h3>Tentang Acara</h3>
+              </div>
+            </div>
+
+            <div class="ac-timeline-right">
+              <div class="ac-mobile-header">
+                <span class="ac-step-badge">Fase 01</span>
+                <h3>Tentang Acara</h3>
+              </div>
+
+              <div class="ac-card-panel">
+                <p class="kicker">Konsep Healthy & Charity</p>
+                <h2 style="font-size:clamp(1.6rem, 3vw, 2.2rem); margin-bottom:12px">Langkah Ringan Penuh Berkah di Soreang</h2>
+                <p class="lede">
+                  BAZNAS Fun Walk 2026 diselenggarakan oleh Badan Amil Zakat Nasional (BAZNAS) Kabupaten Bandung untuk mengajak seluruh elemen masyarakat bergerak bersama, mempererat silaturahmi, dan beramal nyata.
+                </p>
+                <p>
+                  Melalui konsep <b>Healthy and Charity</b>, setiap ayunan langkah kita di rute sejuk Soreang menjadi dukungan langsung bagi program kemaslahatan umat, bantuan kaum dhuafa, dan beasiswa pendidikan di Kabupaten Bandung.
+                </p>
+
+                <div class="benefit-points" style="margin-top:24px">
+                  <div class="point-row">
+                    <span class="point-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+                    </span>
+                    <div>
+                      <b>Jersey Eksklusif & Perlengkapan Resmi</b>
+                      <p>Bahan drifit premium berstandar lari, tote bag ramah lingkungan, dan wristband resmi ber-barcode.</p>
+                    </div>
+                  </div>
+                  <div class="point-row">
+                    <span class="point-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+                    </span>
+                    <div>
+                      <b>Kupon Doorprize Utama & Hiburan Rakyat</b>
+                      <p>Hadiah utama paket Umroh, sepeda motor, sepeda listrik, aneka perabot elektronik, dan tausiyah kebersamaan.</p>
+                    </div>
+                  </div>
+                  <div class="point-row">
+                    <span class="point-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </span>
+                    <div>
+                      <b>Kebaikan Zakat, Infak & Sedekah</b>
+                      <p>Bagi pemilih Charity Pack, donasi Rp 50.000 tercatat sah dan disalurkan amanah melalui BAZNAS Kab. Bandung.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ac-media-grid" style="margin-top:28px">
+                  <div class="img-frame">
+                    <img 
+                      src="/assets/racepack-benefit.webp" 
+                      alt="Official Race Pack BAZNAS Fun Walk 2026" 
+                      class="benefit-img"
+                      loading="lazy"
+                      width="2200"
+                      height="1555"
+                    />
+                    <div class="img-caption">Official Race Pack: Jersey Drifit, Tote Bag & Official Wristband</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap">
+                  <a href="/daftar" class="btn btn-leaf">Daftar Ikut Fun Walk</a>
+                  <a href="/rute" class="btn btn-ghost-dark">Eksplor Rute 5K</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="price-normal-tag">Harga Normal: Rp 100.000</div>
 
-          <ul class="benefit-checklist">
-            <li>Jersey Resmi BAZNAS Fun Walk (Drifit)</li>
-            <li>Tote Bag Ramah Lingkungan Eksklusif</li>
-            <li>Gelang Resmi / Official Wristband</li>
-            <li>Nomor Peserta & Tiket Digital (QR Code)</li>
-            <li>Kupon Doorprize Utama & Hiburan</li>
-            <li>Refreshment Air Mineral & Buah Segar</li>
-            <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
-          </ul>
+          <!-- STEP 2: Pilihan Registrasi -->
+          <div class="ac-timeline-item" data-step="2">
+            <div class="ac-timeline-left">
+              <div class="ac-bullet-wrapper">
+                <div class="ac-bullet-outer">
+                  <div class="ac-bullet-inner"></div>
+                </div>
+              </div>
+              <div class="ac-sticky-title">
+                <span class="ac-step-badge">Fase 02</span>
+                <h3>Pilihan Paket</h3>
+              </div>
+            </div>
 
-          <a href="/daftar?paket=reguler" class="btn btn-sun" style="width:100%">Pilih Paket Reguler</a>
-        </div>
+            <div class="ac-timeline-right">
+              <div class="ac-mobile-header">
+                <span class="ac-step-badge">Fase 02</span>
+                <h3>Pilihan Paket</h3>
+              </div>
 
-        <!-- Charity Pack -->
-        <div class="card-clean paket-card paket-card--charity">
-          <div class="card-pill card-pill--lime">Rekomendasi Berkah</div>
-          <h3>Charity Pack 5K</h3>
-          <p class="card-sub">Ikut jalan sehat sekaligus berdonasi ZIS Rp 50.000.</p>
-          
-          <div class="card-price">
-            <span class="price-val">Rp 150.000</span>
-            <span class="price-period">/ orang (Tetap)</span>
+              <div class="ac-card-panel">
+                <p class="kicker">Pilihan Registrasi</p>
+                <h2 style="font-size:clamp(1.6rem, 3vw, 2.2rem); margin-bottom:10px">Daftar Sesuai Niat & Keinginan Anda</h2>
+                <p class="lede" style="margin-bottom:28px">
+                  Tersedia dua kategori kepesertaan dengan seluruh benefit lengkap dan fasilitas yang sama di hari acara.
+                </p>
+
+                <div class="paket-cards-grid">
+                  <!-- Paket Reguler -->
+                  <div class="card-clean paket-card">
+                    <div class="card-pill">Paling Populer</div>
+                    <h3>Paket Reguler 5K</h3>
+                    <p class="card-sub">Pilihan jalan sehat untuk individu dan keluarga.</p>
+                    
+                    <div class="card-price">
+                      <span class="price-val">Rp 50.000</span>
+                      <span class="price-period">/ orang (Early Bird)</span>
+                    </div>
+                    <div class="price-normal-tag">Harga Normal: Rp 100.000</div>
+
+                    <ul class="benefit-checklist">
+                      <li>Jersey Resmi BAZNAS Fun Walk (Drifit)</li>
+                      <li>Tote Bag Ramah Lingkungan Eksklusif</li>
+                      <li>Gelang Resmi / Official Wristband</li>
+                      <li>Nomor Peserta & Tiket Digital (QR Code)</li>
+                      <li>Kupon Doorprize Utama & Hiburan</li>
+                      <li>Refreshment Air Mineral & Buah Segar</li>
+                      <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
+                    </ul>
+
+                    <a href="/daftar?paket=reguler" class="btn btn-sun" style="width:100%">Pilih Paket Reguler</a>
+                  </div>
+
+                  <!-- Charity Pack -->
+                  <div class="card-clean paket-card paket-card--charity">
+                    <div class="card-pill card-pill--lime">Rekomendasi Berkah</div>
+                    <h3>Charity Pack 5K</h3>
+                    <p class="card-sub">Ikut jalan sehat sekaligus berdonasi ZIS Rp 50.000.</p>
+                    
+                    <div class="card-price">
+                      <span class="price-val">Rp 150.000</span>
+                      <span class="price-period">/ orang (Tetap)</span>
+                    </div>
+                    <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 50.000 Atas Nama Anda</div>
+
+                    <ul class="benefit-checklist">
+                      <li><b>Seluruh Benefit Lengkap Paket Reguler</b></li>
+                      <li><b>Donasi Rp 50.000 Tercatat Resmi di BAZNAS</b></li>
+                      <li>Bukti Setor Donasi ZIS Digital Ber-NPWZ</li>
+                      <li>Pencantuman Nama di Halaman Khusus Donatur</li>
+                      <li>Kupon Doorprize Utama & Hadiah Umroh</li>
+                      <li>Sticker & Goodie Bag Tambahan Penyelenggara</li>
+                    </ul>
+
+                    <a href="/daftar?paket=charity" class="btn btn-leaf" style="width:100%">Pilih Charity Pack</a>
+                  </div>
+                </div>
+
+                <div style="text-align:center; margin-top:28px">
+                  <a href="/paket" class="link-more">Pelajari Detail Benefit & Panduan Ukuran Jersey →</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="price-normal-tag" style="color:var(--lime)">Termasuk Donasi Rp 50.000 Atas Nama Anda</div>
 
-          <ul class="benefit-checklist">
-            <li><b>Seluruh Benefit Lengkap Paket Reguler</b></li>
-            <li><b>Donasi Rp 50.000 Tercatat Resmi di BAZNAS</b></li>
-            <li>Bukti Setor Donasi ZIS Digital Ber-NPWZ</li>
-            <li>Pencantuman Nama di Halaman Khusus Donatur</li>
-            <li>Kupon Doorprize Utama & Hadiah Umroh</li>
-            <li>Sticker & Goodie Bag Tambahan Penyelenggara</li>
-          </ul>
+          <!-- STEP 3: Rute 5K -->
+          <div class="ac-timeline-item" data-step="3">
+            <div class="ac-timeline-left">
+              <div class="ac-bullet-wrapper">
+                <div class="ac-bullet-outer">
+                  <div class="ac-bullet-inner"></div>
+                </div>
+              </div>
+              <div class="ac-sticky-title">
+                <span class="ac-step-badge">Fase 03</span>
+                <h3>Rute 5K</h3>
+              </div>
+            </div>
 
-          <a href="/daftar?paket=charity" class="btn btn-leaf" style="width:100%">Pilih Charity Pack</a>
+            <div class="ac-timeline-right">
+              <div class="ac-mobile-header">
+                <span class="ac-step-badge">Fase 03</span>
+                <h3>Rute 5K</h3>
+              </div>
+
+              <div class="ac-card-panel ac-card-panel--dark">
+                <p class="kicker kicker--light">Rute 5 Kilometer</p>
+                <h2 style="font-size:clamp(1.6rem, 3vw, 2.2rem); color:#ffffff; margin-bottom:12px">Satu Putaran Penuh Nuansa Soreang</h2>
+                <p class="lede" style="color:#d5e7d5; margin-bottom:24px">
+                  Dirancang nyaman dan aman untuk segala usia, mulai dari anak-anak hingga orang tua. Rute melingkari kawasan utama Soreang dengan aspal mulus dan titik hidrasi terjamin.
+                </p>
+
+                <div class="ac-route-grid">
+                  <div class="route-img-box">
+                    <img 
+                      src="/assets/route-map-detail.webp" 
+                      alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
+                      class="route-map-img"
+                      loading="lazy"
+                      width="880"
+                      height="1125"
+                    />
+                  </div>
+
+                  <div>
+                    <ul class="route-highlights">
+                      <li>
+                        <span class="route-num">1</span>
+                        <div><b>Start:</b> Gedung Budaya Sabilulungan / Jl. Terusan Al Fathu</div>
+                      </li>
+                      <li>
+                        <span class="route-num">2</span>
+                        <div><b>Water Station:</b> KM 2 (SMA Yadika) & KM 3.8 (Pasar Ikan Modern)</div>
+                      </li>
+                      <li>
+                        <span class="route-num">3</span>
+                        <div><b>Pos Medis & Ambulans:</b> Siaga di 3 titik strategis sepanjang jalur</div>
+                      </li>
+                      <li>
+                        <span class="route-num">4</span>
+                        <div><b>Finish:</b> Kembali ke Plaza Sabilulungan untuk panggung hiburan & doorprize</div>
+                      </li>
+                    </ul>
+
+                    <div style="margin-top:28px">
+                      <a href="/rute" class="btn btn-sun">Buka Panduan Rute & Titik Pos</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Timeline & Agenda -->
+          <div class="ac-timeline-item" data-step="4">
+            <div class="ac-timeline-left">
+              <div class="ac-bullet-wrapper">
+                <div class="ac-bullet-outer">
+                  <div class="ac-bullet-inner"></div>
+                </div>
+              </div>
+              <div class="ac-sticky-title">
+                <span class="ac-step-badge">Fase 04</span>
+                <h3>Jadwal Acara</h3>
+              </div>
+            </div>
+
+            <div class="ac-timeline-right">
+              <div class="ac-mobile-header">
+                <span class="ac-step-badge">Fase 04</span>
+                <h3>Jadwal Acara</h3>
+              </div>
+
+              <div class="ac-card-panel">
+                <p class="kicker">Jadwal Penting</p>
+                <h2 style="font-size:clamp(1.6rem, 3vw, 2.2rem); margin-bottom:10px">Agenda Menuju Hari-H</h2>
+                <p class="lede" style="margin-bottom:28px">Catat tanggal-tanggal penting agar persiapan Anda dan keluarga maksimal.</p>
+
+                <div class="timeline-row">
+                  <div class="timeline-step">
+                    <div class="step-date">Sekarang – 31 Okt</div>
+                    <div class="step-title">Pendaftaran Early Bird</div>
+                    <p class="step-desc">Tarif spesial Rp 50.000 untuk paket Reguler.</p>
+                  </div>
+                  <div class="timeline-step">
+                    <div class="step-date">1 – 15 November</div>
+                    <div class="step-title">Pendaftaran Normal</div>
+                    <p class="step-desc">Periode akhir pendaftaran sebelum batas penutupan.</p>
+                  </div>
+                  <div class="timeline-step">
+                    <div class="step-date">19 – 21 November</div>
+                    <div class="step-title">Race Pack Collection (RPC)</div>
+                    <p class="step-desc">Pengambilan jersey, tote bag & wristband dengan menunjukkan QR e-ticket.</p>
+                  </div>
+                  <div class="timeline-step active">
+                    <div class="step-date">Minggu, 22 November</div>
+                    <div class="step-title">Hari-H Pelaksanaan</div>
+                    <p class="step-desc">Kumpul 05.30 WIB, Flag-off 06.00 WIB di Gedung Budaya Sabilulungan.</p>
+                  </div>
+                </div>
+
+                <div style="text-align:center; margin-top:32px">
+                  <a href="/jadwal" class="link-more">Lihat Rundown Jam Per Jam Hari-H →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-
-      <div style="text-align:center; margin-top:32px">
-        <a href="/paket" class="link-more">Pelajari Detail Benefit & Panduan Ukuran Jersey →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Teaser Rute & Peta -->
-  <section class="sec sec--dark" id="rute-teaser">
-    <div class="wrap grid-2">
-      <div class="route-img-box">
-        <img 
-          src="/assets/route-map-detail.webp" 
-          alt="Peta Rute 5K BAZNAS Fun Walk Soreang" 
-          class="route-map-img"
-          loading="lazy"
-          width="880"
-          height="1125"
-        />
-      </div>
-
-      <div>
-        <p class="kicker">Rute 5 Kilometer</p>
-        <h2>Satu Putaran Penuh Nuansa Soreang</h2>
-        <p class="lede">
-          Dirancang nyaman dan aman untuk segala usia, mulai dari anak-anak hingga orang tua. Rute melingkari kawasan utama Soreang dengan aspal mulus dan titik hidrasi terjamin.
-        </p>
-
-        <ul class="route-highlights">
-          <li>
-            <span class="route-num">1</span>
-            <div><b>Start:</b> Gedung Budaya Sabilulungan / Jl. Terusan Al Fathu</div>
-          </li>
-          <li>
-            <span class="route-num">2</span>
-            <div><b>Water Station:</b> KM 2 (SMA Yadika) & KM 3.8 (Pasar Ikan Modern)</div>
-          </li>
-          <li>
-            <span class="route-num">3</span>
-            <div><b>Pos Medis & Ambulans:</b> Siaga di 3 titik strategis sepanjang jalur</div>
-          </li>
-          <li>
-            <span class="route-num">4</span>
-            <div><b>Finish:</b> Kembali ke Plaza Sabilulungan untuk panggung hiburan & doorprize</div>
-          </li>
-        </ul>
-
-        <div style="margin-top:28px">
-          <a href="/rute" class="btn btn-sun">Buka Panduan Rute & Titik Pos</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Timeline Teaser -->
-  <section class="sec">
-    <div class="wrap">
-      <div style="text-align:center; max-width:650px; margin:0 auto 40px">
-        <p class="kicker">Jadwal Penting</p>
-        <h2>Agenda Menuju Hari-H</h2>
-        <p class="lede" style="margin:0 auto">Catat tanggal-tanggal penting agar persiapan Anda maksimal.</p>
-      </div>
-
-      <div class="timeline-row">
-        <div class="timeline-step">
-          <div class="step-date">Sekarang – 30 Sep</div>
-          <div class="step-title">Pendaftaran Early Bird</div>
-          <p class="step-desc">Tarif spesial Rp 50.000 untuk paket Reguler.</p>
-        </div>
-        <div class="timeline-step">
-          <div class="step-date">1 – 5 Oktober</div>
-          <div class="step-title">Pendaftaran Normal</div>
-          <p class="step-desc">Periode akhir pendaftaran sebelum batas penutupan.</p>
-        </div>
-        <div class="timeline-step">
-          <div class="step-date">8 – 10 Oktober</div>
-          <div class="step-title">Race Pack Collection (RPC)</div>
-          <p class="step-desc">Pengambilan jersey, tote bag & wristband dengan menunjukkan QR e-ticket.</p>
-        </div>
-        <div class="timeline-step active">
-          <div class="step-date">Minggu, 11 Oktober</div>
-          <div class="step-title">Hari-H Pelaksanaan</div>
-          <p class="step-desc">Kumpul 05.30 WIB, Flag-off 06.00 WIB di Gedung Budaya Sabilulungan.</p>
-        </div>
-      </div>
-
-      <div style="text-align:center; margin-top:32px">
-        <a href="/jadwal" class="link-more">Lihat Rundown Jam Per Jam Hari-H →</a>
       </div>
     </div>
   </section>
@@ -611,8 +712,15 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .point-icon {
-    font-size: 1.5rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(31, 137, 57, 0.1);
+    color: var(--leaf);
+    display: grid;
+    place-items: center;
     flex-shrink: 0;
+    border: 1px solid rgba(31, 137, 57, 0.2);
   }
 
   .point-row b {
@@ -805,6 +913,237 @@ import Layout from '../layouts/Layout.astro';
     margin: 0;
   }
 
+  /* Aceternity-style Timeline Styles */
+  .timeline-section {
+    background: #F8FAF8;
+    position: relative;
+    padding: 80px 0 100px;
+  }
+
+  .timeline-intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 56px;
+  }
+
+  .timeline-kicker {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--leaf);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .timeline-main-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .timeline-main-desc {
+    font-size: 1.05rem;
+    color: var(--grey);
+    line-height: 1.6;
+    margin: 0 auto;
+  }
+
+  .ac-timeline-container {
+    position: relative;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+  }
+
+  .ac-timeline-track {
+    position: absolute;
+    left: 24px;
+    top: 40px;
+    bottom: 80px;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 0%, #D8E6D9 10%, #D8E6D9 90%, rgba(16, 185, 129, 0.05) 100%);
+    border-radius: 99px;
+    z-index: 1;
+  }
+
+  .ac-timeline-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to bottom, #10B981 0%, #059669 60%, #F59E0B 100%);
+    border-radius: 99px;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.7), 0 0 24px rgba(245, 158, 11, 0.4);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .ac-timeline-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .ac-timeline-item {
+    display: flex;
+    gap: 36px;
+    position: relative;
+    padding-top: 24px;
+  }
+
+  .ac-timeline-left {
+    position: sticky;
+    top: 120px;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 240px;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  .ac-bullet-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ac-bullet-outer {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #D1E5D4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ac-bullet-inner {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #CBD5E1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ac-timeline-item.is-active .ac-bullet-outer {
+    border-color: #10B981;
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.16), 0 4px 16px rgba(16, 185, 129, 0.25);
+    background: #FFFFFF;
+  }
+
+  .ac-timeline-item.is-active .ac-bullet-inner {
+    background: linear-gradient(135deg, #10B981, #059669);
+    transform: scale(1.2);
+  }
+
+  .ac-step-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--leaf);
+    margin-bottom: 2px;
+  }
+
+  .ac-sticky-title h3 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #94A3B8;
+    margin: 0;
+    line-height: 1.1;
+    transition: color 0.3s ease;
+  }
+
+  .ac-timeline-item.is-active .ac-sticky-title h3 {
+    color: var(--ink);
+  }
+
+  .ac-timeline-right {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ac-mobile-header {
+    display: none;
+    margin-bottom: 14px;
+  }
+
+  .ac-mobile-header h3 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 4px 0 0;
+  }
+
+  .ac-card-panel {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: clamp(24px, 4vw, 42px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  }
+
+  .ac-card-panel--dark {
+    background: var(--ink);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  }
+
+  .ac-route-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .kicker--light {
+    color: var(--lime) !important;
+  }
+
+  @media (max-width: 900px) {
+    .ac-timeline-left {
+      display: none;
+    }
+    .ac-mobile-header {
+      display: block;
+    }
+    .ac-timeline-track {
+      left: 14px;
+    }
+    .ac-timeline-item {
+      padding-left: 28px;
+    }
+    .ac-route-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 992px) {
     .hero-grid, .paket-cards-grid, .timeline-row {
       grid-template-columns: 1fr;
@@ -850,4 +1189,56 @@ import Layout from '../layouts/Layout.astro';
 
   setInterval(updateCountdown, 1000);
   updateCountdown();
+
+  // Aceternity Timeline Scroll-driven Beam Animation
+  function initTimelineScroll() {
+    const container = document.getElementById('acTimelineContainer');
+    const track = document.getElementById('acTimelineTrack');
+    const beam = document.getElementById('acTimelineBeam');
+    const items = document.querySelectorAll('.ac-timeline-item');
+
+    if (!container || !track || !beam) return;
+
+    function handleScroll() {
+      const rect = container.getBoundingClientRect();
+      const trackRect = track.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Start calculating when container starts entering 20% from top
+      // Complete when container end reaches 40% from bottom
+      const startTrigger = windowHeight * 0.25;
+      const endTrigger = windowHeight * 0.75;
+      
+      const totalScrollableDistance = rect.height;
+      const currentProgress = (startTrigger - rect.top) / (totalScrollableDistance - 200);
+      const clampedProgress = Math.max(0, Math.min(1, currentProgress));
+
+      const trackHeight = track.offsetHeight;
+      const targetBeamHeight = clampedProgress * trackHeight;
+
+      beam.style.height = `${targetBeamHeight}px`;
+      beam.style.opacity = clampedProgress > 0.01 ? '1' : '0';
+
+      // Update active milestone
+      items.forEach((item) => {
+        const itemRect = item.getBoundingClientRect();
+        // If item top has scrolled past 40% of the viewport or is currently in view
+        if (itemRect.top <= windowHeight * 0.45 && itemRect.bottom >= windowHeight * 0.15) {
+          item.classList.add('is-active');
+        } else if (itemRect.top > windowHeight * 0.45) {
+          item.classList.remove('is-active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTimelineScroll);
+  } else {
+    initTimelineScroll();
+  }
 </script>
