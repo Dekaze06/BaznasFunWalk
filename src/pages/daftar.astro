@@ -355,95 +355,105 @@ const snapJsUrl = isProduction
 
   <!-- Modal Status Pendaftaran / E-Ticket Popup -->
   <div class="modal-backdrop" id="successModal" style="display:none">
-    <div class="modal-card" style="max-width:560px;">
-      <div class="modal-icon" id="modalIcon" style="margin-bottom:16px;"></div>
-      <h2 id="modalTitle" style="margin-bottom:6px;">Pendaftaran Berhasil!</h2>
-      <p class="lede" id="modalSubtitle" style="font-size:0.95rem; margin-bottom:16px; color:var(--grey-d);">
-        Pesanan Anda telah tercatat pada sistem BAZNAS Fun Walk 2026.
+    <div class="modal-card" style="max-width:540px; border-radius:24px; padding:32px 28px; position:relative;">
+      <!-- Close 'X' Button Top-Right -->
+      <button type="button" id="modalTopCloseBtn" style="position:absolute; top:18px; right:18px; background:none; border:none; font-size:1.6rem; line-height:1; color:var(--grey); cursor:pointer; padding:4px;" title="Tutup Jendela">&times;</button>
+
+      <!-- Dynamic Status Icon -->
+      <div class="modal-icon" id="modalIcon" style="margin-bottom:14px;"></div>
+      
+      <!-- Headline & Subtitle -->
+      <h2 id="modalTitle" style="margin-bottom:6px; font-size:1.65rem; color:var(--ink);">Menunggu Pembayaran</h2>
+      <p class="lede" id="modalSubtitle" style="font-size:0.92rem; margin-bottom:14px; color:var(--grey-d); line-height:1.45;">
+        Pesanan Anda telah tercatat pada sistem. Silakan selesaikan pembayaran untuk mengaktifkan E-Ticket resmi Anda.
       </p>
 
+      <!-- Pill Kode Registrasi dengan tombol Salin Cepat -->
+      <div style="display:inline-flex; align-items:center; gap:8px; background:var(--paper-2); border:1px solid var(--line); padding:6px 14px; border-radius:999px; margin-bottom:18px;">
+        <span style="font-size:0.75rem; color:var(--grey); text-transform:uppercase; font-weight:700;">No. Registrasi:</span>
+        <b style="font-family:'Baloo 2',sans-serif; color:var(--moss); font-size:0.95rem; letter-spacing:0.5px;" id="modalRegIdBadge">BFW26-0000</b>
+        <button type="button" id="btnCopyRegId" style="background:none; border:none; color:var(--leaf); cursor:pointer; padding:2px; display:inline-flex; align-items:center;" title="Salin Kode Registrasi">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+
       <!-- Alert Card khusus jika status MENUNGGU PEMBAYARAN -->
-      <div id="modalPendingNotice" style="display:none; background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:12px; padding:14px 18px; margin-bottom:18px; text-align:left;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <span style="font-size:0.8rem; color:#92400E; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Total Tagihan Pembayaran:</span>
-          <span style="font-size:1.2rem; color:#B45309; font-weight:800;" id="modalTotalAmount">Rp 0</span>
+      <div id="modalPendingNotice" style="display:none; background:linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:1.5px solid #FCD34D; border-radius:16px; padding:16px 18px; margin-bottom:18px; text-align:left; box-shadow:0 4px 12px rgba(217, 119, 6, 0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed #FDE68A; padding-bottom:8px; margin-bottom:8px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="status-dot-pulse"></span>
+            <span style="font-size:0.78rem; color:#92400E; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">Tagihan Pembayaran:</span>
+          </div>
+          <b style="font-size:1.35rem; color:#B45309; font-weight:900;" id="modalTotalAmount">Rp 80.000</b>
         </div>
         <p style="margin:0; font-size:0.82rem; color:#78350F; line-height:1.45;">
-          Pesanan & alokasi jersey resmi Anda telah diamankan sementara. Silakan selesaikan pembayaran agar e-ticket resmi dan nomor BIB Anda aktif.
+          Pesanan & alokasi jersey Anda telah diamankan sementara. Silakan klik tombol <b>"Selesaikan Pembayaran Sekarang"</b> di bawah untuk membayar via QRIS atau Transfer Bank.
         </p>
       </div>
 
-      <div class="ticket-preview-box" style="margin-top:0;">
-        <div class="tp-header">
-          <div>
-            <div class="tp-title">E-TICKET RESMI BAZNAS FUN WALK 2026</div>
-            <div class="tp-sub">22 November 2026 · Soreang, Kab. Bandung</div>
+      <!-- Ticket Card Preview -->
+      <div class="ticket-preview-box" id="ticketPreviewCard" style="background:#FFFFFF; border:1.5px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.05); margin-top:0;">
+        <div style="background:linear-gradient(135deg, #062E16 0%, #0F5132 100%); color:#FFFFFF; padding:12px 18px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="text-align:left;">
+            <div style="font-family:'Baloo 2',sans-serif; font-weight:800; font-size:0.92rem; letter-spacing:0.5px;">E-TICKET RESMI BAZNAS FUN WALK 2026</div>
+            <div style="font-size:0.75rem; color:#A3E635; opacity:0.9;">22 November 2026 · Soreang, Kab. Bandung</div>
           </div>
-          <span class="badge badge--success" id="modalBadge">LUNAS / VERIFIED</span>
+          <span class="badge badge--warning" id="modalBadge" style="font-size:0.72rem; padding:4px 10px; border-radius:999px;">MENUNGGU PEMBAYARAN</span>
         </div>
 
-        <div class="tp-body">
-          <div class="tp-qr-box">
-            <!-- Simulated QR Code SVG -->
-            <svg width="110" height="110" viewBox="0 0 100 100" fill="currentColor">
-              <rect x="5" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-              <rect x="13" y="13" width="14" height="14" fill="currentColor"/>
-              <rect x="65" y="5" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-              <rect x="73" y="13" width="14" height="14" fill="currentColor"/>
-              <rect x="5" y="65" width="30" height="30" fill="none" stroke="currentColor" stroke-width="6"/>
-              <rect x="13" y="73" width="14" height="14" fill="currentColor"/>
-              <rect x="42" y="10" width="8" height="20" fill="currentColor"/>
-              <rect x="42" y="42" width="16" height="16" fill="currentColor"/>
-              <rect x="65" y="42" width="20" height="8" fill="currentColor"/>
-              <rect x="70" y="65" width="20" height="20" fill="currentColor"/>
-              <rect x="42" y="70" width="12" height="15" fill="currentColor"/>
-            </svg>
-            <div class="tp-id" id="modalRegId">BFW26-0000</div>
+        <div style="padding:16px 18px; display:flex; gap:16px; align-items:center;">
+          <div style="background:#F8FAFC; border:1px solid var(--line); border-radius:12px; padding:8px; text-align:center; flex-shrink:0;">
+            <img id="modalQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BFW26-0000&margin=4" width="95" height="95" alt="QR Tiket" style="display:block; border-radius:6px; background:#fff;" />
+            <div style="font-size:0.75rem; font-weight:700; color:var(--moss); margin-top:5px;" id="modalRegId">BFW26-0000</div>
           </div>
 
-          <div class="tp-details">
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px; font-size:0.86rem; text-align:left;">
             <div>
-              <small>Nama Peserta:</small>
-              <b id="modalNama">-</b>
+              <span style="font-size:0.72rem; color:var(--grey); display:block; text-transform:uppercase; font-weight:600;">Nama Peserta</span>
+              <b id="modalNama" style="color:var(--ink); font-size:0.95rem;">-</b>
             </div>
             <div>
-              <small>Kategori Paket:</small>
-              <b id="modalPaket">-</b>
+              <span style="font-size:0.72rem; color:var(--grey); display:block; text-transform:uppercase; font-weight:600;">Kategori Paket</span>
+              <b id="modalPaket" style="color:var(--moss); font-size:0.88rem;">-</b>
             </div>
-            <div>
-              <small>Ukuran Jersey:</small>
-              <b id="modalSize">-</b>
-            </div>
-            <div>
-              <small>Metode Pembayaran:</small>
-              <b id="modalMetode">-</b>
+            <div style="display:flex; justify-content:space-between; gap:8px;">
+              <div>
+                <span style="font-size:0.72rem; color:var(--grey); display:block; text-transform:uppercase; font-weight:600;">Jersey</span>
+                <b id="modalSize" style="color:var(--ink);">-</b>
+              </div>
+              <div>
+                <span style="font-size:0.72rem; color:var(--grey); display:block; text-transform:uppercase; font-weight:600;">Metode Bayar</span>
+                <b id="modalMetode" style="color:var(--ink);">-</b>
+              </div>
             </div>
           </div>
         </div>
 
-        <div id="modalTicketWatermark" style="display:none; background:#FEF3C7; color:#92400E; font-size:0.78rem; font-weight:600; padding:8px 12px; border-radius:6px; margin-top:14px; text-align:center; border:1px dashed #F59E0B;">
-          ⚠️ <b>Belum Lunas:</b> E-Ticket ini belum sah untuk ditukarkan di venue hingga pembayaran terverifikasi.
+        <div id="modalTicketWatermark" style="background:#FEF3C7; border-top:1px dashed #FCD34D; color:#92400E; font-size:0.78rem; font-weight:600; padding:8px 14px; text-align:center;">
+          ⚠️ <b>Belum Lunas:</b> Tiket ini belum sah untuk penukaran Race Pack hingga pembayaran terkonfirmasi LUNAS.
         </div>
       </div>
 
+      <!-- Action Buttons -->
       <div class="modal-actions" style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
         <!-- Tombol Lanjutkan Pembayaran (muncul saat status PENDING) -->
-        <button type="button" class="btn btn-leaf btn-lg" id="modalPayNowBtn" style="display:none; width:100%; justify-content:center; gap:8px;">
+        <button type="button" class="btn btn-leaf btn-lg" id="modalPayNowBtn" style="display:none; width:100%; justify-content:center; gap:8px; font-size:1.02rem; box-shadow:0 6px 18px rgba(18, 122, 52, 0.28);">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
           <span>Selesaikan Pembayaran Sekarang</span>
         </button>
 
         <!-- Tombol Unduh E-Ticket (muncul saat status LUNAS) -->
-        <button type="button" class="btn btn-leaf btn-lg" id="modalDownloadBtn" onclick="downloadTicketImageFromModal()" style="display:inline-flex; width:100%; align-items:center; justify-content:center; gap:8px;">
+        <button type="button" class="btn btn-leaf btn-lg" id="modalDownloadBtn" onclick="downloadTicketImageFromModal()" style="display:inline-flex; width:100%; align-items:center; justify-content:center; gap:8px; font-size:1.02rem; box-shadow:0 6px 18px rgba(18, 122, 52, 0.28);">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Unduh E-Ticket Resmi (PNG)</span>
         </button>
 
         <div style="display:flex; gap:10px; width:100%;">
-          <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn" style="flex:1; justify-content:center; font-size:0.9rem;">
-            Cek Status di Halaman Tiket
+          <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn" style="flex:1; justify-content:center; font-size:0.88rem; padding:10px 14px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Cek di Halaman Tiket</span>
           </a>
-          <button type="button" class="btn btn-ghost-dark" id="modalCloseBtn" style="justify-content:center; font-size:0.9rem;">
+          <button type="button" class="btn btn-ghost-dark" id="modalCloseBtn" style="justify-content:center; font-size:0.88rem; padding:10px 18px;">
             Tutup
           </button>
         </div>
@@ -952,8 +962,25 @@ const snapJsUrl = isProduction
   }
 
   .modal-icon {
-    font-size: 3rem;
     margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .status-dot-pulse {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #D97706;
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
+    animation: pulseAmber 1.8s infinite;
+  }
+
+  @keyframes pulseAmber {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(217, 119, 6, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
   }
 
   .ticket-preview-box {
@@ -1395,6 +1422,14 @@ const snapJsUrl = isProduction
 
     const elId = document.getElementById('modalRegId');
     if (elId) elId.textContent = participantData.id;
+    const elIdBadge = document.getElementById('modalRegIdBadge');
+    if (elIdBadge) elIdBadge.textContent = participantData.id;
+
+    const qrImg = document.getElementById('modalQrImg') as HTMLImageElement | null;
+    if (qrImg) {
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(participantData.id)}&margin=4`;
+    }
+
     const elNama = document.getElementById('modalNama');
     if (elNama) elNama.textContent = participantData.nama;
     const elPaket = document.getElementById('modalPaket');
@@ -1943,6 +1978,31 @@ const snapJsUrl = isProduction
       const modal = document.getElementById('successModal');
       if (modal) modal.style.display = 'none';
       resetSubmitBtn();
+    });
+  }
+
+  // Tombol 'X' di pojok atas Modal
+  const modalTopCloseBtn = document.getElementById('modalTopCloseBtn');
+  if (modalTopCloseBtn) {
+    modalTopCloseBtn.addEventListener('click', () => {
+      const modal = document.getElementById('successModal');
+      if (modal) modal.style.display = 'none';
+      resetSubmitBtn();
+    });
+  }
+
+  // Tombol Salin Kode Registrasi
+  const btnCopyRegId = document.getElementById('btnCopyRegId');
+  if (btnCopyRegId) {
+    btnCopyRegId.addEventListener('click', () => {
+      const regId = document.getElementById('modalRegIdBadge')?.textContent;
+      if (regId && navigator.clipboard) {
+        navigator.clipboard.writeText(regId).then(() => {
+          const origHtml = btnCopyRegId.innerHTML;
+          btnCopyRegId.innerHTML = '<span style="font-size:0.75rem; color:var(--leaf); font-weight:700;">Tersalin! ✓</span>';
+          setTimeout(() => { btnCopyRegId.innerHTML = origHtml; }, 2000);
+        });
+      }
     });
   }
 </script>
