@@ -194,7 +194,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                     </span>
                     <div>
                       <b>Kebaikan Zakat, Infak & Sedekah</b>
-                      <p>Bagi pemilih Charity Pack, donasi Rp 50.000 tercatat sah dan disalurkan amanah melalui BAZNAS Kab. Bandung.</p>
+                      <p>Setiap kontribusi donasi ZIS tercatat sah dan disalurkan secara amanah melalui BAZNAS Kab. Bandung.</p>
                     </div>
                   </div>
                 </div>
@@ -250,23 +250,23 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
 
                 <div class="paket-cards-grid">
                   <!-- Paket Reguler -->
-                  <div class="card-clean paket-card">
-                    <div class="card-pill">Paling Populer</div>
+                  <div class="card-clean paket-card paket-card--featured">
+                    <div class="card-pill card-pill--sun">Paling Populer</div>
                     <h3>Paket Reguler 5K</h3>
                     <p class="card-sub">Pilihan jalan sehat untuk individu dan keluarga.</p>
                     
                     <div class="card-price">
-                      <span class="price-val">Rp 50.000</span>
+                      <span class="price-val">Rp 80.000</span>
                       <span class="price-period">/ orang (Early Bird)</span>
                     </div>
-                    <div class="price-normal-tag">Harga Normal: Rp 100.000</div>
+                    <div class="price-normal-tag">Harga Normal: <del>Rp 120.000</del></div>
 
                     <ul class="benefit-checklist">
                       <li>Jersey Resmi BAZNAS Fun Walk (Drifit)</li>
-                      <li>Tote Bag Ramah Lingkungan Eksklusif</li>
+                      <li>Official Eco Tote Bag Eksklusif</li>
                       <li>Gelang Resmi / Official Wristband</li>
-                      <li>Nomor Peserta & Tiket Digital (QR Code)</li>
-                      <li>Kupon Doorprize Utama & Hiburan</li>
+                      <li>Nomor Peserta (BIB) & Tiket Digital (QR Code)</li>
+                      <li>Kupon Undian Doorprize Utama Hadiah Umroh</li>
                       <li>Refreshment Air Mineral & Buah Segar</li>
                       <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
                     </ul>
@@ -274,28 +274,29 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                     <a href="/daftar?paket=reguler" class="btn btn-sun" style="width:100%">Pilih Paket Reguler</a>
                   </div>
 
-                  <!-- Charity Pack -->
-                  <div class="card-clean paket-card paket-card--charity">
-                    <div class="card-pill card-pill--lime">Rekomendasi Berkah</div>
-                    <h3>Charity Pack 5K</h3>
-                    <p class="card-sub">Ikut jalan sehat sekaligus berdonasi ZIS Rp 50.000.</p>
+                  <!-- Family Pack -->
+                  <div class="card-clean paket-card paket-card--family">
+                    <div class="card-pill card-pill--lime">Hemat Berdua</div>
+                    <h3>Family Pack 5K</h3>
+                    <p class="card-sub">Pilihan hemat jalan sehat untuk 2 orang (keluarga/rekan).</p>
                     
                     <div class="card-price">
-                      <span class="price-val">Rp 150.000</span>
-                      <span class="price-period">/ orang (Tetap)</span>
+                      <span class="price-val">Rp 200.000</span>
+                      <span class="price-period">/ 2 orang</span>
                     </div>
-                    <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 50.000 Atas Nama Anda</div>
+                    <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Termasuk Donasi ZIS Rp 20.000</div>
 
                     <ul class="benefit-checklist">
-                      <li><b>Seluruh Benefit Lengkap Paket Reguler</b></li>
-                      <li><b>Donasi Rp 50.000 Tercatat Resmi di BAZNAS</b></li>
-                      <li>Bukti Setor Donasi ZIS Digital Ber-NPWZ</li>
-                      <li>Pencantuman Nama di Halaman Khusus Donatur</li>
-                      <li>Kupon Doorprize Utama & Hadiah Umroh</li>
-                      <li>Sticker & Goodie Bag Tambahan Penyelenggara</li>
+                      <li><b>2x Jersey Resmi BAZNAS Fun Walk</b></li>
+                      <li><b>2x Kupon Undian Doorprize Umroh</b></li>
+                      <li>2x Official Eco Tote Bag & Wristband</li>
+                      <li>2x Refreshment Air Mineral & Buah Segar</li>
+                      <li><b>Termasuk Donasi ZIS Rp 20.000 Resmi</b></li>
+                      <li>2x Medali Finisher & E-Certificate</li>
+                      <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
                     </ul>
 
-                    <a href="/daftar?paket=charity" class="btn btn-leaf" style="width:100%">Pilih Charity Pack</a>
+                    <a href="/daftar?paket=family" class="btn btn-leaf" style="width:100%">Pilih Family Pack</a>
                   </div>
                 </div>
 
@@ -403,7 +404,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                   <div class="timeline-step">
                     <div class="step-date">Sekarang – 31 Okt</div>
                     <div class="step-title">Pendaftaran Early Bird</div>
-                    <p class="step-desc">Tarif spesial Rp 50.000 untuk paket Reguler.</p>
+                    <p class="step-desc">Tarif spesial Early Bird Rp 80.000 untuk paket Reguler.</p>
                   </div>
                   <div class="timeline-step">
                     <div class="step-date">1 – 15 November</div>
@@ -957,6 +958,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     gap: 24px;
     max-width: 1060px;
     margin: 0 auto;
+    align-items: stretch;
   }
 
   .paket-card {
@@ -965,6 +967,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: var(--r-md);
   }
 
   .paket-card--featured {
@@ -973,14 +976,11 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     box-shadow: 0 10px 24px rgba(230, 160, 20, 0.12);
   }
 
+  .paket-card--family,
   .paket-card--charity {
     border: 3px solid var(--leaf);
     background: #FAFCF9;
-  }
-
-  .card-pill--sun {
-    background: var(--sun);
-    color: var(--ink-deep);
+    box-shadow: 0 10px 24px rgba(46, 125, 50, 0.08);
   }
 
   .card-pill {
@@ -991,12 +991,19 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     color: #FFFFFF;
     font-size: 0.78rem;
     font-weight: 700;
-    padding: 3px 12px;
+    padding: 4px 14px;
     border-radius: 99px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .card-pill--sun {
+    background: var(--sun);
+    color: var(--ink-deep);
   }
 
   .card-pill--lime {
     background: var(--leaf);
+    color: #FFFFFF;
   }
 
   .card-sub {
@@ -1008,20 +1015,24 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
   .card-price {
     display: flex;
     align-items: baseline;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 6px 10px;
     margin-bottom: 4px;
   }
 
   .price-val {
     font-family: 'Baloo 2', sans-serif;
-    font-size: 2.3rem;
+    font-size: clamp(1.85rem, 2.8vw, 2.3rem);
     font-weight: 800;
     color: var(--ink);
+    white-space: nowrap;
+    line-height: 1.1;
   }
 
   .price-period {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     color: var(--grey);
+    white-space: nowrap;
   }
 
   .price-normal-tag {
