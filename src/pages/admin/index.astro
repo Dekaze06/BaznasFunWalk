@@ -398,20 +398,40 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
 </style>
 
 <script>
-  import { getStore, getStockSummary } from '../../lib/store.js';
+  import { getStore, getStockSummary, getSettings } from '../../lib/store.js';
   import { formatRupiah } from '../../lib/utils.js';
 
   function renderDashboard() {
     const list = getStore();
+    const settings = getSettings();
+    const targetPeserta = settings.targetPeserta || 2000;
+    const targetDonasi = settings.targetDonasi || 50000000;
+
     const paidList = list.filter(p => p.status === 'PAID');
     const pendingList = list.filter(p => p.status === 'PENDING');
 
     // Counts
     const totalCount = list.length;
-    document.getElementById('totalPesertaCount').textContent = `${totalCount} Peserta`;
-    document.getElementById('totalProgressBar').style.width = `${(totalCount / 1000) * 100}%`;
-    document.getElementById('paidPesertaCount').textContent = `${paidList.length} Peserta`;
-    document.getElementById('pendingTag').textContent = `${pendingList.length} Pending`;
+    const elTotalPeserta = document.getElementById('totalPesertaCount');
+    if (elTotalPeserta) elTotalPeserta.textContent = `${totalCount} Peserta`;
+
+    const pct = Math.min(100, Math.round((totalCount / targetPeserta) * 1000) / 10);
+    const elProgressBar = document.getElementById('totalProgressBar');
+    if (elProgressBar) elProgressBar.style.width = `${pct}%`;
+
+    const elTargetPercent = document.getElementById('targetPercentText');
+    if (elTargetPercent) elTargetPercent.textContent = `${pct}%`;
+
+    const elTargetPeserta = document.getElementById('targetPesertaLbl');
+    if (elTargetPeserta) {
+      elTargetPeserta.innerHTML = `Target: <b>${targetPeserta.toLocaleString('id-ID')} Peserta</b>`;
+    }
+
+    const elPaidPeserta = document.getElementById('paidPesertaCount');
+    if (elPaidPeserta) elPaidPeserta.textContent = `${paidList.length} Peserta`;
+
+    const elPendingTag = document.getElementById('pendingTag');
+    if (elPendingTag) elPendingTag.textContent = `${pendingList.length} Pending`;
 
     // Revenues
     let totalRev = 0;
@@ -424,9 +444,20 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
       totalRegFee += p.nominalRegistrasi;
     });
 
-    document.getElementById('totalRevenue').textContent = formatRupiah(totalRev);
-    document.getElementById('totalZisDonation').textContent = formatRupiah(totalZis);
-    document.getElementById('revReguler').textContent = formatRupiah(totalRegFee);
+    const elTotalRev = document.getElementById('totalRevenue');
+    if (elTotalRev) elTotalRev.textContent = formatRupiah(totalRev);
+
+    const elTotalZis = document.getElementById('totalZisDonation');
+    if (elTotalZis) elTotalZis.textContent = formatRupiah(totalZis);
+
+    const elRevReguler = document.getElementById('revReguler');
+    if (elRevReguler) elRevReguler.textContent = formatRupiah(totalRegFee);
+
+    const elZisTargetHint = document.getElementById('adminZisTargetHint');
+    if (elZisTargetHint) {
+      const zisPct = Math.min(100, Math.round((totalZis / targetDonasi) * 1000) / 10);
+      elZisTargetHint.textContent = `Target: ${formatRupiah(targetDonasi)} (${zisPct}%)`;
+    }
 
     // Render Recent Table (first 5)
     const tbody = document.getElementById('recentPesertaTable');
@@ -435,8 +466,13 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
         <tr>
           <td><b style="color:var(--leaf)">${p.id}</b></td>
           <td><b>${p.nama}</b><br><small style="color:var(--grey)">${p.whatsapp}</small></td>
-          <td>${p.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
-          <td><b>${p.ukuranJersey}</b></td>
+          <td>
+            ${p.paket === 'family' ? '<span class="badge badge--sun">Family Pack</span>' : (p.paket === 'charity' || p.paket === 'donasi') ? '<span class="badge badge--success">Donasi Only</span>' : '<span class="badge badge--info">Reguler</span>'}
+          </td>
+          <td>
+            <b>${p.ukuranJersey || '-'}</b>
+            ${p.ukuranJersey2 && p.ukuranJersey2 !== '-' ? `<br><small style="color:var(--grey)">J2: ${p.ukuranJersey2}</small>` : ''}
+          </td>
           <td>
             ${p.status === 'PAID' ? '<span class="badge badge--success">Lunas</span>' : '<span class="badge badge--warning">Pending</span>'}
           </td>
@@ -469,4 +505,7 @@ import { JERSEY_SIZES } from '../../lib/utils.js';
   }
 
   renderDashboard();
+
+  // Dengarkan event perubahan store agar dashboard terupdate otomatis
+  window.addEventListener('baznas:store_updated', renderDashboard);
 </script>

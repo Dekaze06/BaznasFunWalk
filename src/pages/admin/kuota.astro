@@ -264,6 +264,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 <script>
   import { getStockSummary } from '../../lib/store.js';
 
+  let currentCategoryFilter = 'all';
+
+  window.setFilter = function(filter) {
+    currentCategoryFilter = filter;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-filter') === filter);
+    });
+    renderQuota();
+  };
+
   function renderQuota() {
     const container = document.getElementById('quotaCardsGrid');
     if (!container) return;

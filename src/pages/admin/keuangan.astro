@@ -176,7 +176,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <tr>
         <td><b style="color:var(--leaf)">${p.id}</b></td>
         <td><b>${p.nama}</b></td>
-        <td>${p.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
+        <td>${p.paket === 'family' ? '<span class="badge badge--sun">Family Pack</span>' : (p.paket === 'charity' || p.paket === 'donasi') ? '<span class="badge badge--success">Donasi Only</span>' : '<span class="badge badge--info">Reguler</span>'}</td>
         <td>${formatRupiah(p.nominalRegistrasi)}</td>
         <td><b style="color:var(--leaf)">${formatRupiah(p.nominalDonasi)}</b></td>
         <td><b>${formatRupiah(p.totalBayar)}</b></td>
@@ -187,4 +187,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   renderFinancials();
+
+  // Dengarkan event perubahan store agar rekap keuangan reaktif otomatis
+  window.addEventListener('baznas:store_updated', renderFinancials);
 </script>

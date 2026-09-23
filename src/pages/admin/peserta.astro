@@ -150,6 +150,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           <p id="mDarurat" style="margin:0; font-size:0.92rem">-</p>
         </div>
 
+        <div id="mPeserta2Row" style="display:none; margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px">
+          <span class="lbl" style="color:var(--leaf); font-weight:700">Peserta Ke-2 (Family Pack):</span>
+          <p id="mPeserta2" style="margin:2px 0 0 0; font-size:0.92rem; font-weight:700; color:var(--ink)">-</p>
+        </div>
+
         <div class="detail-financial-box" style="margin-top:20px">
           <div style="display:flex; justify-content:space-between; margin-bottom:6px">
             <span>Kategori Paket:</span>
@@ -488,12 +493,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     const filtered = list.filter(p => {
       const matchKw = !kw || 
         p.nama.toLowerCase().includes(kw) ||
+        (p.namaPeserta2 && p.namaPeserta2.toLowerCase().includes(kw)) ||
         p.id.toLowerCase().includes(kw) ||
         p.whatsapp.includes(kw) ||
         p.nik.includes(kw);
-      const matchPaket = paket === 'ALL' || p.paket === paket;
+      const matchPaket = paket === 'ALL' || 
+        p.paket === paket || 
+        (paket === 'donasi' && p.paket === 'charity') ||
+        (paket === 'charity' && p.paket === 'donasi');
       const matchStatus = status === 'ALL' || p.status === status;
-      const matchSize = size === 'ALL' || p.ukuranJersey === size;
+      const matchSize = size === 'ALL' || p.ukuranJersey === size || p.ukuranJersey2 === size;
       return matchKw && matchPaket && matchStatus && matchSize;
     });
 
@@ -513,12 +522,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         <td><b style="color:var(--leaf)">${p.id}</b></td>
         <td>
           <b>${p.nama}</b>
+          ${p.namaPeserta2 && p.namaPeserta2 !== '-' ? `<br><small style="color:var(--moss);font-weight:600">P2: ${p.namaPeserta2}</small>` : ''}
           <div style="font-size:0.8rem;color:var(--grey)">${p.whatsapp} · ${p.email}</div>
         </td>
         <td>
-          ${p.paket === 'charity' ? '<span class="badge badge--success">Charity Pack</span>' : '<span class="badge badge--info">Reguler</span>'}
+          ${p.paket === 'family' ? '<span class="badge badge--sun">Family Pack</span>' : (p.paket === 'charity' || p.paket === 'donasi') ? '<span class="badge badge--success">Donasi Only</span>' : '<span class="badge badge--info">Reguler</span>'}
         </td>
-        <td><b style="background:var(--paper-2);padding:2px 8px;border-radius:4px">${p.ukuranJersey}</b></td>
+        <td>
+          <b style="background:var(--paper-2);padding:2px 8px;border-radius:4px">${p.ukuranJersey || '-'}</b>
+          ${p.ukuranJersey2 && p.ukuranJersey2 !== '-' ? `<br><small style="color:var(--grey)">J2: ${p.ukuranJersey2}</small>` : ''}
+        </td>
         <td>
           <b>${formatRupiah(p.totalBayar)}</b>
           <div style="font-size:0.78rem;color:var(--grey)">${p.metodeBayar}</div>
@@ -561,8 +574,20 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     document.getElementById('mAlamat').textContent = p.alamat;
     document.getElementById('mDarurat').textContent = `${p.kontakDaruratNama} (${p.kontakDaruratHp})`;
 
+    const p2Row = document.getElementById('mPeserta2Row');
+    if (p2Row) {
+      if (p.paket === 'family' && p.namaPeserta2 && p.namaPeserta2 !== '-') {
+        p2Row.style.display = 'block';
+        document.getElementById('mPeserta2').textContent = p.namaPeserta2;
+      } else {
+        p2Row.style.display = 'none';
+      }
+    }
+
     document.getElementById('mPaket').textContent = p.paketNama;
-    document.getElementById('mSize').textContent = `Ukuran ${p.ukuranJersey}`;
+    document.getElementById('mSize').textContent = p.paket === 'family' 
+      ? `Jersey 1: ${p.ukuranJersey || '-'} | Jersey 2: ${p.ukuranJersey2 || '-'}`
+      : (p.ukuranJersey === '-' ? 'Tanpa Jersey' : `Ukuran ${p.ukuranJersey}`);
     document.getElementById('mRegFee').textContent = formatRupiah(p.nominalRegistrasi);
     document.getElementById('mDonasi').textContent = formatRupiah(p.nominalDonasi);
     document.getElementById('mTotal').textContent = formatRupiah(p.totalBayar);
@@ -597,18 +622,21 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   // CSV Export
   window.exportToCSV = function() {
     const list = getStore();
-    const headers = ['ID Peserta', 'Nama', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey', 'Total Bayar', 'Metode', 'Status Bayar', 'Klaim RPC'];
+    const headers = ['ID Peserta', 'Nama Peserta Utama', 'Nama Peserta 2', 'NIK', 'WhatsApp', 'Email', 'Gender', 'Alamat', 'Paket', 'Ukuran Jersey 1', 'Ukuran Jersey 2', 'Total Bayar', 'Nominal Donasi', 'Metode Bayar', 'Status Bayar', 'Klaim RPC'];
     const rows = list.map(p => [
       p.id,
       `"${p.nama}"`,
-      `'${p.nik}`,
-      `'${p.whatsapp}`,
-      p.email,
-      p.gender,
-      `"${p.alamat}"`,
+      `"${p.namaPeserta2 || '-'}"`,
+      `'${p.nik || '-'}`,
+      `'${p.whatsapp || '-'}`,
+      p.email || '-',
+      p.gender || '-',
+      `"${p.alamat || '-'}"`,
       p.paket,
-      p.ukuranJersey,
+      p.ukuranJersey || '-',
+      p.ukuranJersey2 || '-',
       p.totalBayar,
+      p.nominalDonasi || 0,
       p.metodeBayar,
       p.status,
       p.racepackClaimed ? 'SUDAH' : 'BELUM'
@@ -665,4 +693,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   });
 
   renderTable();
+
+  // Dengarkan event perubahan store agar tabel reaktif otomatis
+  window.addEventListener('baznas:store_updated', renderTable);
 </script>

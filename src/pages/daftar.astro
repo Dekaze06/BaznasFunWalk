@@ -52,48 +52,53 @@ const snapJsUrl = isProduction
       <div class="card-clean form-card">
         <form id="regForm">
           <!-- STEP 1: Pilih Paket -->
+          <!-- STEP 1: Pilih Paket & Donasi Tambahan -->
           <div class="form-step-content" id="step1">
             <h3 class="step-title">Pilih Kategori Paket Kepesertaan</h3>
-            <p class="hint" style="margin-bottom:24px">Silakan pilih paket yang Anda inginkan. Fasilitas jalur 5K dan doorprize sama lengkapnya.</p>
+            <p class="hint" style="margin-bottom:24px">Silakan pilih kategori yang Anda inginkan. Fasilitas jalur 5K dan doorprize sama lengkapnya.</p>
 
             <div class="package-selector-grid">
+              <!-- Paket Reguler -->
               <label class="package-option-card active" id="optReguler">
                 <input type="radio" name="paket" value="reguler" checked class="sr-only">
                 <div class="opt-header">
                   <div>
                     <div class="opt-name">Paket Reguler 5K</div>
-                    <div class="opt-desc">Jalan sehat 5K individu/keluarga</div>
+                    <div class="opt-desc">1 Orang Peserta</div>
                   </div>
-                  <span class="pill pill--sun">Early Bird</span>
+                  <span class="pill pill--sun">Waktu & Kuota Terbatas</span>
                 </div>
                 <div class="opt-price">
-                  <b>Rp 50.000</b>
-                  <small>Harga Normal Rp 100.000</small>
+                  <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 120.000</del>
+                  <b>Rp 80.000</b>
+                  <small style="color:var(--leaf); font-weight:700">Early Bird (Termasuk Donasi Rp 20.000)</small>
                 </div>
                 <ul class="opt-perks">
                   <li>✓ Jersey Drifit, Tote Bag & Wristband</li>
                   <li>✓ Nomor BIB & Kupon Doorprize Umroh</li>
-                  <li>✓ Refreshment & Pos Medis</li>
+                  <li>✓ <b>Termasuk Donasi ZIS Rp 20.000</b></li>
                 </ul>
               </label>
 
-              <label class="package-option-card package-option-card--charity" id="optCharity">
-                <input type="radio" name="paket" value="charity" class="sr-only">
+              <!-- Family Pack -->
+              <label class="package-option-card package-option-card--family" id="optFamily">
+                <input type="radio" name="paket" value="family" class="sr-only">
                 <div class="opt-header">
                   <div>
-                    <div class="opt-name">Charity Pack 5K </div>
-                    <div class="opt-desc">Termasuk Donasi ZIS Rp 50.000</div>
+                    <div class="opt-name">Family Pack (2 Orang)</div>
+                    <div class="opt-desc">Untuk 2 Peserta Sekaligus</div>
                   </div>
-                  <span class="pill pill--dark" style="background:var(--leaf);color:#fff">Rekomendasi</span>
+                  <span class="pill pill--lime" style="background:var(--leaf); color:#fff">Hemat Berdua</span>
                 </div>
                 <div class="opt-price">
-                  <b>Rp 150.000</b>
-                  <small style="color:var(--lime)">Donasi Rp 50.000 Atas Nama Anda</small>
+                  <b>Rp 200.000</b>
+                  <small style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 20.000</small>
                 </div>
                 <ul class="opt-perks">
-                  <li>✓ Seluruh Benefit Lengkap Paket Reguler</li>
-                  <li>✓ Donasi Rp 50.000 Tercatat Resmi BAZNAS</li>
-                  <li>✓ Bukti Setor ZIS Digital & Nama Donatur</li>
+                  <li>✓ 2x Jersey Resmi</li>
+                  <li>✓ 2x Kupon Doorprize Umroh</li>
+                  <li>✓ 2x Tote Bag & Wristband</li>
+                  <li>✓ <b>Termasuk Donasi ZIS Rp 20.000</b></li>
                 </ul>
               </label>
             </div>
@@ -136,31 +141,79 @@ const snapJsUrl = isProduction
 
           <!-- STEP 3: Ukuran Jersey -->
           <div class="form-step-content" id="step3" style="display:none">
-            <h3 class="step-title">Pilih Ukuran Jersey Resmi</h3>
-            <p class="hint" style="margin-bottom:20px">Ukuran jersey bersifat unisex standar Asia. Silakan sesuaikan dengan lingkar dada Anda.</p>
+            <div id="regularJerseySection">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <h3 class="step-title" style="margin:0;">Pilih Ukuran Jersey Resmi</h3>
+                <button type="button" class="btn btn-ghost-dark btn-sm" id="btnOpenSizeChart" style="display:inline-flex; align-items:center; gap:6px; font-weight:600; border-color:var(--moss); color:var(--moss);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+                  <span>Panduan Ukuran (Size Chart)</span>
+                </button>
+              </div>
+              <p class="hint" style="margin-bottom:20px">Jersey Microfiber Drifit unisex standar lari (Peserta Utama: Khusus Ukuran Dewasa).</p>
 
-            <div class="jersey-picker-grid">
-              {JERSEY_SIZES.map(item => (
-                <label class="jersey-choice-card" id={`cardSize_${item.size}`}>
-                  <input type="radio" name="ukuranJersey" value={item.size} class="sr-only" required>
-                  <div class="size-circle">{item.size}</div>
-                  <div class="size-specs">
-                    <b>{item.desc}</b>
-                    <span>LD {item.chest}</span>
-                    <span>PB {item.length}</span>
-                  </div>
-                  <div class="stock-status-pill" id={`stockStatus_${item.size}`}>Tersedia</div>
-                </label>
-              ))}
-            </div>
+              <!-- Ukuran Dewasa (Peserta Utama) -->
+              <div style="margin-bottom:20px">
+                <div class="jersey-picker-grid">
+                  {JERSEY_SIZES.filter(j => j.category === 'Dewasa').map(item => (
+                    <label class="jersey-choice-card" id={`cardSize_${item.size}`}>
+                      <input type="radio" name="ukuranJersey" value={item.size} class="sr-only">
+                      <div class="size-circle">{item.size}</div>
+                      <div class="size-specs">
+                        <b>{item.desc}</b>
+                      </div>
+                      <div class="stock-status-pill">Tersedia</div>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-            <div class="size-tip-banner">
-              <b>Catatan Ukuran:</b> Jika ragu antara 2 ukuran, disarankan memilih 1 tingkat lebih besar untuk kenyamanan berjalan santai.
-            </div>
+              <!-- Extra Jersey Picker for Family Pack (Peserta 2) -->
+              <div id="familySecondJerseyBox" style="display:none; margin-top:28px; padding-top:24px; border-top:2px dashed var(--line);">
+                <h3 class="step-title">Pilih Ukuran Jersey Peserta Ke-2 (Family Pack)</h3>
+                <p class="hint" style="margin-bottom:16px">Pilih ukuran jersey untuk anggota keluarga / rekan Anda (Tersedia Dewasa atau Anak):</p>
+                
+                <!-- Opsi Dewasa Peserta Ke-2 -->
+                <h4 style="font-size:0.95rem; color:var(--moss); margin:0 0 10px;">Ukuran Dewasa</h4>
+                <div class="jersey-picker-grid" style="margin-bottom:20px">
+                  {JERSEY_SIZES.filter(j => j.category === 'Dewasa').map(item => (
+                    <label class="jersey-choice-card jersey-choice-card--sec" id={`cardSecSize_${item.size}`}>
+                      <input type="radio" name="ukuranJerseySec" value={item.size} class="sr-only">
+                      <div class="size-circle">{item.size}</div>
+                      <div class="size-specs">
+                        <b>{item.desc}</b>
+                      </div>
+                      <div class="stock-status-pill">Tersedia</div>
+                    </label>
+                  ))}
+                </div>
 
-            <div class="step-btn-row" style="margin-top:32px">
-              <button type="button" class="btn btn-ghost-dark" onclick="prevStep(2)">← Kembali</button>
-              <button type="button" class="btn btn-leaf btn-lg" onclick="validateStep3()">Lanjut ke Pembayaran →</button>
+                <!-- Opsi Anak Peserta Ke-2 (Khusus Family Pack) -->
+                <h4 style="font-size:0.95rem; color:var(--moss); margin:0 0 10px; display:flex; align-items:center; gap:6px;">
+                  <span>Ukuran Anak</span>
+                  <small style="color:var(--grey); font-weight:normal">(Usia 4 – 12 Tahun)</small>
+                </h4>
+                <div class="jersey-picker-grid">
+                  {JERSEY_SIZES.filter(j => j.category === 'Anak').map(item => (
+                    <label class="jersey-choice-card jersey-choice-card--sec" id={`cardSecSize_${item.size.replace(/\s+/g, '_')}`}>
+                      <input type="radio" name="ukuranJerseySec" value={item.size} class="sr-only">
+                      <div class="size-circle" style="background:#EBF5FF; color:#1E40AF">{item.size}</div>
+                      <div class="size-specs">
+                        <b>{item.desc}</b>
+                      </div>
+                      <div class="stock-status-pill">Tersedia</div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="size-tip-banner" style="margin-top:20px">
+                <b>Tips Ukuran:</b> Bahan Drifit elastis & adem. Jika ingin lebih leluasa atau berhijab, disarankan memilih 1 tingkat lebih besar.
+              </div>
+
+              <div class="step-btn-row" style="margin-top:32px">
+                <button type="button" class="btn btn-ghost-dark" onclick="prevStep(2)">← Kembali</button>
+                <button type="button" class="btn btn-leaf btn-lg" onclick="validateStep3()">Lanjut ke Pembayaran →</button>
+              </div>
             </div>
           </div>
 
@@ -174,6 +227,10 @@ const snapJsUrl = isProduction
               <div class="summary-row">
                 <span>Nama Peserta:</span>
                 <b id="summaryNama">-</b>
+              </div>
+              <div class="summary-row" id="summaryPeserta2Row" style="display:none">
+                <span>Peserta Ke-2:</span>
+                <b id="summaryNama2">-</b>
               </div>
               <div class="summary-row">
                 <span>Kategori Paket:</span>
@@ -189,16 +246,50 @@ const snapJsUrl = isProduction
               </div>
               <div class="summary-divider"></div>
               <div class="summary-row">
-                <span>Biaya Registrasi Event:</span>
-                <b id="summaryBiayaEvent">Rp 50.000</b>
+                <span>Biaya Paket:</span>
+                <b id="summaryBiayaEvent">Rp 80.000</b>
               </div>
               <div class="summary-row" id="summaryDonasiRow">
-                <span>Infaq / Donasi ZIS BAZNAS:</span>
-                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 0</b>
+                <span>Termasuk Donasi ZIS:</span>
+                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 20.000</b>
+              </div>
+              <div class="summary-row" id="summaryExtraDonasiRow" style="display:none">
+                <span>Infaq Sukarela Tambahan:</span>
+                <b id="summaryExtraDonasiVal" style="color:var(--leaf)">+ Rp 0</b>
               </div>
               <div class="summary-total">
                 <span>Total Pembayaran:</span>
-                <span class="total-amount" id="summaryTotal">Rp 50.000</span>
+                <span class="total-amount" id="summaryTotal">Rp 80.000</span>
+              </div>
+            </div>
+
+            <!-- Additional Donation Box (Dibawah Total Pembayaran) -->
+            <div class="additional-donation-box" style="margin-top:20px; background:var(--paper-2); padding:18px 20px; border-radius:var(--r-md); border:1px solid var(--line);">
+              <div class="add-don-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
+                <div class="add-don-title" style="font-weight:700; color:var(--ink); font-size:0.95rem">
+                  <span>Tambah Infaq / Donasi Sukarela (Opsional)</span>
+                </div>
+                <span class="pill pill--sun" style="font-size:0.75rem; padding:2px 10px">Sedekah Berkah</span>
+              </div>
+              <p class="hint" style="margin-bottom:12px; font-size:0.85rem">
+                Berapapun donasi tambahan Anda, seluruhnya disalurkan untuk beasiswa dhuafa & lansia prasejahtera di Kabupaten Bandung.
+              </p>
+              <div class="donation-chips-grid">
+                <button type="button" class="don-chip active" data-val="0">Rp 0</button>
+                <button type="button" class="don-chip" data-val="10000">+ Rp 10.000</button>
+                <button type="button" class="don-chip" data-val="20000">+ Rp 20.000</button>
+                <button type="button" class="don-chip" data-val="50000">+ Rp 50.000</button>
+                <button type="button" class="don-chip" data-val="100000">+ Rp 100.000</button>
+                <button type="button" class="don-chip" id="btnCustomDonasi" data-val="custom">Nominal Lainnya (Infaq Sukarela)</button>
+              </div>
+              <div id="customDonasiWrap" style="display:none; margin-top:14px">
+                <label for="customDonasiInput" style="display:block; font-size:0.85rem; color:var(--moss); font-weight:600; margin-bottom:6px">
+                  Silakan tentukan nominal infaq / donasi sukarela secara manual:
+                </label>
+                <div class="custom-don-input-box">
+                  <span class="curr-prefix">Rp</span>
+                  <input type="number" id="customDonasiInput" placeholder="Masukkan nominal infaq (contoh: 25000)" min="1000" step="5000" />
+                </div>
               </div>
             </div>
 
@@ -307,8 +398,76 @@ const snapJsUrl = isProduction
       </div>
 
       <div class="modal-actions" style="margin-top:24px">
-        <a href="/cek-tiket" class="btn btn-leaf btn-lg" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
-        <button type="button" class="btn btn-ghost-dark" onclick="window.print()">Cetak / Simpan Bukti PDF</button>
+        <button type="button" class="btn btn-leaf btn-lg" onclick="downloadTicketImageFromModal()" style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Unduh E-Ticket (PNG)</span>
+        </button>
+        <a href="/cek-tiket" class="btn btn-ghost-dark" id="modalViewTicketBtn">Buka di Halaman Cek Tiket</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Panduan Ukuran (Size Chart) -->
+  <div class="modal-backdrop" id="sizeChartModal" style="display:none">
+    <div class="modal-card" style="max-width:620px; text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:14px; margin-bottom:18px;">
+        <h3 style="margin:0; color:var(--ink); font-size:1.2rem; display:flex; align-items:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--moss)"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
+          <span>Panduan Ukuran Jersey (Size Chart)</span>
+        </h3>
+        <button type="button" id="btnCloseSizeChart" style="background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--grey); line-height:1;">&times;</button>
+      </div>
+      <p style="font-size:0.88rem; color:var(--grey-d); margin-bottom:16px;">
+        Jersey BAZNAS Fun Walk 2026 menggunakan bahan Microfiber Drifit Premium yang elastis, lembut, dan cepat menyerap keringat.
+      </p>
+      
+      <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:8px;">Tabel Ukuran Dewasa (Unisex)</h4>
+      <div style="overflow-x:auto; margin-bottom:18px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:center;">
+          <thead>
+            <tr style="background:var(--paper-2); color:var(--ink); border-bottom:2px solid var(--line);">
+              <th style="padding:8px 12px; text-align:left;">Ukuran</th>
+              <th style="padding:8px 12px;">Lebar Dada</th>
+              <th style="padding:8px 12px;">Panjang Badan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">S</td><td>48 cm (LD 96 cm)</td><td>66 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">M</td><td>50 cm (LD 100 cm)</td><td>68 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">L</td><td>52 cm (LD 104 cm)</td><td>70 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XL</td><td>54 cm (LD 108 cm)</td><td>72 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XXL</td><td>57 cm (LD 114 cm)</td><td>74 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">XXXL</td><td>60 cm (LD 120 cm)</td><td>76 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="font-size:0.95rem; color:var(--moss); margin-bottom:8px;">Tabel Ukuran Anak (Khusus Family Pack)</h4>
+      <div style="overflow-x:auto; margin-bottom:18px;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:center;">
+          <thead>
+            <tr style="background:var(--paper-2); color:var(--ink); border-bottom:2px solid var(--line);">
+              <th style="padding:8px 12px; text-align:left;">Ukuran</th>
+              <th style="padding:8px 12px;">Estimasi Usia</th>
+              <th style="padding:8px 12px;">Lebar Dada</th>
+              <th style="padding:8px 12px;">Panjang Badan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak S</td><td>4 – 6 Tahun</td><td>36 cm (LD 72 cm)</td><td>48 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak M</td><td>7 – 9 Tahun</td><td>40 cm (LD 80 cm)</td><td>54 cm</td></tr>
+            <tr style="border-bottom:1px solid var(--line);"><td style="padding:8px 12px; text-align:left; font-weight:600;">Anak L</td><td>10 – 12 Tahun</td><td>44 cm (LD 88 cm)</td><td>60 cm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#FEFCE8; border:1px solid #FEF08A; border-radius:8px; padding:12px; font-size:0.82rem; color:#854D0E; margin-bottom:18px; display:flex; align-items:flex-start; gap:8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div><b>Tips Memilih:</b> Toleransi jahit ±1-2 cm. Apabila menyukai ukuran longgar atau berhijab, disarankan memilih 1 tingkat lebih besar (up-size).</div>
+      </div>
+
+      <div style="text-align:right;">
+        <button type="button" class="btn btn-leaf btn-sm" id="btnCloseSizeChartBtn">Tutup Panduan</button>
       </div>
     </div>
   </div>
@@ -391,8 +550,16 @@ const snapJsUrl = isProduction
   /* Step 1 Packages */
   .package-selector-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 960px) {
+    .package-selector-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .package-option-card {
@@ -415,10 +582,6 @@ const snapJsUrl = isProduction
     border-color: var(--leaf);
     box-shadow: 0 0 0 3px rgba(31, 137, 57, 0.2);
     background: #FBFDFB;
-  }
-
-  .package-option-card--charity.active {
-    border-color: var(--leaf);
   }
 
   .opt-header {
@@ -447,7 +610,7 @@ const snapJsUrl = isProduction
 
   .opt-price b {
     font-family: 'Baloo 2', sans-serif;
-    font-size: 2rem;
+    font-size: 1.85rem;
     color: var(--ink);
     display: block;
     line-height: 1;
@@ -469,6 +632,65 @@ const snapJsUrl = isProduction
     border-top: 1px solid var(--line);
     padding-top: 14px;
     margin-top: auto;
+  }
+
+  /* Additional Donation Box */
+  .additional-donation-box {
+    background: #FFFFFF;
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 20px;
+  }
+
+  .don-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .don-chip {
+    padding: 8px 16px;
+    border-radius: 99px;
+    border: 1.5px solid var(--line);
+    background: var(--paper-2);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .don-chip:hover {
+    border-color: var(--leaf);
+    background: #FFFFFF;
+  }
+
+  .don-chip.active {
+    background: var(--leaf);
+    color: #FFFFFF;
+    border-color: var(--leaf);
+    box-shadow: 0 2px 8px rgba(31, 137, 57, 0.25);
+  }
+
+  .custom-don-input-box {
+    animation: fadeIn 0.2s ease;
+  }
+
+  .custom-don-input-box input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-sm);
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: #FFFFFF;
+    box-sizing: border-box;
+  }
+
+  .custom-don-input-box input:focus {
+    border-color: var(--leaf);
+    outline: none;
   }
 
   /* Step 3 Jersey */
@@ -784,39 +1006,131 @@ const snapJsUrl = isProduction
   import { saveParticipant, getStockSummary } from '../lib/store.js';
   import { formatRupiah } from '../lib/utils.js';
 
+  // Global declarations for TypeScript linter in IDE
+  declare global {
+    interface Window {
+      nextStep?: (step: number) => void;
+      prevStep?: (step: number) => void;
+      validateStep2?: () => void;
+      validateStep3?: () => void;
+      downloadTicketImageFromModal?: () => void;
+      snap?: any;
+    }
+  }
+
   let currentStep = 1;
   let selectedPaket = 'reguler';
   let selectedSize = 'L';
-  let selectedPayment = 'QRIS';
+  let selectedSize2 = 'M';
+  let selectedPayment = 'QRIS Instan';
+  let additionalDonasi = 0;
+  let currentParticipantData: any = null;
 
-  // Check URL param for pre-selected package
+  // Option Cards
+  const optReguler = document.getElementById('optReguler');
+  const optFamily = document.getElementById('optFamily');
+
+  if (optReguler) optReguler.addEventListener('click', () => selectPackage('reguler'));
+  if (optFamily) optFamily.addEventListener('click', () => selectPackage('family'));
+
+  function selectPackage(pkg: string) {
+    selectedPaket = pkg === 'family' ? 'family' : 'reguler';
+    if (optReguler) optReguler.classList.toggle('active', selectedPaket === 'reguler');
+    if (optFamily) optFamily.classList.toggle('active', selectedPaket === 'family');
+
+    const input = document.querySelector(`input[name="paket"][value="${selectedPaket}"]`) as HTMLInputElement | null;
+    if (input) input.checked = true;
+
+    // Toggle Family Member fields in Step 2 & 3
+    const famRow = document.getElementById('familyMemberRow');
+    const famJersey = document.getElementById('familySecondJerseyBox');
+    if (famRow) famRow.style.display = selectedPaket === 'family' ? 'block' : 'none';
+    if (famJersey) famJersey.style.display = selectedPaket === 'family' ? 'block' : 'none';
+  }
+
+  // Additional Donation Chips
+  const donChips = document.querySelectorAll('.don-chip');
+  const customDonBox = document.getElementById('customDonasiWrap') || document.getElementById('customDonasiBox');
+  const customDonInput = document.getElementById('customDonasiInput') as HTMLInputElement | null;
+
+  donChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      donChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const val = chip.getAttribute('data-val');
+      if (val === 'custom') {
+        if (customDonBox) customDonBox.style.display = 'block';
+        if (customDonInput) {
+          customDonInput.focus();
+          additionalDonasi = parseInt(customDonInput.value || '0', 10) || 0;
+        }
+      } else {
+        if (customDonBox) customDonBox.style.display = 'none';
+        additionalDonasi = parseInt(val || '0', 10) || 0;
+      }
+      updateSummary();
+    });
+  });
+
+  if (customDonInput) {
+    customDonInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement | null;
+      const val = parseInt(target?.value || '0', 10);
+      additionalDonasi = isNaN(val) || val < 0 ? 0 : val;
+      updateSummary();
+    });
+  }
+
+  // Check URL params for pre-selected package, donation, and step
   const urlParams = new URLSearchParams(window.location.search);
   const paramPaket = urlParams.get('paket');
-  if (paramPaket === 'charity') {
-    selectPackage('charity');
+  if (paramPaket && ['donasi', 'reguler', 'family'].includes(paramPaket)) {
+    selectPackage(paramPaket);
+  } else {
+    selectPackage('reguler');
   }
 
-  // Package Card selection
-  const optReg = document.getElementById('optReguler');
-  const optChar = document.getElementById('optCharity');
-  if (optReg) optReg.addEventListener('click', () => selectPackage('reguler'));
-  if (optChar) optChar.addEventListener('click', () => selectPackage('charity'));
-
-  function selectPackage(pkg) {
-    selectedPaket = pkg;
-    if (optReg) optReg.classList.toggle('active', pkg === 'reguler');
-    if (optChar) optChar.classList.toggle('active', pkg === 'charity');
-    const input = document.querySelector(`input[name="paket"][value="${pkg}"]`);
-    if (input) input.checked = true;
+  const paramDonasi = urlParams.get('donasi');
+  if (paramDonasi) {
+    const dVal = parseInt(paramDonasi, 10);
+    if (!isNaN(dVal) && dVal > 0) {
+      additionalDonasi = dVal;
+      let matched = false;
+      donChips.forEach(c => {
+        if (c.getAttribute('data-val') === String(dVal)) {
+          donChips.forEach(ch => ch.classList.remove('active'));
+          c.classList.add('active');
+          matched = true;
+        }
+      });
+      if (!matched) {
+        donChips.forEach(ch => ch.classList.remove('active'));
+        const customChip = document.getElementById('btnCustomDonasi');
+        if (customChip) customChip.classList.add('active');
+        if (customDonBox) customDonBox.style.display = 'block';
+        if (customDonInput) customDonInput.value = String(dVal);
+      }
+    }
   }
 
-  // Jersey Card selection
-  const jerseyCards = document.querySelectorAll('.jersey-choice-card');
-  jerseyCards.forEach(card => {
+  const paramStep = urlParams.get('step');
+  if (paramStep === '2') {
+    // Auto advance directly to step 2 (Data Diri)
+    setTimeout(() => {
+      if (typeof window.nextStep === 'function') {
+        window.nextStep(2);
+      }
+    }, 50);
+  }
+
+  // Primary Jersey Card selection
+  const primaryJerseyCards = document.querySelectorAll('.jersey-choice-card:not(.jersey-choice-card--sec)');
+  primaryJerseyCards.forEach(card => {
     card.addEventListener('click', () => {
-      jerseyCards.forEach(c => c.classList.remove('active'));
+      primaryJerseyCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      const radio = card.querySelector('input[type="radio"]');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
       if (radio) {
         radio.checked = true;
         selectedSize = radio.value;
@@ -824,11 +1138,33 @@ const snapJsUrl = isProduction
     });
   });
 
-  // Set default size active
+  // Secondary Jersey Card selection (Family Pack)
+  const secJerseyCards = document.querySelectorAll('.jersey-choice-card--sec');
+  secJerseyCards.forEach(card => {
+    card.addEventListener('click', () => {
+      secJerseyCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
+      if (radio) {
+        radio.checked = true;
+        selectedSize2 = radio.value;
+      }
+    });
+  });
+
+  // Set default primary size active
   const defaultSizeCard = document.getElementById(`cardSize_L`);
   if (defaultSizeCard) {
     defaultSizeCard.classList.add('active');
-    const rad = defaultSizeCard.querySelector('input');
+    const rad = defaultSizeCard.querySelector('input') as HTMLInputElement | null;
+    if (rad) rad.checked = true;
+  }
+
+  // Set default secondary size active
+  const defaultSecCard = document.getElementById(`cardSecSize_M`);
+  if (defaultSecCard) {
+    defaultSecCard.classList.add('active');
+    const rad = defaultSecCard.querySelector('input') as HTMLInputElement | null;
     if (rad) rad.checked = true;
   }
 
@@ -838,7 +1174,7 @@ const snapJsUrl = isProduction
     card.addEventListener('click', () => {
       payCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      const radio = card.querySelector('input[type="radio"]');
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
       if (radio) {
         radio.checked = true;
         selectedPayment = radio.value;
@@ -847,13 +1183,19 @@ const snapJsUrl = isProduction
   });
 
   // Navigation functions
-  window.nextStep = function(step) {
-    document.getElementById(`step${currentStep}`).style.display = 'none';
-    document.getElementById(`step${step}`).style.display = 'block';
+  function nextStep(step: number) {
+    const prevEl = document.getElementById(`step${currentStep}`);
+    const nextEl = document.getElementById(`step${step}`);
+    if (prevEl) prevEl.style.display = 'none';
+    if (nextEl) nextEl.style.display = 'block';
     
-    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
-    document.getElementById(`stepPill${currentStep}`).classList.add('done');
-    document.getElementById(`stepPill${step}`).classList.add('active');
+    const prevPill = document.getElementById(`stepPill${currentStep}`);
+    const nextPill = document.getElementById(`stepPill${step}`);
+    if (prevPill) {
+      prevPill.classList.remove('active');
+      prevPill.classList.add('done');
+    }
+    if (nextPill) nextPill.classList.add('active');
 
     currentStep = step;
     window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -861,18 +1203,24 @@ const snapJsUrl = isProduction
     if (step === 4) {
       updateSummary();
     }
-  };
+  }
+  window.nextStep = nextStep;
 
-  window.prevStep = function(step) {
-    document.getElementById(`step${currentStep}`).style.display = 'none';
-    document.getElementById(`step${step}`).style.display = 'block';
+  function prevStep(step: number) {
+    const prevEl = document.getElementById(`step${currentStep}`);
+    const nextEl = document.getElementById(`step${step}`);
+    if (prevEl) prevEl.style.display = 'none';
+    if (nextEl) nextEl.style.display = 'block';
 
-    document.getElementById(`stepPill${currentStep}`).classList.remove('active');
-    document.getElementById(`stepPill${step}`).classList.add('active');
+    const prevPill = document.getElementById(`stepPill${currentStep}`);
+    const nextPill = document.getElementById(`stepPill${step}`);
+    if (prevPill) prevPill.classList.remove('active');
+    if (nextPill) nextPill.classList.add('active');
 
     currentStep = step;
     window.scrollTo({ top: 100, behavior: 'smooth' });
-  };
+  }
+  window.prevStep = prevStep;
 
   window.validateStep2 = function() {
     const nama = document.getElementById('nama')?.value?.trim();
@@ -888,37 +1236,356 @@ const snapJsUrl = isProduction
       return;
     }
     nextStep(3);
-  };
+  }
+  window.validateStep2 = validateStep2;
 
-  window.validateStep3 = function() {
-    const checkedSize = document.querySelector('input[name="ukuranJersey"]:checked');
+  function validateStep3() {
+    if (selectedPaket === 'donasi') {
+      nextStep(4);
+      return;
+    }
+
+    const checkedSize = document.querySelector('input[name="ukuranJersey"]:checked') as HTMLInputElement | null;
     if (!checkedSize) {
-      alert('Harap pilih salah satu ukuran jersey.');
+      alert('Harap pilih ukuran jersey untuk Peserta Utama.');
       return;
     }
     selectedSize = checkedSize.value;
+
+    if (selectedPaket === 'family') {
+      const checkedSize2 = document.querySelector('input[name="ukuranJerseySec"]:checked') as HTMLInputElement | null;
+      if (!checkedSize2) {
+        alert('Harap pilih ukuran jersey untuk Peserta Ke-2 (Family Pack).');
+        return;
+      }
+      selectedSize2 = checkedSize2.value;
+    }
+
     nextStep(4);
-  };
+  }
+  window.validateStep3 = validateStep3;
 
   function updateSummary() {
-    const nama = document.getElementById('nama')?.value || '-';
-    const wa = document.getElementById('whatsapp')?.value || '-';
-    const email = document.getElementById('email')?.value || '-';
+    const nama = (document.getElementById('nama') as HTMLInputElement)?.value || '-';
+    const nama2 = (document.getElementById('namaPeserta2') as HTMLInputElement)?.value || '';
+    const wa = (document.getElementById('whatsapp') as HTMLInputElement)?.value || '-';
+    const email = (document.getElementById('email') as HTMLInputElement)?.value || '-';
 
-    document.getElementById('summaryNama').textContent = nama;
-    document.getElementById('summaryKontak').textContent = `${wa} / ${email}`;
-    document.getElementById('summarySize').textContent = `Ukuran ${selectedSize}`;
+    const elSumNama = document.getElementById('summaryNama');
+    if (elSumNama) elSumNama.textContent = nama;
+    const elSumKontak = document.getElementById('summaryKontak');
+    if (elSumKontak) elSumKontak.textContent = `${wa} / ${email}`;
 
-    if (selectedPaket === 'charity') {
-      document.getElementById('summaryPaket').textContent = 'Charity Pack 5K (Rp 150.000)';
-      document.getElementById('summaryBiayaEvent').textContent = 'Rp 100.000';
-      document.getElementById('summaryDonasiVal').textContent = 'Rp 50.000 (ZIS)';
-      document.getElementById('summaryTotal').textContent = 'Rp 150.000';
+    // Family pack member 2 row
+    const sumPeserta2Row = document.getElementById('summaryPeserta2Row');
+    if (sumPeserta2Row) {
+      sumPeserta2Row.style.display = selectedPaket === 'family' ? 'flex' : 'none';
+      const sumNama2 = document.getElementById('summaryNama2');
+      if (sumNama2) sumNama2.textContent = nama2.trim() ? nama2.trim() : '(Peserta Ke-2)';
+    }
+
+    // Size summary
+    const elSumSize = document.getElementById('summarySize');
+    if (elSumSize) {
+      if (selectedPaket === 'family') {
+        elSumSize.textContent = `Peserta 1: ${selectedSize} | Peserta 2: ${selectedSize2}`;
+      } else {
+        elSumSize.textContent = `Ukuran ${selectedSize}`;
+      }
+    }
+
+    let basePaketPrice = 80000;
+    let baseDonasi = 20000;
+    let baseRegFee = 60000;
+
+    const elSumPaket = document.getElementById('summaryPaket');
+    const elSumBiaya = document.getElementById('summaryBiayaEvent');
+    const elSumDonasi = document.getElementById('summaryDonasiVal');
+
+    if (selectedPaket === 'family') {
+      basePaketPrice = 200000;
+      baseDonasi = 20000;
+      baseRegFee = 180000;
+      if (elSumPaket) elSumPaket.textContent = 'Family Pack 5K (Rp 200.000 untuk 2 orang)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 180.000';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
     } else {
-      document.getElementById('summaryPaket').textContent = 'Paket Reguler 5K Early Bird (Rp 50.000)';
-      document.getElementById('summaryBiayaEvent').textContent = 'Rp 50.000';
-      document.getElementById('summaryDonasiVal').textContent = 'Rp 0';
-      document.getElementById('summaryTotal').textContent = 'Rp 50.000';
+      basePaketPrice = 80000;
+      baseDonasi = 20000;
+      baseRegFee = 60000;
+      if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 80.000)';
+      if (elSumBiaya) elSumBiaya.textContent = 'Rp 60.000';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+    }
+
+    // Extra Donation Row
+    const extraDonRow = document.getElementById('summaryExtraDonasiRow');
+    const extraDonVal = document.getElementById('summaryExtraDonasiVal');
+    if (extraDonRow && extraDonVal) {
+      if (additionalDonasi > 0) {
+        extraDonRow.style.display = 'flex';
+        extraDonVal.textContent = `+ Rp ${additionalDonasi.toLocaleString('id-ID')}`;
+      } else {
+        extraDonRow.style.display = 'none';
+      }
+    }
+
+    const grandTotal = basePaketPrice + additionalDonasi;
+    const elSumTotal = document.getElementById('summaryTotal');
+    if (elSumTotal) elSumTotal.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+  }
+
+  // Helper to show modal
+  function showTicketModal(participantData: any) {
+    currentParticipantData = participantData;
+    const elId = document.getElementById('modalRegId');
+    if (elId) elId.textContent = participantData.id;
+    const elNama = document.getElementById('modalNama');
+    if (elNama) elNama.textContent = participantData.nama;
+    const elPaket = document.getElementById('modalPaket');
+    if (elPaket) elPaket.textContent = participantData.paketNama;
+    const elSize = document.getElementById('modalSize');
+    if (elSize) {
+      elSize.textContent = participantData.ukuranJersey !== '-' 
+        ? (participantData.ukuranJersey2 && participantData.ukuranJersey2 !== '-' 
+            ? `Peserta 1: ${participantData.ukuranJersey} | Peserta 2: ${participantData.ukuranJersey2}` 
+            : `Ukuran ${participantData.ukuranJersey}`)
+        : 'Tanpa Jersey';
+    }
+    const elMetode = document.getElementById('modalMetode');
+    if (elMetode) elMetode.textContent = participantData.metodeBayar;
+
+    const badge = document.getElementById('modalBadge');
+    if (badge) {
+      if (participantData.status === 'PAID') {
+        badge.className = 'badge badge--success';
+        badge.textContent = 'LUNAS / VERIFIED';
+      } else {
+        badge.className = 'badge badge--warning';
+        badge.textContent = 'MENUNGGU PEMBAYARAN';
+      }
+    }
+
+    const btnView = document.getElementById('modalViewTicketBtn') as HTMLAnchorElement | null;
+    if (btnView) btnView.href = `/cek-tiket?id=${participantData.id}`;
+    const modal = document.getElementById('successModal');
+    if (modal) modal.style.display = 'flex';
+  }
+
+  // Unduh E-Ticket Digital High-Res PNG via HTML5 Canvas
+  function downloadTicketImageFromModal() {
+    const p = currentParticipantData;
+    const regId = p?.id || document.getElementById('modalRegId')?.textContent || 'BFW26-0000';
+    const nama = p?.nama || document.getElementById('modalNama')?.textContent || '-';
+    const paket = p?.paketNama || document.getElementById('modalPaket')?.textContent || '-';
+    const jersey = p?.ukuranJersey && p.ukuranJersey !== '-' 
+      ? (p.ukuranJersey2 && p.ukuranJersey2 !== '-' ? `${p.ukuranJersey} & ${p.ukuranJersey2}` : p.ukuranJersey)
+      : (document.getElementById('modalSize')?.textContent || 'Tanpa Jersey');
+    const wa = p?.whatsapp || '-';
+    const isPaid = p?.status === 'PAID';
+    const status = isPaid ? 'LUNAS / VERIFIED' : 'MENUNGGU PEMBAYARAN';
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const width = 1000;
+    const height = 620;
+    canvas.width = width;
+    canvas.height = height;
+
+    // Background Canvas
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, width, height);
+
+    // Header Background (Dark Green / Forest)
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(0, 0, width, 110);
+
+    // Header Accent Line (Gold)
+    ctx.fillStyle = '#C59A27';
+    ctx.fillRect(0, 105, width, 5);
+
+    // Header Text
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 30px system-ui, -apple-system, sans-serif';
+    ctx.fillText('BAZNAS FUN WALK 2026', 40, 52);
+
+    ctx.fillStyle = '#A3E635';
+    ctx.font = '500 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Healthy & Charity  •  Sabtu, 21 November 2026  •  Gedung Baznas Centre Soreang', 40, 84);
+
+    // Status Badge Top Right
+    ctx.fillStyle = isPaid ? '#166534' : '#9A3412';
+    ctx.beginPath();
+    ctx.roundRect(width - 240, 36, 200, 38, [8]);
+    ctx.fill();
+    ctx.fillStyle = isPaid ? '#DCFCE7' : '#FFEDD5';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(isPaid ? '✓ ' + status : status, width - 140, 61);
+    ctx.textAlign = 'left';
+
+    // Left Box: QR & ID Container
+    ctx.fillStyle = '#F8FAFC';
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(40, 140, 240, 310, [12]);
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw Simulated Clean Barcode / QR Box
+    ctx.fillStyle = '#062E16';
+    // Top-left finder
+    ctx.fillRect(75, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 180, 15, 15);
+
+    // Top-right finder
+    ctx.fillRect(195, 165, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(203, 173, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(210, 180, 15, 15);
+
+    // Bottom-left finder
+    ctx.fillRect(75, 275, 45, 45);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(83, 283, 29, 29);
+    ctx.fillStyle = '#062E16';
+    ctx.fillRect(90, 290, 15, 15);
+
+    // Center data points
+    ctx.fillRect(145, 175, 25, 25);
+    ctx.fillRect(145, 220, 25, 30);
+    ctx.fillRect(195, 235, 20, 15);
+    ctx.fillRect(180, 275, 35, 20);
+    ctx.fillRect(145, 275, 20, 45);
+    ctx.fillRect(220, 295, 20, 25);
+
+    // Reg ID Text Badge
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(regId, 160, 375);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Tunjukkan barcode ini di meja RPC', 160, 405);
+    ctx.textAlign = 'left';
+
+    // Right Column: Participant Details
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NAMA LENGKAP PESERTA:', 320, 165);
+
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+    ctx.fillText(nama, 320, 198);
+
+    // Detail Grid
+    // Col 1: Kategori Paket & Jersey
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('KATEGORI PAKET:', 320, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(paket, 320, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('UKURAN JERSEY:', 320, 315);
+    ctx.fillStyle = '#065F46';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(jersey, 320, 340);
+
+    // Col 2: WhatsApp & Status RPC
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('NOMOR WHATSAPP:', 620, 240);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+    ctx.fillText(wa, 620, 265);
+
+    ctx.fillStyle = '#64748B';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('PENGAMBILAN RACE PACK:', 620, 315);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+    ctx.fillText('19–20 Nov 2026 @ Gedung Baznas Centre', 620, 340);
+
+    // Jazakumullah Khairan Katsiran Card on Canvas
+    ctx.fillStyle = '#F0FDF4';
+    ctx.strokeStyle = '#86EFAC';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(320, 380, 640, 70, [8]);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#166534';
+    ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Jazakumullah Khairan Katsiran', 336, 405);
+    ctx.fillStyle = '#15803D';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Terima kasih atas partisipasi dan kepedulian Anda dalam BAZNAS Fun Walk 2026.', 336, 426);
+    ctx.fillText('Setiap langkah dan donasi Anda memberdayakan para mustahik di Kabupaten Bandung.', 336, 442);
+
+    // Footer Info Strip
+    ctx.fillStyle = '#F1F5F9';
+    ctx.fillRect(0, 520, width, 100);
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.beginPath();
+    ctx.moveTo(0, 520);
+    ctx.lineTo(width, 520);
+    ctx.stroke();
+
+    ctx.fillStyle = '#334155';
+    ctx.font = '13px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
+    ctx.fillText('Lokasi Acara: Gedung Baznas Centre (samping Yogya Soreang), Jl. Raya Soreang, Kab. Bandung', 40, 580);
+
+    // Trigger Download PNG
+    const safeName = String(nama).replace(/[^a-zA-Z0-9]/g, '_');
+    const fileName = `E-Ticket_${regId}_${safeName}.png`;
+    const imageUri = canvas.toDataURL('image/png');
+
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = imageUri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  window.downloadTicketImageFromModal = downloadTicketImageFromModal;
+
+  // Event handler untuk modal size chart
+  const btnOpenSize = document.getElementById('btnOpenSizeChart');
+  const modalSize = document.getElementById('sizeChartModal');
+  const btnCloseSize = document.getElementById('btnCloseSizeChart');
+  const btnCloseSizeBtn = document.getElementById('btnCloseSizeChartBtn');
+  if (btnOpenSize && modalSize) {
+    btnOpenSize.addEventListener('click', () => modalSize.style.display = 'flex');
+  }
+  if (btnCloseSize && modalSize) {
+    btnCloseSize.addEventListener('click', () => modalSize.style.display = 'none');
+  }
+  if (btnCloseSizeBtn && modalSize) {
+    btnCloseSizeBtn.addEventListener('click', () => modalSize.style.display = 'none');
+  }
+  if (modalSize) {
+    modalSize.addEventListener('click', (e) => {
+      if (e.target === modalSize) modalSize.style.display = 'none';
+    });
+  }
+
+  function resetSubmitBtn() {
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>Konfirmasi & Bayar Sekarang →</span>';
     }
   }
 
@@ -959,13 +1626,13 @@ const snapJsUrl = isProduction
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const agree = document.getElementById('agreeWaiver')?.checked;
+      const agree = (document.getElementById('agreeWaiver') as HTMLInputElement | null)?.checked;
       if (!agree) {
         alert('Anda harus menyetujui Syarat & Ketentuan serta Waiver Kesehatan untuk mendaftar.');
         return;
       }
 
-      const submitBtn = document.getElementById('submitBtn');
+      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span>Menyiapkan Midtrans Gateway...</span>';
@@ -975,11 +1642,28 @@ const snapJsUrl = isProduction
       const randomNum = Math.floor(1000 + Math.random() * 9000);
       const regId = `BFW26-${randomNum}`;
 
-      const total = selectedPaket === 'charity' ? 150000 : 50000;
-      const donasi = selectedPaket === 'charity' ? 50000 : 0;
-      const regFee = total - donasi;
+      let basePrice = 80000;
+      let baseDonasi = 20000;
+      let paketTitle = 'Regular Pack 5K Early Bird';
 
-      const participantData = {
+      if (selectedPaket === 'family') {
+        basePrice = 200000;
+        baseDonasi = 20000;
+        paketTitle = 'Family Pack 5K (2 Orang)';
+      }
+
+      const total = basePrice + additionalDonasi;
+      const donasiTotal = baseDonasi + additionalDonasi;
+      const regFee = total - donasiTotal;
+
+      const namaVal = (document.getElementById('nama') as HTMLInputElement | null)?.value?.trim() || '-';
+      const nama2Val = (document.getElementById('namaPeserta2') as HTMLInputElement | null)?.value?.trim();
+      const emailVal = (document.getElementById('email') as HTMLInputElement | null)?.value?.trim() || '-';
+      const waVal = (document.getElementById('whatsapp') as HTMLInputElement | null)?.value?.trim() || '-';
+      const kontakDaruratNama = (document.getElementById('kontakDaruratNama') as HTMLInputElement | null)?.value?.trim() || '-';
+      const kontakDaruratHp = (document.getElementById('kontakDaruratHp') as HTMLInputElement | null)?.value?.trim() || '-';
+
+      const participantData: any = {
         id: regId,
         nama: document.getElementById('nama')?.value?.trim(),
         email: document.getElementById('email')?.value?.trim(),
@@ -991,10 +1675,12 @@ const snapJsUrl = isProduction
         kontakDaruratNama: '-',
         kontakDaruratHp: '-',
         paket: selectedPaket,
-        paketNama: selectedPaket === 'charity' ? 'Charity Pack 5K' : 'Paket Reguler 5K Early Bird',
-        ukuranJersey: selectedSize,
+        paketNama: paketTitle,
+        ukuranJersey: selectedPaket === 'donasi' ? '-' : selectedSize,
+        ukuranJersey2: selectedPaket === 'family' ? selectedSize2 : '-',
         nominalRegistrasi: regFee,
-        nominalDonasi: donasi,
+        nominalDonasi: donasiTotal,
+        additionalDonasi: additionalDonasi,
         totalBayar: total,
         metodeBayar: selectedPayment,
         status: 'PENDING',

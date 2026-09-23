@@ -72,7 +72,7 @@ const SEED_PARTICIPANTS = [
     nominalRegistrasi: 50000,
     nominalDonasi: 50000,
     totalBayar: 100000,
-    metodeBayar: 'BSI Virtual Account',
+    metodeBayar: 'Bank Muamalat Virtual Account',
     status: 'PAID',
     waktuDaftar: '2026-09-16T09:30:00',
     waktuBayar: '2026-09-16T09:32:00',
@@ -172,7 +172,7 @@ const SEED_PARTICIPANTS = [
     nominalRegistrasi: 50000,
     nominalDonasi: 50000,
     totalBayar: 100000,
-    metodeBayar: 'BSI Virtual Account',
+    metodeBayar: 'Bank Muamalat Virtual Account',
     status: 'PAID',
     waktuDaftar: '2026-09-16T11:30:00',
     waktuBayar: '2026-09-16T11:35:00',
@@ -352,7 +352,8 @@ export function getStockSummary() {
   const paidOrPending = participants.filter(p => p.status !== 'CANCELLED');
   
   return JERSEY_SIZES.map(item => {
-    const used = paidOrPending.filter(p => p.ukuranJersey === item.size).length;
+    const used = paidOrPending.filter(p => p.ukuranJersey === item.size).length +
+                 paidOrPending.filter(p => p.ukuranJersey2 === item.size).length;
     const remaining = Math.max(0, item.total - used);
     return {
       size: item.size,
