@@ -105,11 +105,16 @@ import Layout from '../layouts/Layout.astro';
               </div>
 
               <!-- Thank You Card / Payment Notice -->
-              <div class="thank-you-card" id="ticketThankYouCard" style="background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:1.5px solid #86EFAC; border-radius:var(--r-md); padding:14px 18px; margin-top:14px;">
-                <b style="color:var(--ink); font-size:0.95rem; display:block; margin-bottom:4px;">Jazakumullah Khairan Katsiran</b>
-                <p style="margin:0; font-size:0.84rem; color:#166534; line-height:1.45;">
-                  Terima kasih atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah Anda dan donasi yang dititipkan menjadi berkah nyata yang memberdayakan mustahik di Kabupaten Bandung.
-                </p>
+              <div class="thank-you-card" id="ticketThankYouCard" style="background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:1.5px solid #86EFAC; border-radius:var(--r-md); padding:16px 20px; margin-top:16px;">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                  <div style="background:var(--leaf); color:#fff; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; flex-shrink:0; font-size:1.1rem; font-weight:800;">✓</div>
+                  <div>
+                    <b style="color:var(--leaf); font-size:1.02rem; display:block; margin-bottom:4px; font-family:'Baloo 2', sans-serif;">Jazakumullah Khairan Katsiran! 🌟</b>
+                    <p style="margin:0; font-size:0.86rem; color:#14532D; line-height:1.5;">
+                      Terima kasih sebesar-besarnya atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah kaki dan kebaikan donasi yang Anda titipkan menjadi berkah nyata yang memberdayakan ribuan mustahik di Kabupaten Bandung. Sampai jumpa di garis start!
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -491,10 +496,15 @@ import Layout from '../layouts/Layout.astro';
           thankYouCard.style.background = 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)';
           thankYouCard.style.borderColor = '#86EFAC';
           thankYouCard.innerHTML = `
-            <b style="color:var(--ink); font-size:0.95rem; display:block; margin-bottom:4px;">Jazakumullah Khairan Katsiran</b>
-            <p style="margin:0; font-size:0.84rem; color:#166534; line-height:1.45;">
-              Terima kasih atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah Anda dan donasi yang dititipkan menjadi berkah nyata yang memberdayakan mustahik di Kabupaten Bandung.
-            </p>
+            <div style="display:flex; align-items:flex-start; gap:12px;">
+              <div style="background:var(--leaf); color:#fff; width:36px; height:36px; border-radius:50%; display:grid; place-items:center; flex-shrink:0; font-size:1.1rem; font-weight:800;">✓</div>
+              <div>
+                <b style="color:var(--leaf); font-size:1.02rem; display:block; margin-bottom:4px; font-family:'Baloo 2', sans-serif;">Jazakumullah Khairan Katsiran! 🌟</b>
+                <p style="margin:0; font-size:0.86rem; color:#14532D; line-height:1.5;">
+                  Terima kasih sebesar-besarnya atas partisipasi dan kepedulian Anda dalam <b>BAZNAS Fun Walk 2026</b>. Setiap langkah kaki dan kebaikan donasi yang Anda titipkan menjadi berkah nyata yang memberdayakan ribuan mustahik di Kabupaten Bandung. Sampai jumpa di garis start!
+                </p>
+              </div>
+            </div>
           `;
         }
       } else {
@@ -547,7 +557,7 @@ import Layout from '../layouts/Layout.astro';
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const width = 1000;
-    const height = 560;
+    const height = 620;
     canvas.width = width;
     canvas.height = height;
 
@@ -674,19 +684,36 @@ import Layout from '../layouts/Layout.astro';
     ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
     ctx.fillText('19–21 Nov 2026 @ Budaya Sabilulungan', 620, 352);
 
+    // Jazakumullah Khairan Katsiran Card on Canvas
+    ctx.fillStyle = '#F0FDF4';
+    ctx.strokeStyle = '#86EFAC';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(320, 395, 640, 75, [8]);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#166534';
+    ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
+    ctx.fillText('🌟 Jazakumullah Khairan Katsiran!', 338, 420);
+    ctx.fillStyle = '#15803D';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('Terima kasih sebesar-besarnya atas partisipasi dan kepedulian Anda dalam BAZNAS Fun Walk 2026.', 338, 442);
+    ctx.fillText('Setiap langkah dan donasi Anda memberdayakan ribuan mustahik di Kabupaten Bandung.', 338, 458);
+
     // Footer Info Strip
     ctx.fillStyle = '#F1F5F9';
-    ctx.fillRect(0, 470, width, 90);
+    ctx.fillRect(0, 520, width, 100);
     ctx.strokeStyle = '#E2E8F0';
     ctx.beginPath();
-    ctx.moveTo(0, 470);
-    ctx.lineTo(width, 470);
+    ctx.moveTo(0, 520);
+    ctx.lineTo(width, 520);
     ctx.stroke();
 
     ctx.fillStyle = '#334155';
     ctx.font = '13px system-ui, -apple-system, sans-serif';
-    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 508);
-    ctx.fillText('Informasi & Bantuan: WhatsApp Center 0812-2345-6789 | baznasjawabarat.org', 40, 532);
+    ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
+    ctx.fillText('Informasi & Bantuan: WhatsApp Center 0812-2345-6789 | Gedung Budaya Sabilulungan, Soreang', 40, 580);
 
     // Trigger Download PNG
     const safeName = nama.replace(/[^a-zA-Z0-9]/g, '_');

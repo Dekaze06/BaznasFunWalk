@@ -71,12 +71,22 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
 
           <div class="hero-pricing-card">
             <div class="pricing-badge">PROMO EARLY BIRD (1–14 OKTOBER)</div>
+            <div class="quota-progress-box">
+              <div class="quota-meta">
+                <span class="quota-tag">⚡ Kuota Terbatas</span>
+                <span class="quota-num"><b>500</b> Kuota Tiket</span>
+              </div>
+              <div class="quota-bar">
+                <div class="quota-fill" style="width: 76%;"></div>
+              </div>
+              <div class="quota-sub">Tersisa 118 tiket promo Early Bird</div>
+            </div>
             <div class="pricing-label">Paket Reguler 5K</div>
             <div class="pricing-amount">
               <span class="curr">Rp</span>
               <span class="val">80.000</span>
             </div>
-            <div class="pricing-was">Harga Normal: Rp 120.000</div>
+            <div class="pricing-was">Harga Normal: Rp 120.000 (Termasuk Donasi Rp 20.000)</div>
 
             <div class="countdown-wrapper">
               <div class="countdown-lbl">Sisa Waktu Pendaftaran Early Bird:</div>
@@ -89,7 +99,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
             </div>
 
             <div class="charity-promo-tag">
-              <b>Pilihan Paket:</b> Regular Pack Rp 80.000 (Early Bird) & Family Pack Rp 200.000 (2 Orang). Dapatkan jersey & kupon doorprize umroh!
+              <b>Perlengkapan Lengkap:</b> Jersey, Gelang, Goodie Bag & Wristbag! Regular Pack Rp 80.000 (Early Bird tanpa donasi) & Family Pack Rp 200.000 (2 Orang, Termasuk Donasi Rp 20.000).
             </div>
           </div>
         </div>
@@ -176,7 +186,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                     </span>
                     <div>
                       <b>Jersey Eksklusif & Perlengkapan Resmi</b>
-                      <p>Bahan drifit premium berstandar lari, tote bag ramah lingkungan, dan wristband resmi ber-barcode.</p>
+                      <p>Bahan drifit premium berstandar lari, gelang resmi (wristband), goodie bag ramah lingkungan, dan wristbag eksklusif BAZNAS.</p>
                     </div>
                   </div>
                   <div class="point-row">
@@ -209,7 +219,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       width="2200"
                       height="1555"
                     />
-                    <div class="img-caption">Official Race Pack: Jersey Drifit, Tote Bag & Official Wristband</div>
+                    <div class="img-caption">Official Race Pack: Jersey Drifit, Gelang Resmi, Goodie Bag & Wristbag</div>
                   </div>
                 </div>
 
@@ -251,7 +261,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                 <div class="paket-cards-grid">
                   <!-- Paket Reguler -->
                   <div class="card-clean paket-card paket-card--featured">
-                    <div class="card-pill card-pill--sun">Paling Populer</div>
+                    <div class="card-pill card-pill--sun">Early Bird 1–14 Okt • Kuota 500</div>
                     <h3>Paket Reguler 5K</h3>
                     <p class="card-sub">Pilihan jalan sehat untuk individu dan keluarga.</p>
                     
@@ -259,12 +269,14 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <span class="price-val">Rp 80.000</span>
                       <span class="price-period">/ orang (Early Bird)</span>
                     </div>
-                    <div class="price-normal-tag">Harga Normal: <del>Rp 120.000</del></div>
+                    <div class="price-normal-tag">Harga Normal: <del>Rp 120.000</del> (Termasuk Donasi Rp 20.000)</div>
+                    <div style="font-size:0.8rem; color:#15803D; background:#DCFCE7; padding:4px 10px; border-radius:6px; margin:-14px 0 16px 0; font-weight:700;">✨ Early Bird: Tanpa donasi wajib (tersedia infaq sukarela)</div>
 
                     <ul class="benefit-checklist">
                       <li>Jersey Resmi BAZNAS Fun Walk (Drifit)</li>
-                      <li>Official Eco Tote Bag Eksklusif</li>
-                      <li>Gelang Resmi / Official Wristband</li>
+                      <li>Gelang Resmi (Official Wristband)</li>
+                      <li>Goodie Bag Ramah Lingkungan Eksklusif</li>
+                      <li>Wristbag Resmi BAZNAS Fun Walk</li>
                       <li>Nomor Peserta (BIB) & Tiket Digital (QR Code)</li>
                       <li>Kupon Undian Doorprize Utama Hadiah Umroh</li>
                       <li>Refreshment Air Mineral & Buah Segar</li>
@@ -284,14 +296,15 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       <span class="price-val">Rp 200.000</span>
                       <span class="price-period">/ 2 orang</span>
                     </div>
-                    <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Termasuk Donasi ZIS Rp 20.000</div>
+                    <div class="price-normal-tag" style="color:var(--leaf); font-weight:700">Termasuk Donasi ZIS Rp 20.000 (Untuk 2 Orang)</div>
 
                     <ul class="benefit-checklist">
                       <li><b>2x Jersey Resmi BAZNAS Fun Walk</b></li>
+                      <li><b>2x Gelang Resmi & 2x Wristbag Eksklusif</b></li>
+                      <li><b>2x Goodie Bag Ramah Lingkungan</b></li>
                       <li><b>2x Kupon Undian Doorprize Umroh</b></li>
-                      <li>2x Official Eco Tote Bag & Wristband</li>
-                      <li>2x Refreshment Air Mineral & Buah Segar</li>
                       <li><b>Termasuk Donasi ZIS Rp 20.000 Resmi</b></li>
+                      <li>2x Refreshment Air Mineral & Buah Segar</li>
                       <li>2x Medali Finisher & E-Certificate</li>
                       <li>Pos Medis & Pengawalan Jalur 5K Steril</li>
                     </ul>
@@ -402,14 +415,14 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
 
                 <div class="timeline-row">
                   <div class="timeline-step">
-                    <div class="step-date">Sekarang – 31 Okt</div>
+                    <div class="step-date">1 – 14 Oktober</div>
                     <div class="step-title">Pendaftaran Early Bird</div>
-                    <p class="step-desc">Tarif spesial Early Bird Rp 80.000 untuk paket Reguler.</p>
+                    <p class="step-desc">Tarif spesial Rp 80.000 (tanpa donasi wajib) & kuota terbatas 500 peserta.</p>
                   </div>
                   <div class="timeline-step">
-                    <div class="step-date">1 – 15 November</div>
+                    <div class="step-date">15 Oktober – 15 November</div>
                     <div class="step-title">Pendaftaran Normal</div>
-                    <p class="step-desc">Periode akhir pendaftaran sebelum batas penutupan.</p>
+                    <p class="step-desc">Tarif normal Rp 120.000 (termasuk donasi ZIS Rp 20.000).</p>
                   </div>
                   <div class="timeline-step">
                     <div class="step-date">19 – 20 November</div>
@@ -430,6 +443,165 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION CROWDFUNDING & DIAGRAM PENYALURAN ZIS -->
+  <section class="sec sec--crowdfunding" id="crowdfunding">
+    <div class="wrap">
+      <div class="cf-header">
+        <span class="badge badge--pill-lime">Transparansi Dana Kebaikan</span>
+        <h2>Diagram Crowdfunding & Penyaluran Donasi</h2>
+        <p class="lede">
+          Setiap rupiah dari pendaftaran dan infaq sukarela peserta dikelola secara amanah, akuntabel, dan disalurkan langsung untuk program kemanusiaan BAZNAS Kabupaten Bandung.
+        </p>
+      </div>
+
+      <!-- Crowdfunding Stats Row -->
+      <div class="cf-stats-grid">
+        <div class="cf-stat-card cf-stat-card--highlight">
+          <div class="cf-stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <div class="cf-stat-label">Total Donasi Terkumpul</div>
+            <div class="cf-stat-val">Rp 48.750.000</div>
+            <div class="cf-stat-sub">Target Capaian: <b>Rp 100.000.000</b></div>
+          </div>
+        </div>
+
+        <div class="cf-stat-card">
+          <div class="cf-stat-icon cf-icon--sun">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <div class="cf-stat-label">Partisipasi Donatur</div>
+            <div class="cf-stat-val">1.240 <small>Peserta</small></div>
+            <div class="cf-stat-sub">Gabungan Paket & Infaq Tambahan</div>
+          </div>
+        </div>
+
+        <div class="cf-stat-card">
+          <div class="cf-stat-icon cf-icon--leaf">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div>
+            <div class="cf-stat-label">Penerima Manfaat</div>
+            <div class="cf-stat-val">1.000+ <small>Mustahik</small></div>
+            <div class="cf-stat-sub">Wilayah Kabupaten Bandung</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Diagram Showcase Container -->
+      <div class="cf-diagram-container card-clean">
+        <!-- Overall Progress Bar -->
+        <div class="cf-bar-wrapper">
+          <div class="cf-bar-header">
+            <span><b>Progres Crowdfunding Acara</b> (48.8% dari target Rp 100 Juta)</span>
+            <span class="cf-bar-percent">48.8%</span>
+          </div>
+          <div class="cf-progress-track">
+            <div class="cf-progress-fill" style="width: 48.8%;"></div>
+          </div>
+        </div>
+
+        <!-- Diagram Grid: Interactive Donut Chart + Program Breakdown -->
+        <div class="cf-chart-layout">
+          <!-- Left: SVG Circular / Donut Diagram -->
+          <div class="cf-donut-box">
+            <div class="cf-donut-wrapper">
+              <svg viewBox="0 0 200 200" class="cf-donut-svg">
+                <!-- Segment 1: Beasiswa Pendidikan (35%) - Leaf Green -->
+                <circle cx="100" cy="100" r="75" fill="none" stroke="#16A34A" stroke-width="32"
+                  stroke-dasharray="164.93 306.31" stroke-dashoffset="0" />
+                <!-- Segment 2: Modal Usaha Dhuafa (25%) - Sun/Gold -->
+                <circle cx="100" cy="100" r="75" fill="none" stroke="#F59E0B" stroke-width="32"
+                  stroke-dasharray="117.81 353.43" stroke-dashoffset="-164.93" />
+                <!-- Segment 3: Kesehatan & Sanitasi (25%) - Emerald/Teal -->
+                <circle cx="100" cy="100" r="75" fill="none" stroke="#0D9488" stroke-width="32"
+                  stroke-dasharray="117.81 353.43" stroke-dashoffset="-282.74" />
+                <!-- Segment 4: Santunan Yatim & Lansia (15%) - Amber/Rose -->
+                <circle cx="100" cy="100" r="75" fill="none" stroke="#E11D48" stroke-width="32"
+                  stroke-dasharray="70.69 400.55" stroke-dashoffset="-400.55" />
+              </svg>
+              <div class="cf-donut-center">
+                <span class="cf-dc-title">Alokasi ZIS</span>
+                <span class="cf-dc-val">100%</span>
+                <span class="cf-dc-sub">Tepat Sasaran</span>
+              </div>
+            </div>
+            <div class="cf-donut-note">
+              <span class="badge-dot-live"></span>
+              Diawasi & Dikelola Resmi BAZNAS Kabupaten Bandung
+            </div>
+          </div>
+
+          <!-- Right: Program Breakdown Cards -->
+          <div class="cf-breakdown-list">
+            <!-- Program 1 -->
+            <div class="cf-prog-card" style="--accent:#16A34A;">
+              <div class="cf-prog-header">
+                <div class="cf-prog-title-box">
+                  <span class="cf-dot" style="background:#16A34A;"></span>
+                  <b>Beasiswa Pelajar & Santri Dhuafa</b>
+                </div>
+                <span class="cf-pct-badge" style="background:#DCFCE7; color:#15803D;">35% (Rp 35.000.000)</span>
+              </div>
+              <p class="cf-prog-desc">Bantuan biaya sekolah, seragam, dan fasilitas belajar santri penghafal Quran & dhuafa di pelosok Kabupaten Bandung.</p>
+              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:35%; background:#16A34A;"></div></div>
+            </div>
+
+            <!-- Program 2 -->
+            <div class="cf-prog-card" style="--accent:#F59E0B;">
+              <div class="cf-prog-header">
+                <div class="cf-prog-title-box">
+                  <span class="cf-dot" style="background:#F59E0B;"></span>
+                  <b>Pemberdayaan Modal Usaha Mustahik</b>
+                </div>
+                <span class="cf-pct-badge" style="background:#FEF3C7; color:#B45309;">25% (Rp 25.000.000)</span>
+              </div>
+              <p class="cf-prog-desc">Bantuan modal usaha bergulir dan gerobak berkah bagi pedagang kecil keluarga pra-sejahtera agar mandiri berdaya.</p>
+              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:25%; background:#F59E0B;"></div></div>
+            </div>
+
+            <!-- Program 3 -->
+            <div class="cf-prog-card" style="--accent:#0D9488;">
+              <div class="cf-prog-header">
+                <div class="cf-prog-title-box">
+                  <span class="cf-dot" style="background:#0D9488;"></span>
+                  <b>Layanan Kesehatan & Sanitasi Sehat</b>
+                </div>
+                <span class="cf-pct-badge" style="background:#CCFBF1; color:#0F766E;">25% (Rp 25.000.000)</span>
+              </div>
+              <p class="cf-prog-desc">Akses pengobatan gratis mustahik, sarana air bersih warga, dan tanggap darurat bencana daerah.</p>
+              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:25%; background:#0D9488;"></div></div>
+            </div>
+
+            <!-- Program 4 -->
+            <div class="cf-prog-card" style="--accent:#E11D48;">
+              <div class="cf-prog-header">
+                <div class="cf-prog-title-box">
+                  <span class="cf-dot" style="background:#E11D48;"></span>
+                  <b>Santunan Lansia & Yatim Piatu Dhuafa</b>
+                </div>
+                <span class="cf-pct-badge" style="background:#FFE4E6; color:#BE123C;">15% (Rp 15.000.000)</span>
+              </div>
+              <p class="cf-prog-desc">Paket sembako bulanan lansia sebatang kara dan santunan uang tunai untuk anak-anak yatim binaan BAZNAS.</p>
+              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:15%; background:#E11D48;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Transparency Note -->
+        <div class="cf-footer-box">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span style="font-size:0.86rem; color:var(--ink); font-weight:600;">Laporan Penyaluran Transparan & Diaudit Berkala</span>
+          </div>
+          <a href="/daftar" class="btn btn-leaf btn-sm">Daftar & Berbagi Berkah Sekarang →</a>
         </div>
       </div>
     </div>
@@ -583,6 +755,57 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     padding: 3px 14px;
     border-radius: 99px;
     letter-spacing: 0.04em;
+  }
+
+  /* Quota Progress Box */
+  .quota-progress-box {
+    background: #FFFBEB;
+    border: 1px solid #FCD34D;
+    border-radius: var(--r-sm);
+    padding: 8px 12px;
+    margin-bottom: 14px;
+  }
+
+  .quota-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .quota-tag {
+    font-weight: 800;
+    color: #B45309;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+  }
+
+  .quota-num {
+    color: var(--ink);
+    font-size: 0.78rem;
+  }
+
+  .quota-bar {
+    height: 7px;
+    background: #FDE68A;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .quota-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #F59E0B, #DC2626);
+    border-radius: 99px;
+  }
+
+  .quota-sub {
+    font-size: 0.74rem;
+    color: #92400E;
+    font-weight: 600;
+    margin-top: 4px;
+    text-align: right;
   }
 
   .pricing-label {
@@ -1466,6 +1689,320 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     }
     .hero-wrap {
       margin-top: -30px;
+    }
+  }
+  /* SECTION CROWDFUNDING & DIAGRAM PENYALURAN */
+  .sec--crowdfunding {
+    background: linear-gradient(180deg, #F4FBF6 0%, #FFFFFF 100%);
+    padding: 72px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cf-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 40px;
+  }
+
+  .badge--pill-lime {
+    display: inline-block;
+    background: #DCFCE7;
+    color: #15803D;
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 4px 16px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .cf-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .cf-stat-card {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  }
+
+  .cf-stat-card--highlight {
+    background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+    border: 1.5px solid #86EFAC;
+    box-shadow: 0 6px 18px rgba(22, 163, 74, 0.12);
+  }
+
+  .cf-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--leaf);
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .cf-stat-icon.cf-icon--sun {
+    background: var(--sun);
+    color: var(--ink-deep);
+  }
+
+  .cf-stat-icon.cf-icon--leaf {
+    background: #0D9488;
+    color: #FFFFFF;
+  }
+
+  .cf-stat-label {
+    font-size: 0.82rem;
+    color: var(--grey-d);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .cf-stat-val {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .cf-stat-val small {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--grey);
+  }
+
+  .cf-stat-sub {
+    font-size: 0.78rem;
+    color: var(--moss);
+    margin-top: 2px;
+  }
+
+  .cf-diagram-container {
+    background: #FFFFFF;
+    border-radius: var(--r-lg);
+    padding: clamp(24px, 4vw, 40px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border: 1.5px solid var(--line);
+  }
+
+  .cf-bar-wrapper {
+    margin-bottom: 34px;
+    background: #F8FAFC;
+    padding: 16px 20px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+  }
+
+  .cf-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.92rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .cf-bar-percent {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--leaf);
+  }
+
+  .cf-progress-track {
+    height: 14px;
+    background: #E2E8F0;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .cf-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #16A34A 0%, #22C55E 60%, #F59E0B 100%);
+    border-radius: 99px;
+  }
+
+  .cf-chart-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .cf-donut-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cf-donut-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 16px;
+  }
+
+  .cf-donut-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .cf-donut-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .cf-dc-title {
+    font-size: 0.76rem;
+    color: var(--grey);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .cf-dc-val {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    margin: 2px 0;
+  }
+
+  .cf-dc-sub {
+    font-size: 0.72rem;
+    color: var(--leaf);
+    font-weight: 700;
+  }
+
+  .cf-donut-note {
+    font-size: 0.8rem;
+    color: var(--grey-d);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-weight: 600;
+  }
+
+  .badge-dot-live {
+    width: 8px;
+    height: 8px;
+    background: #16A34A;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #16A34A;
+  }
+
+  .cf-breakdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cf-prog-card {
+    background: #FAFCF9;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--r-sm);
+    padding: 14px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cf-prog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .cf-prog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cf-prog-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.94rem;
+    color: var(--ink);
+  }
+
+  .cf-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .cf-pct-badge {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 99px;
+  }
+
+  .cf-prog-desc {
+    margin: 0 0 8px 0;
+    font-size: 0.84rem;
+    color: var(--grey-d);
+    line-height: 1.45;
+  }
+
+  .cf-mini-bar {
+    height: 5px;
+    background: #E2E8F0;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .cf-mini-fill {
+    height: 100%;
+    border-radius: 99px;
+  }
+
+  .cf-footer-box {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  @media (max-width: 992px) {
+    .cf-chart-layout {
+      grid-template-columns: 1fr;
     }
   }
 </style>

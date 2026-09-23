@@ -79,17 +79,18 @@ const snapJsUrl = isProduction
                     <div class="opt-name">Paket Reguler 5K</div>
                     <div class="opt-desc">1 Orang Peserta</div>
                   </div>
-                  <span class="pill pill--sun">Waktu & Kuota Terbatas</span>
+                  <span class="pill pill--sun">⚡ Early Bird 1–14 Okt • Kuota 500</span>
                 </div>
                 <div class="opt-price">
                   <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 120.000</del>
                   <b>Rp 80.000</b>
                   <small style="color:var(--leaf); font-weight:700">Early Bird Promo</small>
                 </div>
+                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">✨ Early Bird: Tanpa donasi wajib (tersedia infaq sukarela)</div>
                 <ul class="opt-perks">
-                  <li>✓ Jersey Drifit, Tote Bag & Wristband</li>
+                  <li>✓ Jersey Drifit, Gelang, Goodie Bag & Wristbag</li>
                   <li>✓ Nomor BIB & Kupon Doorprize Umroh</li>
-                  <li>✓ Akses Rute 5K & Refreshment</li>
+                  <li>✓ Akses Rute 5K & Refreshment Buah/Air</li>
                 </ul>
               </label>
 
@@ -107,11 +108,12 @@ const snapJsUrl = isProduction
                   <b>Rp 200.000</b>
                   <small style="color:var(--leaf); font-weight:700">Termasuk Donasi Rp 20.000</small>
                 </div>
+                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">Termasuk Donasi ZIS Rp 20.000 untuk 2 Orang</div>
                 <ul class="opt-perks">
-                  <li>✓ 2x Jersey Resmi</li>
-                  <li>✓ 2x Kupon Doorprize Umroh</li>
-                  <li>✓ 2x Tote Bag & Wristband</li>
+                  <li>✓ 2x Jersey Resmi & 2x Kupon Umroh</li>
+                  <li>✓ 2x Gelang, 2x Goodie Bag & 2x Wristbag</li>
                   <li>✓ <b>Termasuk Donasi ZIS Rp 20.000</b></li>
+                  <li>✓ 2x Medali Finisher & E-Certificate</li>
                 </ul>
               </label>
             </div>
@@ -431,6 +433,16 @@ const snapJsUrl = isProduction
 
         <div id="modalTicketWatermark" style="background:#FEF3C7; border-top:1px dashed #FCD34D; color:#92400E; font-size:0.78rem; font-weight:600; padding:8px 14px; text-align:center;">
           ⚠️ <b>Belum Lunas:</b> Tiket ini belum sah untuk penukaran Race Pack hingga pembayaran terkonfirmasi LUNAS.
+        </div>
+
+        <!-- Thank You Card inside Modal E-Ticket -->
+        <div id="modalThankYouCard" style="display:none; background:linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border-top:1px dashed #86EFAC; padding:12px 18px; text-align:left;">
+          <b style="color:var(--leaf); font-size:0.88rem; display:flex; align-items:center; gap:6px;">
+            <span>🌟 Jazakumullah Khairan Katsiran!</span>
+          </b>
+          <p style="margin:2px 0 0 0; font-size:0.8rem; color:#14532D; line-height:1.45;">
+            Terima kasih sebesar-besarnya atas partisipasi & kepedulian Anda. Setiap langkah dan donasi yang dititipkan menjadi berkah nyata bagi mustahik di Kabupaten Bandung.
+          </p>
         </div>
       </div>
 
@@ -1480,6 +1492,8 @@ const snapJsUrl = isProduction
       }
       if (modalPendingNotice) modalPendingNotice.style.display = 'none';
       if (modalTicketWatermark) modalTicketWatermark.style.display = 'none';
+      const modalThankYouCard = document.getElementById('modalThankYouCard');
+      if (modalThankYouCard) modalThankYouCard.style.display = 'block';
       if (modalPayNowBtn) modalPayNowBtn.style.display = 'none';
       if (modalDownloadBtn) modalDownloadBtn.style.display = 'inline-flex';
     } else {
@@ -1501,6 +1515,8 @@ const snapJsUrl = isProduction
       }
       if (modalPendingNotice) modalPendingNotice.style.display = 'block';
       if (modalTicketWatermark) modalTicketWatermark.style.display = 'block';
+      const modalThankYouCard = document.getElementById('modalThankYouCard');
+      if (modalThankYouCard) modalThankYouCard.style.display = 'none';
 
       // Tombol bayar sekarang aktif jika ada Snap token / direct link
       if (modalPayNowBtn) {
