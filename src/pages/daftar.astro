@@ -79,14 +79,14 @@ const snapJsUrl = isProduction
                     <div class="opt-name">Paket Reguler 5K</div>
                     <div class="opt-desc">1 Orang Peserta</div>
                   </div>
-                  <span class="pill pill--sun">Early Bird 1–14 Okt • Kuota 200</span>
+                  <span class="pill pill--sun">Early Bird 1–14 Okt • Kuota 100</span>
                 </div>
                 <div class="opt-price">
                   <del style="font-size:0.9rem; opacity:0.6; text-decoration:line-through; margin-right:4px;">Rp 120.000</del>
-                  <b>Rp 80.000</b>
+                  <b>Rp 100.000</b>
                   <small style="color:var(--leaf); font-weight:700">Early Bird Promo</small>
                 </div>
-                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">✨ Tanpa Donasi Wajib (Infaq Sukarela Opsional)</div>
+                <div style="font-size:0.75rem; color:#15803D; font-weight:700; margin-bottom:8px;">✨ Termasuk Donasi ZIS Rp 20.000</div>
                 <ul class="opt-perks">
                   <li>✓ Jersey Drifit, Gelang, Goodie Bag & Wristbag</li>
                   <li>✓ Nomor Peserta & Kupon Doorprize Umroh</li>
@@ -264,9 +264,9 @@ const snapJsUrl = isProduction
                 <span>Biaya Paket:</span>
                 <b id="summaryBiayaEvent">Rp 80.000</b>
               </div>
-              <div class="summary-row" id="summaryDonasiRow" style="display:none">
+              <div class="summary-row" id="summaryDonasiRow" style="display:flex">
                 <span>Termasuk Donasi ZIS:</span>
-                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 0</b>
+                <b id="summaryDonasiVal" style="color:var(--leaf)">Rp 20.000 (Donasi ZIS)</b>
               </div>
               <div class="summary-row" id="summaryExtraDonasiRow" style="display:none">
                 <span>Infaq Sukarela Tambahan:</span>
@@ -274,7 +274,7 @@ const snapJsUrl = isProduction
               </div>
               <div class="summary-total">
                 <span>Total Pembayaran:</span>
-                <span class="total-amount" id="summaryTotal">Rp 80.000</span>
+                <span class="total-amount" id="summaryTotal">Rp 100.000</span>
               </div>
             </div>
 
@@ -386,7 +386,7 @@ const snapJsUrl = isProduction
             <span class="status-dot-pulse"></span>
             <span style="font-size:0.78rem; color:#92400E; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;">Tagihan Pembayaran:</span>
           </div>
-          <b style="font-size:1.35rem; color:#B45309; font-weight:900;" id="modalTotalAmount">Rp 80.000</b>
+          <b style="font-size:1.35rem; color:#B45309; font-weight:900;" id="modalTotalAmount">Rp 100.000</b>
         </div>
         <p style="margin:0; font-size:0.82rem; color:#78350F; line-height:1.45;">
           Pesanan & alokasi jersey Anda telah diamankan sementara. Silakan klik tombol <b>"Selesaikan Pembayaran Sekarang"</b> di bawah untuk membayar via QRIS atau Transfer Bank.
@@ -1377,8 +1377,8 @@ const snapJsUrl = isProduction
       }
     }
 
-    let basePaketPrice = 80000;
-    let baseDonasi = 0;
+    let basePaketPrice = 100000;
+    let baseDonasi = 20000;
     let baseRegFee = 80000;
 
     const elSumPaket = document.getElementById('summaryPaket');
@@ -1395,13 +1395,13 @@ const snapJsUrl = isProduction
       if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
       if (elRowDonasi) elRowDonasi.style.display = 'flex';
     } else {
-      basePaketPrice = 80000;
-      baseDonasi = 0;
+      basePaketPrice = 100000;
+      baseDonasi = 20000;
       baseRegFee = 80000;
-      if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 80.000)';
+      if (elSumPaket) elSumPaket.textContent = 'Regular Pack 5K Early Bird (Rp 100.000)';
       if (elSumBiaya) elSumBiaya.textContent = 'Rp 80.000';
-      if (elSumDonasi) elSumDonasi.textContent = 'Rp 0';
-      if (elRowDonasi) elRowDonasi.style.display = 'none';
+      if (elSumDonasi) elSumDonasi.textContent = 'Rp 20.000 (Donasi ZIS)';
+      if (elRowDonasi) elRowDonasi.style.display = 'flex';
     }
 
     // Extra Donation Row
@@ -1578,7 +1578,7 @@ const snapJsUrl = isProduction
 
     ctx.fillStyle = '#A3E635';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('Healthy & Charity  •  Sabtu, 21 November 2026  •  Gedung Baznas Centre Soreang', 40, 84);
+    ctx.fillText('Healthy & Charity  •  Sabtu, 21 November 2026  •  DOME Bale Rame Soreang', 40, 84);
 
     // Status Badge Top Right
     ctx.fillStyle = isPaid ? '#166534' : '#9A3412';
@@ -1680,7 +1680,7 @@ const snapJsUrl = isProduction
     ctx.fillText('PENGAMBILAN RACE PACK:', 620, 315);
     ctx.fillStyle = '#0F172A';
     ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
-    ctx.fillText('19–20 Nov 2026 @ Gedung Baznas Centre', 620, 340);
+    ctx.fillText('19–20 Nov 2026 @ DOME Bale Rame', 620, 340);
 
     // Jazakumullah Khairan Katsiran Card on Canvas
     ctx.fillStyle = '#F0FDF4';
@@ -1711,7 +1711,7 @@ const snapJsUrl = isProduction
     ctx.fillStyle = '#334155';
     ctx.font = '13px system-ui, -apple-system, sans-serif';
     ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
-    ctx.fillText('Lokasi Acara: Gedung Baznas Centre (samping Yogya Soreang), Jl. Raya Soreang, Kab. Bandung', 40, 580);
+    ctx.fillText('Lokasi Acara: DOME Bale Rame, Jl. Al Fathu, Soreang, Kab. Bandung', 40, 580);
 
     // Trigger Download PNG
     const safeName = String(nama).replace(/[^a-zA-Z0-9]/g, '_');
@@ -1777,8 +1777,8 @@ const snapJsUrl = isProduction
       const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
       const regId = `BFW26-${Date.now().toString(36).toUpperCase()}-${randomSuffix}`;
 
-      let basePrice = 80000;
-      let baseDonasi = 0;
+      let basePrice = 100000;
+      let baseDonasi = 20000;
       let paketTitle = 'Regular Pack 5K Early Bird';
 
       if (selectedPaket === 'family') {

@@ -41,12 +41,12 @@ export const JERSEY_SIZES = [
 ];
 
 export const ROUTE_CHECKPOINTS = [
-  { id: 1, name: 'Garis Start & Panggung Utama', loc: 'Gedung Baznas Centre (Samping Yogya Soreang)', type: 'start', desc: 'Flag-off pukul 06.00 WIB. Area drop off, panggung tausiyah, dan tenda medis utama.' },
+  { id: 1, name: 'Garis Start & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'start', desc: 'Flag-off pukul 06.00 WIB. Area drop off, panggung tausiyah, dan tenda medis utama.' },
   { id: 2, name: 'Simpang Jl. Al Fathu & Samsat (Km 1.0)', loc: 'Kawasan Perkantoran Soreang', type: 'info', desc: 'Petugas Dishub mengawal arus pejalan kaki menuju jalur lingkar asri.' },
   { id: 3, name: 'Water Station 1 (Km 2.0)', loc: 'Depan Kawasan Pendidikan Yadika Soreang', type: 'water', desc: 'Penyediaan air mineral higienis, isotonic, dan tim marshal pengarah peserta.' },
   { id: 4, name: 'Cheering Zone & Pos Medis 1 (Km 3.0)', loc: 'Kawasan Simpang Gading Tutuka', type: 'cheer', desc: 'Musik perkusi tradisional rampak kendang & tim relawan medis BAZNAS Tanggap Bencana.' },
   { id: 5, name: 'Water Station 2 (Km 4.0)', loc: 'Jalur Menuju Soreang Centre', type: 'water', desc: 'Distribusi buah semangka segar, refreshment air minum, dan spons pendingin.' },
   { id: 6, name: 'Lajur Steril Putaran Balik (Km 4.5)', loc: 'Kawasan Jl. Raya Soreang', type: 'turn', desc: 'Pengawalan lantas Polres Bandung, lajur pejalan kaki khusus steril dari kendaraan.' },
-  { id: 7, name: 'Pos Medis 2 & Titik Foto', loc: 'Gerbang Masuk Kawasan Baznas Centre', type: 'photo', desc: 'Booth foto resmi dengan fotografer panitia & ambulans siaga.' },
-  { id: 8, name: 'Garis Finish & Panggung Utama', loc: 'Gedung Baznas Centre (Samping Yogya Soreang)', type: 'finish', desc: 'Pengambilan refreshment, sarapan khas UMKM binaan BAZNAS, dan pengundian Doorprize Hadiah Utama Umroh serta puluhan hadiah menarik lainnya.' }
+  { id: 7, name: 'Pos Medis 2 & Titik Foto', loc: 'Gerbang Masuk Kawasan DOME Bale Rame', type: 'photo', desc: 'Booth foto resmi dengan fotografer panitia & ambulans siaga.' },
+  { id: 8, name: 'Garis Finish & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'finish', desc: 'Pengambilan refreshment, sarapan khas UMKM binaan BAZNAS, dan pengundian Doorprize Hadiah Utama Umroh serta puluhan hadiah menarik lainnya.' }
 ];

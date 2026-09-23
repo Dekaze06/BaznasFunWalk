@@ -122,7 +122,7 @@ import Layout from '../layouts/Layout.astro';
           <!-- Bottom Notice -->
           <div class="ticket-footer">
             <div class="tf-notice">
-              <b>Pengambilan Race Pack (RPC):</b> 19–20 November 2026 di Lobby Gedung Budaya Sabilulungan, Soreang. Tunjukkan E-Ticket digital atau cetak ini kepada panitia meja.
+              <b>Pengambilan Race Pack (RPC):</b> 19–20 November 2026 di DOME Bale Rame, Soreang. Tunjukkan E-Ticket digital atau cetak ini kepada panitia meja.
             </div>
             <div class="tf-actions" style="display:flex; gap:10px; flex-wrap:wrap">
               <button type="button" class="btn btn-leaf btn-sm" id="downloadTicketBtn" onclick="downloadTicketImage()">
@@ -530,7 +530,7 @@ import Layout from '../layouts/Layout.astro';
         rpcStatus.textContent = `✓ Sudah Diambil (${found.claimedBy || 'Panitia'})`;
       } else {
         rpcStatus.style.color = '#B26A00';
-        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 19–20 Nov @ Gedung Baznas Centre)';
+        rpcStatus.textContent = 'Belum Diambil (Ambil di RPC 19–20 Nov @ DOME Bale Rame)';
       }
     }
 
@@ -580,7 +580,7 @@ import Layout from '../layouts/Layout.astro';
 
     ctx.fillStyle = '#A3E635';
     ctx.font = '500 17px system-ui, -apple-system, sans-serif';
-    ctx.fillText('Healthy & Charity  •  21 November 2026  •  Gedung Sabilulungan, Soreang', 40, 84);
+    ctx.fillText('Healthy & Charity  •  21 November 2026  •  DOME Bale Rame, Soreang', 40, 84);
 
     // Status Badge Top Right
     ctx.fillStyle = '#166534';
@@ -682,7 +682,7 @@ import Layout from '../layouts/Layout.astro';
     ctx.fillText('PENGAMBILAN RACE PACK:', 620, 325);
     ctx.fillStyle = '#0F172A';
     ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
-    ctx.fillText('19–21 Nov 2026 @ Budaya Sabilulungan', 620, 352);
+    ctx.fillText('19–20 Nov 2026 @ DOME Bale Rame', 620, 352);
 
     // Jazakumullah Khairan Katsiran Card on Canvas
     ctx.fillStyle = '#F0FDF4';
@@ -713,7 +713,7 @@ import Layout from '../layouts/Layout.astro';
     ctx.fillStyle = '#334155';
     ctx.font = '13px system-ui, -apple-system, sans-serif';
     ctx.fillText('Catatan: Simpan E-Ticket ini di galeri ponsel Anda. E-Ticket ini sah sebagai bukti pendaftaran BAZNAS Fun Walk 2026.', 40, 555);
-    ctx.fillText('Informasi & Bantuan: WhatsApp Center 0812-2345-6789 | Gedung Budaya Sabilulungan, Soreang', 40, 580);
+    ctx.fillText('Informasi & Bantuan: WhatsApp Center 0812-2345-6789 | DOME Bale Rame, Soreang', 40, 580);
 
     // Trigger Download PNG
     const safeName = nama.replace(/[^a-zA-Z0-9]/g, '_');
