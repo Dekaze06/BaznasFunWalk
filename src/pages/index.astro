@@ -79,17 +79,17 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
             <div class="pricing-was">Harga Normal: Rp 120.000</div>
 
             <div class="countdown-wrapper">
-              <div class="countdown-lbl">Sisa Waktu Pendaftaran Early Bird:</div>
+              <div class="countdown-lbl" id="countdownLabel">Pendaftaran Early Bird Dibuka Dalam:</div>
               <div class="countdown-grid" id="heroCountdown">
-                <div class="cd-box"><b id="cdDays">14</b><small>Hari</small></div>
-                <div class="cd-box"><b id="cdHours">19</b><small>Jam</small></div>
-                <div class="cd-box"><b id="cdMins">35</b><small>Menit</small></div>
-                <div class="cd-box"><b id="cdSecs">20</b><small>Detik</small></div>
+                <div class="cd-box"><b id="cdDays">00</b><small>Hari</small></div>
+                <div class="cd-box"><b id="cdHours">00</b><small>Jam</small></div>
+                <div class="cd-box"><b id="cdMins">00</b><small>Menit</small></div>
+                <div class="cd-box"><b id="cdSecs">00</b><small>Detik</small></div>
               </div>
             </div>
 
             <div class="charity-promo-tag">
-              <b>Perlengkapan Lengkap:</b> Jersey, Gelang, Goodie Bag & Wristbag! Regular Pack Rp 100.000 (Early Bird Termasuk Donasi Rp 20.000) & Family Pack Rp 200.000 (2 Orang, Termasuk Donasi Rp 20.000).
+              <b>Perlengkapan Lengkap:</b> Jersey Resmi, Gelang, Goodie Bag & Kupon Doorprize Umroh! Regular Pack Rp 100.000 (Early Bird Termasuk Donasi Rp 20.000) & Family Pack Rp 200.000 (2 Orang, Termasuk Donasi Rp 20.000).
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                       width="2200"
                       height="1555"
                     />
-                    <div class="img-caption">Official Race Pack: Jersey Drifit, Gelang Resmi, Goodie Bag & Wristbag</div>
+                    <div class="img-caption">Official Race Pack: Jersey Resmi, Gelang, dan Goodie Bag BAZNAS Fun Walk</div>
                   </div>
                 </div>
 
@@ -1854,20 +1854,25 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
 </style>
 
 <script>
-  // Dynamic countdown script for early bird (1–14 Oktober 2026)
+  // Dynamic countdown script for Early Bird opening (1 Oktober 2026 00:00:00 WIB)
   function updateCountdown() {
-    // Target: 14 Oktober 2026 23:59:59 WIB (UTC+7)
-    const target = new Date('2026-10-14T23:59:59+07:00').getTime();
+    // Target: Pembukaan Early Bird 1 Oktober 2026 00:00:00 WIB (UTC+7)
+    const target = new Date('2026-10-01T00:00:00+07:00').getTime();
     const now = new Date().getTime();
     const diff = target - now;
 
+    const lbl = document.getElementById('countdownLabel');
+
     if (diff <= 0) {
+      if (lbl) lbl.textContent = 'Status Pendaftaran:';
       const container = document.getElementById('heroCountdown');
-      if (container) container.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-weight:700;color:var(--leaf);padding:10px">Periode Early Bird Berakhir</div>';
+      if (container) container.innerHTML = '<div style="grid-column:1/-1;text-align:center;font-weight:700;color:var(--leaf);padding:10px;font-size:1.05rem">🎉 Pendaftaran Early Bird Telah Dibuka!</div>';
       const miniTimer = document.getElementById('earlyBirdMiniTimer');
       if (miniTimer) miniTimer.style.display = 'none';
       return;
     }
+
+    if (lbl) lbl.textContent = 'Pendaftaran Early Bird Dibuka Dalam:';
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
