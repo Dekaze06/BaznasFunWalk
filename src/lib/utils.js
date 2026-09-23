@@ -41,12 +41,12 @@ export const JERSEY_SIZES = [
 ];
 
 export const ROUTE_CHECKPOINTS = [
-  { id: 1, name: 'Garis Start & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'start', desc: 'Flag-off pukul 06.00 WIB. Area drop off, panggung tausiyah, dan tenda medis utama.' },
-  { id: 2, name: 'Simpang Jl. Al Fathu & Samsat (Km 1.0)', loc: 'Kawasan Perkantoran Soreang', type: 'info', desc: 'Petugas Dishub mengawal arus pejalan kaki menuju jalur lingkar asri.' },
-  { id: 3, name: 'Water Station 1 (Km 2.0)', loc: 'Depan Kawasan Pendidikan Yadika Soreang', type: 'water', desc: 'Penyediaan air mineral higienis, isotonic, dan tim marshal pengarah peserta.' },
-  { id: 4, name: 'Cheering Zone & Pos Medis 1 (Km 3.0)', loc: 'Kawasan Simpang Gading Tutuka', type: 'cheer', desc: 'Musik perkusi tradisional rampak kendang & tim relawan medis BAZNAS Tanggap Bencana.' },
-  { id: 5, name: 'Water Station 2 (Km 4.0)', loc: 'Jalur Menuju Soreang Centre', type: 'water', desc: 'Distribusi buah semangka segar, refreshment air minum, dan spons pendingin.' },
-  { id: 6, name: 'Lajur Steril Putaran Balik (Km 4.5)', loc: 'Kawasan Jl. Raya Soreang', type: 'turn', desc: 'Pengawalan lantas Polres Bandung, lajur pejalan kaki khusus steril dari kendaraan.' },
-  { id: 7, name: 'Pos Medis 2 & Titik Foto', loc: 'Gerbang Masuk Kawasan DOME Bale Rame', type: 'photo', desc: 'Booth foto resmi dengan fotografer panitia & ambulans siaga.' },
-  { id: 8, name: 'Garis Finish & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'finish', desc: 'Pengambilan refreshment, sarapan khas UMKM binaan BAZNAS, dan pengundian Doorprize Hadiah Utama Umroh serta puluhan hadiah menarik lainnya.' }
+  { id: 1, name: 'Start & Panggung Utama', loc: 'DOME Bale Rame Soreang', type: 'start', desc: 'Flag-off pukul 06.00 WIB. Area kumpul peserta, senam bersama, dan panggung pembukaan.' },
+  { id: 2, name: 'KM 1: Jl. Raya Soreang', loc: 'Sebelum Gapura / Kawasan Samsat Soreang', type: 'info', desc: 'Jalur lurus beraspal melintasi koridor perkantoran & Samsat dengan pengawalan petugas Dishub.' },
+  { id: 3, name: 'Water Station 1 (Km 1.5)', loc: 'Simpang Gading Tutuka', type: 'water', desc: 'Penyediaan air mineral higienis, pos hidrasi, dan tim medis lapangan siaga.' },
+  { id: 4, name: 'KM 2: Jl. Raya Gading Tutuka / Jl. Baru', loc: 'Sebelum Kawasan Geo Dipa', type: 'turn', desc: 'Jalur lingkar asri dan sejuk dengan pemandangan terbuka kawasan Soreang.' },
+  { id: 5, name: 'Water Station 2 & Cheering Zone (Km 2.8)', loc: 'Dekat Simpang RM Dadakan Sunda', type: 'cheer', desc: 'Titik hidrasi air minum dan penyemangat peserta menuju putaran arteri.' },
+  { id: 6, name: 'KM 3: Koridor Jl. Tol Soroja', loc: 'Jalur Arteri Soroja Soreang', type: 'info', desc: 'Lajur khusus pejalan kaki yang disterilkan petugas kepolisian dan tim marshal.' },
+  { id: 7, name: 'Pos Medis & Titik Foto (Km 4.5)', loc: 'Gerbang Kawasan DOME Bale Rame', type: 'photo', desc: 'Spot foto finisher resmi & ambulans siaga BAZNAS Tanggap Bencana.' },
+  { id: 8, name: 'Finish & Panggung Doorprize', loc: 'DOME Bale Rame Soreang', type: 'finish', desc: 'Pengambilan refreshment, sarapan UMKM binaan BAZNAS, dan pengundian Doorprize Utama Hadiah Umroh.' }
 ];

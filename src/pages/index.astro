@@ -348,19 +348,23 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
                     <ul class="route-highlights">
                       <li>
                         <span class="route-num">1</span>
-                        <div><b>Start:</b> DOME Bale Rame / Jl. Al Fathu</div>
+                        <div><b>Start:</b> DOME Bale Rame Soreang</div>
                       </li>
                       <li>
                         <span class="route-num">2</span>
-                        <div><b>Water Station:</b> KM 2 (SMA Yadika) & KM 3.8 (Pasar Ikan Modern)</div>
+                        <div><b>KM 1:</b> Jl. Raya Soreang (Sebelum Gapura)</div>
                       </li>
                       <li>
                         <span class="route-num">3</span>
-                        <div><b>Pos Medis & Ambulans:</b> Siaga di 3 titik strategis sepanjang jalur</div>
+                        <div><b>KM 2:</b> Jl. Raya Gading Tutuka / Jl. Baru (Sebelum Geo Dipa)</div>
                       </li>
                       <li>
                         <span class="route-num">4</span>
-                        <div><b>Finish:</b> Kembali ke Plaza DOME Bale Rame untuk panggung hiburan & doorprize</div>
+                        <div><b>KM 3:</b> Koridor Jl. Tol Soroja</div>
+                      </li>
+                      <li>
+                        <span class="route-num">5</span>
+                        <div><b>Finish:</b> Kembali ke DOME Bale Rame Soreang</div>
                       </li>
                     </ul>
 
@@ -433,164 +437,6 @@ const donaturCount = stats.paidCount || stats.totalPeserta || 0;
     </div>
   </section>
 
-  <!-- SECTION CROWDFUNDING & DIAGRAM PENYALURAN ZIS -->
-  <section class="sec sec--crowdfunding" id="crowdfunding">
-    <div class="wrap">
-      <div class="cf-header">
-        <span class="badge badge--pill-lime">Transparansi Dana Kebaikan</span>
-        <h2>Diagram Crowdfunding & Penyaluran Donasi</h2>
-        <p class="lede">
-          Setiap rupiah dari pendaftaran dan infaq sukarela peserta dikelola secara amanah, akuntabel, dan disalurkan langsung untuk program kemanusiaan BAZNAS Kabupaten Bandung.
-        </p>
-      </div>
-
-      <!-- Crowdfunding Stats Row -->
-      <div class="cf-stats-grid">
-        <div class="cf-stat-card cf-stat-card--highlight">
-          <div class="cf-stat-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <div>
-            <div class="cf-stat-label">Total Donasi Terkumpul</div>
-            <div class="cf-stat-val">Rp 48.750.000</div>
-            <div class="cf-stat-sub">Target Capaian: <b>Rp 100.000.000</b></div>
-          </div>
-        </div>
-
-        <div class="cf-stat-card">
-          <div class="cf-stat-icon cf-icon--sun">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div>
-            <div class="cf-stat-label">Partisipasi Donatur</div>
-            <div class="cf-stat-val">1.240 <small>Peserta</small></div>
-            <div class="cf-stat-sub">Gabungan Paket & Infaq Tambahan</div>
-          </div>
-        </div>
-
-        <div class="cf-stat-card">
-          <div class="cf-stat-icon cf-icon--leaf">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <div>
-            <div class="cf-stat-label">Penerima Manfaat</div>
-            <div class="cf-stat-val">1.000+ <small>Mustahik</small></div>
-            <div class="cf-stat-sub">Wilayah Kabupaten Bandung</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Diagram Showcase Container -->
-      <div class="cf-diagram-container card-clean">
-        <!-- Overall Progress Bar -->
-        <div class="cf-bar-wrapper">
-          <div class="cf-bar-header">
-            <span><b>Progres Crowdfunding Acara</b> (48.8% dari target Rp 100 Juta)</span>
-            <span class="cf-bar-percent">48.8%</span>
-          </div>
-          <div class="cf-progress-track">
-            <div class="cf-progress-fill" style="width: 48.8%;"></div>
-          </div>
-        </div>
-
-        <!-- Diagram Grid: Interactive Donut Chart + Program Breakdown -->
-        <div class="cf-chart-layout">
-          <!-- Left: SVG Circular / Donut Diagram -->
-          <div class="cf-donut-box">
-            <div class="cf-donut-wrapper">
-              <svg viewBox="0 0 200 200" class="cf-donut-svg">
-                <!-- Segment 1: Beasiswa Pendidikan (35%) - Leaf Green -->
-                <circle cx="100" cy="100" r="75" fill="none" stroke="#16A34A" stroke-width="32"
-                  stroke-dasharray="164.93 306.31" stroke-dashoffset="0" />
-                <!-- Segment 2: Modal Usaha Dhuafa (25%) - Sun/Gold -->
-                <circle cx="100" cy="100" r="75" fill="none" stroke="#F59E0B" stroke-width="32"
-                  stroke-dasharray="117.81 353.43" stroke-dashoffset="-164.93" />
-                <!-- Segment 3: Kesehatan & Sanitasi (25%) - Emerald/Teal -->
-                <circle cx="100" cy="100" r="75" fill="none" stroke="#0D9488" stroke-width="32"
-                  stroke-dasharray="117.81 353.43" stroke-dashoffset="-282.74" />
-                <!-- Segment 4: Santunan Yatim & Lansia (15%) - Amber/Rose -->
-                <circle cx="100" cy="100" r="75" fill="none" stroke="#E11D48" stroke-width="32"
-                  stroke-dasharray="70.69 400.55" stroke-dashoffset="-400.55" />
-              </svg>
-              <div class="cf-donut-center">
-                <span class="cf-dc-title">Alokasi ZIS</span>
-                <span class="cf-dc-val">100%</span>
-                <span class="cf-dc-sub">Tepat Sasaran</span>
-              </div>
-            </div>
-            <div class="cf-donut-note">
-              <span class="badge-dot-live"></span>
-              Diawasi & Dikelola Resmi BAZNAS Kabupaten Bandung
-            </div>
-          </div>
-
-          <!-- Right: Program Breakdown Cards -->
-          <div class="cf-breakdown-list">
-            <!-- Program 1 -->
-            <div class="cf-prog-card" style="--accent:#16A34A;">
-              <div class="cf-prog-header">
-                <div class="cf-prog-title-box">
-                  <span class="cf-dot" style="background:#16A34A;"></span>
-                  <b>Beasiswa Pelajar & Santri Dhuafa</b>
-                </div>
-                <span class="cf-pct-badge" style="background:#DCFCE7; color:#15803D;">35% (Rp 35.000.000)</span>
-              </div>
-              <p class="cf-prog-desc">Bantuan biaya sekolah, seragam, dan fasilitas belajar santri penghafal Quran & dhuafa di pelosok Kabupaten Bandung.</p>
-              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:35%; background:#16A34A;"></div></div>
-            </div>
-
-            <!-- Program 2 -->
-            <div class="cf-prog-card" style="--accent:#F59E0B;">
-              <div class="cf-prog-header">
-                <div class="cf-prog-title-box">
-                  <span class="cf-dot" style="background:#F59E0B;"></span>
-                  <b>Pemberdayaan Modal Usaha Mustahik</b>
-                </div>
-                <span class="cf-pct-badge" style="background:#FEF3C7; color:#B45309;">25% (Rp 25.000.000)</span>
-              </div>
-              <p class="cf-prog-desc">Bantuan modal usaha bergulir dan gerobak berkah bagi pedagang kecil keluarga pra-sejahtera agar mandiri berdaya.</p>
-              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:25%; background:#F59E0B;"></div></div>
-            </div>
-
-            <!-- Program 3 -->
-            <div class="cf-prog-card" style="--accent:#0D9488;">
-              <div class="cf-prog-header">
-                <div class="cf-prog-title-box">
-                  <span class="cf-dot" style="background:#0D9488;"></span>
-                  <b>Layanan Kesehatan & Sanitasi Sehat</b>
-                </div>
-                <span class="cf-pct-badge" style="background:#CCFBF1; color:#0F766E;">25% (Rp 25.000.000)</span>
-              </div>
-              <p class="cf-prog-desc">Akses pengobatan gratis mustahik, sarana air bersih warga, dan tanggap darurat bencana daerah.</p>
-              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:25%; background:#0D9488;"></div></div>
-            </div>
-
-            <!-- Program 4 -->
-            <div class="cf-prog-card" style="--accent:#E11D48;">
-              <div class="cf-prog-header">
-                <div class="cf-prog-title-box">
-                  <span class="cf-dot" style="background:#E11D48;"></span>
-                  <b>Santunan Lansia & Yatim Piatu Dhuafa</b>
-                </div>
-                <span class="cf-pct-badge" style="background:#FFE4E6; color:#BE123C;">15% (Rp 15.000.000)</span>
-              </div>
-              <p class="cf-prog-desc">Paket sembako bulanan lansia sebatang kara dan santunan uang tunai untuk anak-anak yatim binaan BAZNAS.</p>
-              <div class="cf-mini-bar"><div class="cf-mini-fill" style="width:15%; background:#E11D48;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Footer Transparency Note -->
-        <div class="cf-footer-box">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span style="font-size:0.86rem; color:var(--ink); font-weight:600;">Laporan Penyaluran Transparan & Diaudit Berkala</span>
-          </div>
-          <a href="/daftar" class="btn btn-leaf btn-sm">Daftar & Berbagi Berkah Sekarang →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- CTA Banner Akhir -->
   <section class="sec sec--deep" style="text-align:center">

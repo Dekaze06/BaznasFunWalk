@@ -573,44 +573,45 @@ import { ROUTE_CHECKPOINTS } from '../lib/utils.js';
     // 2. Initialize Leaflet Map
     if (typeof L === 'undefined') return;
 
-    // Checkpoints Coordinates in Soreang
+    // Checkpoints Coordinates in Soreang (Loop DOME Bale Rame)
     const checkpoints = [
-      { id: 1, name: "Garis Start & Panggung Utama", lat: -7.0258, lng: 107.5258, type: "start", desc: "Flag-off 06.00 WIB. Tenda medis utama & panggung tausiyah." },
-      { id: 2, name: "Pertigaan Kantor Samsat & RSUD", lat: -7.0310, lng: 107.5320, type: "info", desc: "Petugas Dishub mengawal arus putaran arah menuju timur." },
-      { id: 3, name: "Water Station 1 (Km 2.0)", lat: -7.0325, lng: 107.5370, type: "water", desc: "Penyediaan air mineral higienis, isotonic & tim marshal." },
-      { id: 4, name: "Cheering Zone & Pos Medis 1", lat: -7.0280, lng: 107.5412, type: "cheer", desc: "Perkusi tradisional rampak kendang & relawan medis BAZNAS." },
-      { id: 5, name: "Water Station 2 (Km 3.8)", lat: -7.0230, lng: 107.5382, type: "water", desc: "Distribusi buah semangka segar & refreshment spons pendingin." },
-      { id: 6, name: "Putaran Balik Bundaran Warung Lobak", lat: -7.0195, lng: 107.5340, type: "turn", desc: "Pengawalan kepolisian, lajur pejalan kaki khusus steril." },
-      { id: 7, name: "Pos Medis 2 & Titik Foto", lat: -7.0225, lng: 107.5285, type: "photo", desc: "Booth foto resmi dengan fotografer panitia & ambulans siaga." },
-      { id: 8, name: "Garis Finish & Area Doorprize", lat: -7.0258, lng: 107.5258, type: "finish", desc: "Pengambilan refreshment & pengundian doorprize Umroh." }
+      { id: 1, name: "Start & Panggung Utama", lat: -7.0264, lng: 107.5258, type: "start", desc: "Flag-off 06.00 WIB di DOME Bale Rame Soreang." },
+      { id: 2, name: "KM 1: Jl. Raya Soreang (Sebelum Gapura)", lat: -7.0282, lng: 107.5418, type: "info", desc: "Jalur lurus beraspal koridor Samsat Soreang dengan pengawalan Dishub." },
+      { id: 3, name: "Water Station 1 (Km 1.5)", lat: -7.0255, lng: 107.5400, type: "water", desc: "Penyediaan air mineral higienis & pos hidrasi peserta." },
+      { id: 4, name: "KM 2: Jl. Raya Gading Tutuka / Jl. Baru", lat: -7.0145, lng: 107.5285, type: "turn", desc: "Sebelum Kawasan Geo Dipa / dekat simpang RM Dadakan Sunda." },
+      { id: 5, name: "Water Station 2 & Cheering Zone (Km 2.8)", lat: -7.0190, lng: 107.5268, type: "cheer", desc: "Distribusi air minum & penyemangat peserta di jalur arteri." },
+      { id: 6, name: "KM 3: Koridor Jl. Tol Soroja", lat: -7.0235, lng: 107.5259, type: "info", desc: "Lajur arteri pejalan kaki steril dari kendaraan menuju area Gedung Budaya." },
+      { id: 7, name: "Pos Medis & Spot Foto (Km 4.5)", lat: -7.0255, lng: 107.5255, type: "photo", desc: "Gerbang masuk kawasan DOME Bale Rame & ambulans siaga." },
+      { id: 8, name: "Finish: DOME Bale Rame Soreang", lat: -7.0264, lng: 107.5258, type: "finish", desc: "Garis finish resmi, sarapan UMKM, tausiyah & doorprize utama Umroh." }
     ];
 
-    // Smooth 5K Route Path Coordinates (Circling Soreang Center)
+    // Smooth 5K Route Path Coordinates (DOME Bale Rame -> Jl. Raya Soreang -> Jl. Raya Gading Tutuka -> Jl. Tol Soroja -> DOME)
     const routeCoordinates = [
-      [-7.0258, 107.5258],
-      [-7.0268, 107.5270],
-      [-7.0280, 107.5285],
-      [-7.0295, 107.5303],
-      [-7.0310, 107.5320],
-      [-7.0322, 107.5340],
-      [-7.0329, 107.5358],
-      [-7.0325, 107.5370],
-      [-7.0312, 107.5387],
-      [-7.0296, 107.5402],
-      [-7.0280, 107.5412],
-      [-7.0263, 107.5406],
-      [-7.0246, 107.5395],
-      [-7.0230, 107.5382],
-      [-7.0212, 107.5366],
-      [-7.0195, 107.5340],
-      [-7.0207, 107.5315],
-      [-7.0225, 107.5285],
-      [-7.0242, 107.5268],
-      [-7.0258, 107.5258]
+      [-7.0264, 107.5258],
+      [-7.0275, 107.5263],
+      [-7.0298, 107.5273],
+      [-7.0320, 107.5280],
+      [-7.0346, 107.5292],
+      [-7.0335, 107.5318],
+      [-7.0322, 107.5345],
+      [-7.0308, 107.5372],
+      [-7.0295, 107.5398],
+      [-7.0282, 107.5418],
+      [-7.0255, 107.5400],
+      [-7.0230, 107.5378],
+      [-7.0205, 107.5352],
+      [-7.0180, 107.5325],
+      [-7.0160, 107.5302],
+      [-7.0145, 107.5285],
+      [-7.0175, 107.5272],
+      [-7.0200, 107.5266],
+      [-7.0235, 107.5259],
+      [-7.0255, 107.5255],
+      [-7.0264, 107.5258]
     ];
 
     const map = L.map('leafletMap', {
-      center: [-7.0260, 107.5335],
+      center: [-7.0245, 107.5335],
       zoom: 14,
       scrollWheelZoom: false
     });
